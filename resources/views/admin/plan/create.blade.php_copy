@@ -1,0 +1,299 @@
+@extends('layouts.admin')
+@section('content')
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Member Plan</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Member plan</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+    @include('flashmessage.flash-message')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 connectedSortable">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Member Plan</h3> 
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form action="{{route('admin.add.plan')}}" method="post" id="plan_add">
+                    @csrf
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Select Plan Group</label>
+                                        <select class="form-control" name="plan_group_id">
+                                            <option>Select Plan Group</option>
+                                            @forelse ($plan_groups as $plan_group)
+                                                <option value="{{$plan_group->id}}">{{$plan_group->name}}</option>
+                                            @empty
+                                            <option>No Plan Group</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="name">Plan Name</label>
+                                        <input type="text" name="name" class="form-control" id="name" value="" placeholder="Plan Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Attribute Name</th>
+                                                    <th>Yearly</th>
+                                                    <th>Monthly</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Subscription Fee</td>
+                                                    <td>
+                                                        <div class="">
+                                                            <ul>
+                                                                <li><input type="text" class="form-control" placeholder="type"></li>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="">
+                                                            <ul>
+                                                                <li><input type="text" class="form-control" placeholder="type"></li>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Showcase Elg.</td>
+                                                    <td>
+                                                        <div class="">
+                                                            <ul>
+                                                                <li><input type="radio">Yes</li>
+                                                                <li><input type="radio">No</li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="">
+                                                            <ul>
+                                                                <li><input type="radio">Yes</li>
+                                                                <li><input type="radio">No</li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <div class="row">
+                                <div class="col-12">
+                                    <div class="plan-wrap-main shadow-box">
+                                        <div class="plan-wrap">                                    
+                                            <div class="add-plan-wrap">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label for="">Plan Attr</label>
+                                                            <input type="text" placeholder="Enter plan attr" name="plan_attr[]" class="form-control plan_package">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label for="">Select Input</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input input_type" type="radio" name="input_type[]" value="text" data-add="">
+                                                                <label class="form-check-label">Text</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input input_type" type="radio" name="input_type[]" value="radio" data-add="">
+                                                                <label class="form-check-label">Radio</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-3 y_m_value">
+                                                        <div class="form-group">
+                                                            <label for="">Yearly Value</label>
+                                                            <input type="text" placeholder="Enter Yearly Value" name="yearly_value[]" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 y_m_value">
+                                                        <div class="form-group">
+                                                            <label for="">Monthly Value</label>
+                                                            <input type="text" placeholder="Enter Monthly Value" name="monthly_value[]" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 yes_no_radio">
+                                                        <div class="form-group">
+                                                            <label for="">Select Access</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="access_type[]" value="yes">
+                                                                <label class="form-check-label">Yes</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="access_type[]" value="no">
+                                                                <label class="form-check-label">No</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="more-field"></div>
+                                            <div class="row justify-content-end">
+                                                <div class="col-auto">
+                                                    <button type="button" class="btn btn-sm btn-success add-minus-btn add_more_package"><i class="fas fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div> --}}
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+@endsection
+
+@push('scripts')
+  <script>
+    var count=0;
+    $(document).on('click', '.add_more_package', function(e){
+        /* count++;
+        $('.more-field').append(`<div class="add-plan-wrap">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label for="">Plan Attr</label>
+                                                            <input type="text" placeholder="Enter plan attr" name="plan_attr[]" class="form-control plan_package">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="form-group">
+                                                            <label for="">Select Input</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input input_type" type="radio" name="input_type[${count}]" value="text" data-add="${count}">
+                                                                <label class="form-check-label">Text</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input input_type" type="radio" name="input_type[${count}]" value="radio" data-add="${count}">
+                                                                <label class="form-check-label">Radio</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- Start Input type section --}}
+                                                    <div class="col-lg-3 y_m_value${count}">
+                                                        <div class="form-group">
+                                                            <label for="">Yearly Value</label>
+                                                            <input type="text" placeholder="Enter Yearly Value" name="yearly_value[]" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 y_m_value${count}">
+                                                        <div class="form-group">
+                                                            <label for="">Monthly Value</label>
+                                                            <input type="text" placeholder="Enter Monthly Value" name="monthly_value[]" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    {{-- End input type section --}}
+                                                    <div class="col-lg-4 yes_no_radio${count}">
+                                                        <div class="form-group">
+                                                            <label for="">Select Access</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="access_type[${count}]" value="yes">
+                                                                <label class="form-check-label">Yes</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="access_type[${count}]" value="no">
+                                                                <label class="form-check-label">No</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 mb-2">
+                                                        <div class="row d-flex justify-content-end">
+                                                            <div class="col-auto">
+                                                                <button type="button" class="btn btn-sm btn-danger add-minus-btn remove_package"><i class="fas fa-minus"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>`);
+                                           
+        $('.y_m_value'+count).hide();
+        $('.yes_no_radio'+count).hide(); */
+    });
+
+    $(document).on('click','.remove_package',function(){
+        $(this).closest('.add-plan-wrap').remove();
+    });
+
+    $('.y_m_value').hide();
+    $('.yes_no_radio').hide();
+    $(document).on('change','.input_type',function(){
+        var add_count = $(this).data("add");
+        
+        if (this.value == 'radio') {
+                console.log('radio')
+                $('.yes_no_radio'+add_count).show();
+                $('.y_m_value'+add_count).hide();
+            }
+            else if (this.value == 'text') {
+                console.log('text')
+                $('.y_m_value'+add_count).show();
+                $('.yes_no_radio'+add_count).hide();
+            }
+    });
+    
+    $(document).on('submit','#plan_add', function(e){
+        //$("#plan_add").validate();
+        $('input.plan_package').each(function() {
+            console.log('dfd')
+            $(this).rules("add", 
+            {
+                required: true,
+                messages: {
+                    required: "Name is required",
+                }
+            });
+        });
+        e.preventDefault();
+       
+       
+    })
+    
+  </script>
+
+@endpush

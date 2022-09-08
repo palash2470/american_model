@@ -1,0 +1,100 @@
+.footer{
+    background: #000;
+    padding: 40px 0 0 0;
+    .ftr-about{
+        .ftr-logo{
+            display: block;
+            max-width: 140px;
+            // background: #fff;
+            // padding: 20px;
+            // border-radius: 0 0 5px 5px;
+        }
+        p{
+            color: #fff;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        .ftr-contact{
+            li{
+                padding: 5px 0;
+                a{
+                    color: #fff;
+                    display: block;
+                    font-size: 13px;
+                    i{
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
+        .ftr-social {
+            margin-top: 30px;
+            li {
+                border: 1px solid #fff;
+                transform: rotate(45deg);
+                a{
+                    color: #fff;
+                    display: block;
+                    font-size: 13px;
+                    padding: 0;
+                    height: 35px;
+                    width: 35px;
+                    line-height: 33px;
+                    text-align: center;
+                    transform: rotate(-45deg);
+                    i{
+                        line-height: inherit;
+                    }
+                }
+                &:not(:last-child){
+                    margin-right: 25px;
+                }
+            }
+        }
+    }
+}
+.ftr-btm {
+    border-top: 1px solid #fff;
+    padding: 20px 0;
+    margin-top: 30px;
+    .ftr-btm-text{
+        p{
+            color: #fff;
+            font-size: 12px;
+        }
+    }
+}
+.ftr-menu-box {
+    // padding-top: 40px;
+    h4{
+        font-family: "gobold_boldregular";
+        font-size: 20px;
+        text-transform: uppercase;
+        color: #fff;
+    }
+    li{
+        position: relative;
+        a{
+            color: #fff;
+            display: block;
+            font-size: 13px;
+            padding: 13px 0;
+            .dates{
+                display: block;
+                font-size: 11px;
+            }
+        }
+        + {
+            li{
+                &::before{
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    width: 50%;
+                    height: 1px;
+                    background: #fff;
+                }
+            }
+        }
+    }
+}

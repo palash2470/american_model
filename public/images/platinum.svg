@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="75.096px" height="100px" viewBox="0 0 75.096 100" enable-background="new 0 0 75.096 100" xml:space="preserve">
+<g>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="15.0205" y1="47.7041" x2="53.1111" y2="111.9139">
+		<stop  offset="0" style="stop-color:#505050"/>
+		<stop  offset="0.0111" style="stop-color:#5B5B5B"/>
+		<stop  offset="0.0993" style="stop-color:#AAAAAA"/>
+		<stop  offset="0.1398" style="stop-color:#C9C9C9"/>
+		<stop  offset="0.2581" style="stop-color:#F9F9F9"/>
+		<stop  offset="0.3602" style="stop-color:#C9C9C9"/>
+		<stop  offset="0.4892" style="stop-color:#505050"/>
+		<stop  offset="0.4991" style="stop-color:#5B5B5B"/>
+		<stop  offset="0.5771" style="stop-color:#AAAAAA"/>
+		<stop  offset="0.6129" style="stop-color:#C9C9C9"/>
+		<stop  offset="0.7366" style="stop-color:#F9F9F9"/>
+		<stop  offset="0.8387" style="stop-color:#C9C9C9"/>
+		<stop  offset="1" style="stop-color:#505050"/>
+	</linearGradient>
+	<polygon fill-rule="evenodd" clip-rule="evenodd" fill="url(#SVGID_1_)" points="54.088,71.688 54.088,100 51.981,98.783 
+		37.645,90.506 23.31,98.783 21.202,100 21.202,71.688 25.571,71.688 49.719,71.688 	"/>
+	
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-405.48" y1="-14353.5293" x2="125.8048" y2="-15119.1875" gradientTransform="matrix(0.0755 0 0 -0.0755 48.7364 -1069.3232)">
+		<stop  offset="0" style="stop-color:#505050"/>
+		<stop  offset="0.0111" style="stop-color:#5B5B5B"/>
+		<stop  offset="0.0993" style="stop-color:#AAAAAA"/>
+		<stop  offset="0.1398" style="stop-color:#C9C9C9"/>
+		<stop  offset="0.2581" style="stop-color:#F9F9F9"/>
+		<stop  offset="0.3602" style="stop-color:#C9C9C9"/>
+		<stop  offset="0.4892" style="stop-color:#505050"/>
+		<stop  offset="0.4991" style="stop-color:#5B5B5B"/>
+		<stop  offset="0.5771" style="stop-color:#AAAAAA"/>
+		<stop  offset="0.6129" style="stop-color:#C9C9C9"/>
+		<stop  offset="0.7366" style="stop-color:#F9F9F9"/>
+		<stop  offset="0.8387" style="stop-color:#C9C9C9"/>
+		<stop  offset="1" style="stop-color:#505050"/>
+	</linearGradient>
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="url(#SVGID_2_)" d="M34.447,0.812c1.87-1.082,4.233-1.082,6.102,0
+		l15.749,9.056l15.748,9.055c1.87,1.082,3.05,3.051,3.05,5.314v18.109v18.11c0,2.165-1.18,4.232-3.05,5.314l-15.748,9.056
+		l-15.749,9.055c-1.869,1.082-4.232,1.082-6.102,0L18.7,74.826L2.953,65.771C1.181,64.688,0,62.72,0,60.554V42.346v-18.11
+		c0-2.165,1.181-4.232,3.051-5.314l15.747-9.055L34.447,0.812L34.447,0.812z"/>
+	
+		<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="734.9678" y1="-14043.3047" x2="-772.2008" y2="-15206.8291" gradientTransform="matrix(0.0755 0 0 -0.0755 48.7364 -1069.3232)">
+		<stop  offset="0" style="stop-color:#505050"/>
+		<stop  offset="0.0111" style="stop-color:#5B5B5B"/>
+		<stop  offset="0.0993" style="stop-color:#AAAAAA"/>
+		<stop  offset="0.1398" style="stop-color:#C9C9C9"/>
+		<stop  offset="0.2581" style="stop-color:#F9F9F9"/>
+		<stop  offset="0.3602" style="stop-color:#C9C9C9"/>
+		<stop  offset="0.4892" style="stop-color:#505050"/>
+		<stop  offset="0.4991" style="stop-color:#5B5B5B"/>
+		<stop  offset="0.5771" style="stop-color:#AAAAAA"/>
+		<stop  offset="0.6129" style="stop-color:#C9C9C9"/>
+		<stop  offset="0.7366" style="stop-color:#F9F9F9"/>
+		<stop  offset="0.8387" style="stop-color:#C9C9C9"/>
+		<stop  offset="1" style="stop-color:#505050"/>
+	</linearGradient>
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="url(#SVGID_3_)" d="M34.52,3.485c0.946-0.548,2.014-0.821,3.08-0.821
+		c1.066,0,2.134,0.274,3.081,0.821l29.128,16.75c0.953,0.551,1.729,1.332,2.264,2.264c0.526,0.912,0.818,1.97,0.818,3.098v33.5
+		c0,1.093-0.298,2.161-0.832,3.092c-0.533,0.929-1.303,1.723-2.248,2.269l-29.13,16.75c-0.946,0.548-2.014,0.822-3.08,0.822
+		c-1.066,0-2.134-0.274-3.08-0.821C25.226,75.862,14.782,69.152,5.38,64.451c-0.905-0.555-1.658-1.337-2.179-2.258
+		c-0.509-0.898-0.8-1.929-0.8-3.007V25.596c0-1.093,0.298-2.161,0.833-3.093c0.532-0.928,1.303-1.722,2.247-2.269l14.565-8.375
+		l14.475-8.376L34.52,3.485z M37.6,3.696c-0.892,0-1.781,0.227-2.563,0.681l-14.476,8.375L5.996,21.126
+		c-0.782,0.455-1.422,1.116-1.867,1.892c-0.447,0.777-0.696,1.669-0.696,2.581v33.59c0,0.897,0.24,1.754,0.662,2.499
+		c0.437,0.771,1.065,1.425,1.82,1.887l29.119,16.744c0.784,0.452,1.674,0.68,2.566,0.68c0.891,0,1.78-0.227,2.563-0.68l29.131-16.75
+		c0.782-0.455,1.422-1.116,1.868-1.892c0.446-0.777,0.695-1.669,0.695-2.58v-33.5c0-0.945-0.243-1.827-0.679-2.586
+		c-0.442-0.774-1.09-1.425-1.885-1.885L40.165,4.377C39.379,3.924,38.49,3.696,37.6,3.696L37.6,3.696z"/>
+	<g>
+		<path d="M7.939,36.331h3.175c1.948,0.005,2.921,1.054,2.921,3.146v2.145c0,1.535-0.695,2.531-2.085,2.986
+			c-0.334,0.106-0.814,0.16-1.439,0.16h-0.152v6.111h-2.42V36.331z M10.359,38.649v3.793h0.291c0.262,0,0.431-0.014,0.509-0.043
+			c0.305-0.121,0.458-0.381,0.458-0.777v-2.145c0-0.552-0.237-0.828-0.712-0.828H10.359z"/>
+		<path d="M15.562,50.88V36.331h2.42v12.23h3.277v2.318H15.562z"/>
+		<path d="M28.613,45.662l0.69,5.218h-2.442l-0.399-3.023h-1.781l-0.407,3.023H21.84l0.69-5.196l1.475-9.353h3.14L28.613,45.662z
+			 M26.15,45.531l-0.582-4.403l-0.581,4.403H26.15z"/>
+		<path d="M36.004,36.331v2.318h-1.926v12.23h-2.42v-12.23h-1.926v-2.318H36.004z"/>
+		<path d="M37.348,36.331h2.42V50.88h-2.42V36.331z"/>
+		<path d="M41.694,36.331h2.391l1.613,7.165v-7.165h2.268V50.88h-2.391l-1.541-6.969v6.969h-2.34V36.331z"/>
+		<path d="M56.053,47.966c0,2.093-1.046,3.142-3.14,3.146c-2.088,0-3.132-1.049-3.132-3.146V36.331h2.42v11.635
+			c0,0.548,0.237,0.821,0.712,0.821c0.48,0,0.72-0.273,0.72-0.821V36.331h2.42V47.966z"/>
+		<path d="M62.528,45.975l2.238-9.644h2.391V50.88h-2.333v-6.693L63.4,50.88h-1.7l-1.475-6.736v6.736H57.87V36.331h2.391
+			L62.528,45.975z"/>
+	</g>
+</g>
+<rect x="-9.319" fill-rule="evenodd" clip-rule="evenodd" fill="none" width="100" height="100"/>
+</svg>

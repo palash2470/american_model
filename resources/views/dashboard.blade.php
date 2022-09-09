@@ -117,7 +117,7 @@
                         </div> 
                         <div class="views-modal-list-rgt">
                             <h4>{{$view->viewerUser->name}}</h4>
-                            <p>{{$view->viewerUser->category->name}}, {{$view->viewerUser->userDetails->getCity->name}}</p>
+                            <p>{{$view->viewerUser->category->name}}, {{$view->viewerUser->userDetails->city_name}}</p>
                         </div> 
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                         </div> 
                         <div class="views-modal-list-rgt">
                             <h4>{{$favourite->favouriteUser->name}}</h4>
-                            <p>{{$favourite->favouriteUser->category->name}}, {{$favourite->favouriteUser->userDetails->getCity->name}}</p>
+                            <p>{{$favourite->favouriteUser->category->name}}, {{$favourite->favouriteUser->userDetails->city_name}}</p>
                         </div> 
                         </div>
                     </div>

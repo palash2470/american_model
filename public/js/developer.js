@@ -30,7 +30,7 @@ $(function() {
         });
     }
     //selected city
-    if (selected_state_id != '') {
+    /* if (selected_state_id != '') {
         //var idState = this.value;
         $("#city-dd").html('');
         $.ajax({
@@ -53,7 +53,7 @@ $(function() {
                 });
             }
         });
-    }
+    } */
     //End state list
     //get state by country
     $(document).on('change', '#country-dd', function() {
@@ -80,7 +80,7 @@ $(function() {
     });
 
     //get city by state
-    $(document).on('change', '#state-dd', function() {
+    /* $(document).on('change', '#state-dd', function() {
         var idState = this.value;
         $("#city-dd").html('');
         $.ajax({
@@ -99,5 +99,5 @@ $(function() {
                 });
             }
         });
-    });
+    }); */
 });

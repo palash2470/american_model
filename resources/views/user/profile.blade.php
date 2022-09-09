@@ -45,7 +45,7 @@
                             <li><a href="#" class="lkdn"><i class="fab fa-linkedin"></i></a></li>
                         </ul>
                         <div class="model-user">
-                            <p>{{$user->userDetails->city_name}}, {{$user->userDetails->getState->iso2}}</p>
+                            <p>{{$user->userDetails->city_name}}, {{$user->userDetails->getState->name}}</p>
                             {{-- <p>{{url('/profile/'.$user->category->slug.'/'.$user->name_slug)}}</p> --}}
                             <ul class="d-flex copy-url">
                                 <li class="crnt-url">{{url('/profile/'.$user->category->slug.'/'.$user->name_slug)}}</li>
@@ -68,68 +68,49 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                     <div class="follow-slider-wrap">
                         <div class="user-small-head d-flex justify-content-between mb-2">
-                            <h5 class=""><a data-count="{{count($user->followers)}}" href="#">Followers <span class="followers-num" id="followers_count">{{count($user->followers)}}</span></a></h5>
+                            <h5 class=""><a data-count="{{count($user->followers)}}" href="javascript:;" onclick="followers();">Followers <span class="followers-num" id="followers_count">{{count($user->followers)}}</span></a></h5>
                             <a href="javascript:" onclick="follow({{$user->id}})" class="flow-btn {{$count_follow > 0 ? 'followed' : ''}}" id="followlink">{{$count_follow > 0 ? 'following' : 'follow'}}</a>
                             
                         </div>
                         <div class="followers-list">
                             <ul class="d-flex flex-wrap">
                                 @if (count($user->followers) > 0)
-                                    @foreach ($user->followers as $followers)
+                                    @foreach ($user->followers as $key=>$followers)
                                     <li>
-                                        <a href="#">
+                                        <a href="{{url('/profile/'.$followers->followersUser->category->slug.'/'.$followers->followersUser->name_slug)}}">
                                             <span class="follower-img">
-                                                <img class="img-block" src="{{url('/img/user/profile-image/'.$followers->followingsUser->userDetails->profile_image)}}" alt="">
+                                                <img class="img-block" src="{{url('/img/user/profile-image/'.$followers->followersUser->userDetails->profile_image)}}" alt="">
                                             </span>
                                         </a>
                                     </li>
+                                    @if ($key == 4)
+                                        @break
+                                    @endif
                                     @endforeach
-                                @endif
-                                
+                                @endif 
                             </ul>
                         </div>
                     </div>
                     <div class="follow-slider-wrap mt-3">
                         <div class="user-small-head">
-                            <h5 class="mb-2"><a href="#">Following <span class="followers-num">5</span></a></h5>
+                            <h5 class="mb-2"><a href="javascript:;" onclick="following()">Following <span class="followers-num">{{count($user->followings)}}</span></a></h5>
                         </div>
                         <div class="followers-list">
                             <ul class="d-flex flex-wrap">
-                                <li>
-                                    <a href="#">
-                                        <span class="follower-img">
-                                            <img class="img-block" src="{{url('images/feutered-model/model1.jpg')}}" alt="">
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="follower-img">
-                                            <img class="img-block" src="{{url('images/feutered-model/model2.jpg')}}" alt="">
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="follower-img">
-                                            <img class="img-block" src="{{url('images/feutered-model/model3.jpg')}}" alt="">
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="follower-img">
-                                            <img class="img-block" src="{{url('images/feutered-model/model4.jpg')}}" alt="">
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="follower-img">
-                                            <img class="img-block" src="{{url('images/feutered-model/model5.jpg')}}" alt="">
-                                        </span>
-                                    </a>
-                                </li>
+                                @if (count($user->followings) > 0)
+                                    @foreach ($user->followings as $key=>$followings)
+                                        <li>
+                                            <a href="{{url('/profile/'.$followings->followingsUser->category->slug.'/'.$followings->followingsUser->name_slug)}}">
+                                                <span class="follower-img">
+                                                    <img class="img-block" src="{{url('/img/user/profile-image/'.$followings->followingsUser->userDetails->profile_image)}}" alt="">
+                                                </span>
+                                            </a>
+                                        </li>
+                                        @if ($key == 4)
+                                            @break
+                                        @endif
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -534,114 +515,43 @@
                             <div class="tab-pane fade" id="calender" role="tabpanel" aria-labelledby="calender-tab">...</div>
                             <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                        <div class="model-box-wrap followrs-box">
-                                            <div class="model-box-design">
-                                                <span class="model-box-img">
-                                                    <img class="img-block" src="{{url('images/feutered-model/model6.jpg')}}" alt="">
-                                                </span>
-                                                <div class="model-box-text">
-                                                    <h4><a href="#">Susan Heath</a></h4>
-                                                    {{-- <a href="javascripe:;" class="unblk-fllw-btn"><i class="fas fa-user-times"></i>block</a> --}}
+                                    @forelse ($user->followers as $followers)
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <div class="model-box-wrap followrs-box">
+                                                <div class="model-box-design">
+                                                    <span class="model-box-img">
+                                                        <img class="img-block" src="{{url('/img/user/profile-image/'.$followers->followersUser->userDetails->profile_image)}}" alt="">
+                                                    </span>
+                                                    <div class="model-box-text">
+                                                        <h4><a href="{{url('/profile/'.$followers->followersUser->category->slug.'/'.$followers->followersUser->name_slug)}}">{{$followers->followersUser->name}}</a></h4>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                        <div class="model-box-wrap followrs-box">
-                                            <div class="model-box-design">
-                                                <span class="model-box-img">
-                                                    <img class="img-block" src="{{url('images/feutered-model/model2.jpg')}}" alt="">
-                                                </span>
-                                                <div class="model-box-text">
-                                                    <h4><a href="#">Susan Heath</a></h4>
-                                                    {{-- <a href="javascripe:;" class="unblk-fllw-btn"><i class="fas fa-user-times"></i>block</a> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                        <div class="model-box-wrap followrs-box">
-                                            <div class="model-box-design">
-                                                <span class="model-box-img">
-                                                    <img class="img-block" src="{{url('images/feutered-model/model2.jpg')}}" alt="">
-                                                </span>
-                                                <div class="model-box-text">
-                                                    <h4><a href="#">Susan Heath</a></h4>
-                                                    {{-- <a href="javascripe:;" class="unblk-fllw-btn"><i class="fas fa-user-times"></i>unblock</a> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                        <div class="model-box-wrap followrs-box">
-                                            <div class="model-box-design">
-                                                <span class="model-box-img">
-                                                    <img class="img-block" src="{{url('images/feutered-model/model1.jpg')}}" alt="">
-                                                </span>
-                                                <div class="model-box-text">
-                                                    <h4><a href="#">Susan Heath</a></h4>
-                                                    {{-- <a href="javascripe:;" class="unblk-fllw-btn"><i class="fas fa-user-times"></i>block</a> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @empty
+                                        <div><p>No user Found</p></div> 
+                                    @endforelse
+                                    
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                        <div class="model-box-wrap followrs-box">
-                                            <div class="model-box-design">
-                                                <span class="model-box-img">
-                                                    <img class="img-block" src="{{url('images/feutered-model/model6.jpg')}}" alt="">
-                                                </span>
-                                                <div class="model-box-text">
-                                                    <h4><a href="#">Susan Heath</a></h4>
-                                                    {{-- <a href="javascripe:;" class="unblk-fllw-btn"><i class="fas fa-user-times"></i>unfollow</a> --}}
+                                    @forelse ($user->followings as $followings )
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <div class="model-box-wrap followrs-box">
+                                                <div class="model-box-design">
+                                                    <span class="model-box-img">
+                                                        <img class="img-block" src="{{url('/img/user/profile-image/'.$followings->followingsUser->userDetails->profile_image)}}">
+                                                    </span>
+                                                    <div class="model-box-text">
+                                                        <h4><a href="{{url('/profile/'.$followings->followingsUser->category->slug.'/'.$followings->followingsUser->name_slug)}}">{{$followings->followingsUser->name}}</a></h4>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                        <div class="model-box-wrap followrs-box">
-                                            <div class="model-box-design">
-                                                <span class="model-box-img">
-                                                    <img class="img-block" src="{{url('images/feutered-model/model2.jpg')}}" alt="">
-                                                </span>
-                                                <div class="model-box-text">
-                                                    <h4><a href="#">Susan Heath</a></h4>
-                                                    {{-- <a href="javascripe:;" class="unblk-fllw-btn"><i class="fas fa-user-times"></i>unfollow</a> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                        <div class="model-box-wrap followrs-box">
-                                            <div class="model-box-design">
-                                                <span class="model-box-img">
-                                                    <img class="img-block" src="{{url('images/feutered-model/model2.jpg')}}" alt="">
-                                                </span>
-                                                <div class="model-box-text">
-                                                    <h4><a href="#">Susan Heath</a></h4>
-                                                    {{-- <a href="javascripe:;" class="unblk-fllw-btn"><i class="fas fa-user-times"></i>unfollow</a> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                        <div class="model-box-wrap followrs-box">
-                                            <div class="model-box-design">
-                                                <span class="model-box-img">
-                                                    <img class="img-block" src="{{url('images/feutered-model/model1.jpg')}}" alt="">
-                                                </span>
-                                                <div class="model-box-text">
-                                                    <h4><a href="#">Susan Heath</a></h4>
-                                                    {{-- <a href="javascripe:;" class="unblk-fllw-btn"><i class="fas fa-user-times"></i>unfollow</a> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @empty
+                                    <div><p>No user Found</p></div> 
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
@@ -732,6 +642,18 @@
             });
             
         }  
+    }
+    function followers(){
+        $('li.nav-item button.active').removeClass('active');
+        $("#followers-tab").addClass("active");
+        $('#modelsTabContent div.active').removeClass('active show');
+        $('#followers').addClass('active show'); 
+    }
+    function following(){
+        $('li.nav-item button.active').removeClass('active');
+        $("#following-tab").addClass("active");
+        $('#modelsTabContent div.active').removeClass('active show');
+        $('#following').addClass('active show'); 
     }
 </script>
 @endpush    

@@ -15,8 +15,17 @@
                 <div class="usser-acc-edit">
                     <div class="row">
                         <div class="col-12">
-                            <div class="edit-head-text">
-                                <h4>Billing</h4>
+                            <div class="d-flex align-items-center">
+                                <span class="my-acc-menu-btn user_acc_menu">
+                                    <button type="button">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </button>
+                                </span>
+                                <div class="edit-head-text">
+                                    <h4>Billing</h4>
+                                </div>
                             </div>
                         </div>
                     </div>

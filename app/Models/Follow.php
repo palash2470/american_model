@@ -15,9 +15,9 @@ class Follow extends Model
     ];
 
     public function followersUser(){
-        return $this->hasOne(User::class,'id','follower_id');
+        return $this->hasOne(User::class,'id','following_id');
     }
     public function followingsUser(){
-        return $this->hasOne(User::class,'id','following_id');
+        return $this->hasOne(User::class,'id','follower_id');
     }
 }

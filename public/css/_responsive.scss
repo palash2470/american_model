@@ -249,6 +249,9 @@
             font-size: 13px;
         }
     }
+    .model-bg {
+        max-width: 380px;
+    }
 }
 
 @media only screen and (max-width: 1204px) {
@@ -264,9 +267,32 @@
             }
         }
     }
+    .info-edit-wrap {
+        flex-wrap: wrap;
+        .info-edit-lft {
+            flex: 0 0 120px;
+            max-width: 120px;
+        }
+    }
 }
 
 @media only screen and (max-width: 1135px) {
+    .img-video-up{
+        .img-video-btn-wrap{
+            li{
+                input[type='file']{
+                    +{
+                        label{
+                            &.img-video-btn{
+                                padding: 0 10px;
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     .logo {
         flex: 0 0 150px;
         max-width: 150px;
@@ -325,6 +351,24 @@
 @media only screen and (max-width: 1000px) {}
 
 @media only screen and (max-width: 991px) {
+    .info-edit-wrap {
+        .info-edit-lft {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+    .models-tab-information {
+        .nav-tabs{
+            &.first-tab-list {
+                .nav-item {
+                    // margin-bottom: 5px;
+                    &:not(:last-child){
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
     .bannar-text-wrap {
         img {
             height: auto;
@@ -369,6 +413,7 @@
     }
     .become-member-wrap {
         justify-content: center;
+        padding: 20px;
     }
     .login-ftr {
         .join-model-btn-wrap {
@@ -461,9 +506,37 @@
         }
     } 
     // Plan tab End
+    .upgrade-gap {
+        margin-top: 20px;
+        .col-lg-6{
+            &:not(:last-child){
+                .plan-page-btm{
+                    margin-bottom: 15px;
+                }
+            }
+        }
+    }
 }
 
-@media only screen and (max-width :960px) {}
+@media only screen and (max-width :960px) {
+    .models-tab-information{
+        .tab-content{
+            .tab-pane{
+                .for-mobilevideo-btn{
+                    .col-auto{
+                        flex: 0 0 100%;
+                        width: 100%;
+                        .img-video-up{
+                            margin-top: 10px;
+                            justify-content: space-between;
+                            flex-wrap: wrap;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 @media only screen and (max-width :910px) {}
 
@@ -502,6 +575,22 @@
 @media only screen and (max-width: 880px) {}
 
 @media only screen and (max-width: 800px) {
+    .only-for-edit-page {
+        .model-details-banner {
+            img{
+                max-height: 200px;
+                min-height: 200px;
+            }
+        }
+        .topuser {
+            .model-user-details {
+                .model-user-img {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
+            }
+        }
+    }
     .model-user-details {
         .model-user-img {
             flex: 0 0 100%;
@@ -631,6 +720,22 @@
             }
         }
     }
+    .only-for-edit-page{
+        .topuser{
+            .model-user-details {
+                .model-user-img {
+                    .mobile-box{
+                        max-width: 250px;
+                        margin: 0 auto;
+                        img{
+                            max-height: 250px;
+                            min-height: 250px;
+                        }
+                    }
+                }
+            } 
+        }
+    }
     .models-tab-information {
         .nav-tabs{
             &.first-tab-list {
@@ -652,19 +757,93 @@
     .src-select-wrap {
         margin-bottom: 12px;
     }
+
+    // Plan on Mobile Start
+    .plan-tab {
+        .subs-plan-wrap {
+            .subs-plan-list-wrap {
+                .plan-list-text-wrap{
+                    .plan-list-text{
+                        font-size: 16px;
+                    }
+                }
+                .subs-plan-list-wrap-lft {
+                    flex: 0 0 350px;
+                    max-width: 350px;
+                }
+                .subs-plan-list-wrap-rgt{
+                    .subs-plan-details-box-wrap{
+                        .subs-plan-details-box{
+                            flex: 0 0 100%;
+                            max-width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    } 
+    // Plan on Mobile End
+    .login-ftr {
+        .join-model-btn-wrap {
+            .join-model-btn {
+                font-size: 12px;
+            }
+        }
+    }
+    .member-login-list {
+        li{
+            &::after{
+                line-height: 2;
+            }
+        }
+    }
 }
 
 @media only screen and (max-width: 736px) {
+    .models-tab-information{
+        .tab-content{
+            .tab-pane{
+                .for-mobilevideo-btn{
+                    .img-video-up{
+                        .img-video-btn-wrap{
+                            flex-wrap: wrap;
+                            li{
+                                margin-top: 3px;
+                                margin-bottom: 3px;
+                            }
+                        }                        
+                    }
+                }
+            }
+        }
+    }
     .mob-none{
         display: none;
     }
+    // Plan on Mobile Start
+    .plan-tab {
+        .subs-plan-wrap {
+            .subs-plan-list-wrap {
+                .plan-list-text-wrap{
+                    .plan-list-text{
+                        font-size: 14px;
+                    }
+                }
+                .subs-plan-list-wrap-lft {
+                    flex: 0 0 300px;
+                    max-width: 300px;
+                }
+            }
+        }
+    } 
+    // Plan on Mobile End
 }
 
 @media only screen and (max-width: 667px) { 
     .login-ftr {
         .join-model-btn-wrap {
             .join-model-btn {
-                font-size: 12px;
+                font-size: 10px;
                 padding: 0 10px;
             }
         }
@@ -707,6 +886,15 @@
 }
 
 @media only screen and (max-width: 575px) {
+    .models-tab-information{
+        margin-top: 15px;
+    }
+    .info-edit-wrap {
+        .info-edit-lft {
+            flex: 0 0 180px;
+            max-width: 180px;
+        }
+    }
     .only-mobile{
         position: relative;
         .only-mobile-social{
@@ -800,6 +988,67 @@
         padding: 20px;
     }
     // Left filter responsive End
+
+    // My Account / User account Start
+    .user-dashboard-lft {
+        position: absolute;
+        z-index: 2;
+        // height: 100vh;
+        left: 0;
+        width: 300px;
+        transform: translateX(-350px);
+        transition: all 0.5s ease-in-out;
+        &.acc-open{
+            transform: translateX(0);
+            .acc_close{
+                transition: all 0.5s ease-in-out;
+                transform: scale(1); 
+            }
+        }
+        .acc_close{
+            display: inline-block;
+            position: absolute;
+            right: -15px;
+            top: 2px;
+            transition: all 0.5s ease-in-out;
+            transform: scale(0);
+            button{
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                background: rgba(0, 0, 0, 0.2);
+                color: #000;
+                border: none;
+                outline: none !important;
+                box-shadow: none;
+            }
+        }
+    }
+    // .for-my-account {
+    //     .account-menu {
+    //         height: 100%;
+    //     }
+    // }
+    .my-acc-menu-btn{
+        display: inline-block;
+        button{
+            border: none;
+            outline: none !important;
+            box-shadow: none;
+            margin-right: 15px;
+            span{
+                background: #838383;
+                display: block;
+                height: 3px;
+                margin-bottom: 7px;
+                width: 30px;
+                &:nth-child(2){
+                    width: 25px;
+                }
+            }
+        }
+    }
+    // My Account / User account End
 }
 
 @media only screen and (max-width: 545px) {
@@ -871,6 +1120,41 @@
             }
         }
     }
+    .only-for-edit-page {
+        .topuser .model-user-details {
+            .model-user-img {
+                .mobile-box{
+                    max-width: 200px;
+                    margin: 0 auto;
+                }
+                .model-user-box {
+                    img {
+                        max-height: 200px;
+                        min-height: 200px;
+                    }
+                }
+            }
+        }
+    }
+    // Plan on Mobile Start
+    .plan-tab {
+        .subs-plan-wrap {
+            .subs-plan-list-wrap {
+                .plan-list-text-wrap{
+                    .plan-list-text{
+                        font-size: 12px;
+                        max-height: 50px;
+                        min-height: 50px;
+                    }
+                }
+                .subs-plan-list-wrap-lft {
+                    flex: 0 0 200px;
+                    max-width: 200px;
+                }
+            }
+        }
+    } 
+    // Plan on Mobile End
 }
 
 @media only screen and (max-width: 480px) {
@@ -917,6 +1201,45 @@
     //         }
     //     }
     // }
+    // Plan on Mobile Start
+    .plan-tab {
+        .subs-plan-wrap {
+            .subs-plan-list-wrap {
+                .plan-list-text-wrap{
+                    .plan-list-text{
+                        font-size: 12px;
+                        max-height: 50px;
+                        min-height: 50px;
+                    }
+                }
+                .subs-plan-list-wrap-lft {
+                    flex: 0 0 160px;
+                    max-width: 160px;
+                    .subs-plan-type{
+                        .plan-type-list{
+                            li{
+                                label{
+                                    font-size: 12px;
+                                    line-height: 36px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } 
+    .plan-select-mob {
+        .selectOptionBdr {
+            font-size: 14px;
+            line-height: 26px;
+        }
+    }
+    .plan-select-mob {
+        flex: 0 0 140px;
+        max-width: 140px;
+    }
+    // Plan on Mobile End
 }
 
 @media only screen and (max-width: 414px) {}

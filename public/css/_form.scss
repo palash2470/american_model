@@ -122,12 +122,13 @@ input:focus, select:focus, textarea:focus{
         .join-model-btn{
             // font-family: 'gobold_boldregular';
             font-family: "TrajanPro";
-            font-size: 20px;
-            line-height: 2.5;
-            padding: 0 30px;
-            background: #000;
+            font-size: 15px;
+            line-height: 3;
+            padding: 0 15px;
+            background: #ce0528;
             color: #fff;
             border: none;
+            font-weight: 600;
             &:hover{
                 background: #fff;
                 color: #000;
@@ -135,14 +136,7 @@ input:focus, select:focus, textarea:focus{
         }
     }    
 }
-.model-bg {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    display: block;
-    max-width: 400px;
-    z-index: -1;
-}
+
 .home-model-sec {
     padding: 60px 0;
 }

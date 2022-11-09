@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="gelleries-page-head">
-                    @if ( strstr( strtolower($category->name), 'child' ) ) 
+                    @if ( strstr( strtolower($category->name), 'child' ) )
                     <h3><span class="color-c">C</span><span class="color-h">h</span><span class="color-i">i</span><span class="color-l">l</span><span class="color-d">d</span> Models & Actors</h3>
                     @else
                         <h3>{{$category->name}}</h3>
                     @endif
-                    
+
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 col-12">
@@ -40,15 +40,23 @@
                                         <input type="text" class="form-control src-input-style" name="id" value="{{$request->id}}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-6">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-6">
                                     <div class="src-select-wrap">
                                         <label>Age</label>
-                                        <select class="form-control src-select-style selectOption2" name="age">
+                                        <div class="price-range-slider">
+                                            <div id="age_slider_range" class="range-bar"></div>
+                                            <p class="range-value">
+                                              <input type="text" id="age" readonly>
+                                            </p>
+                                        </div>
+                                        <input type="hidden" name="min_age" value="" id="min_age">
+                                        <input type="hidden" name="max_age" value="" id="max_age">
+                                        {{-- <select class="form-control src-select-style selectOption2" name="age">
                                             <option value="">Select Age</option>
                                             @foreach(range(1, 60) as $age)
                                                 <option value="{{$age}}" @if (isset($request) && $request->age == $age) selected @endif>{{$age}}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-6">
@@ -68,23 +76,31 @@
                                             <option value="">Select height</option>
                                         @if(Helper::getSizeByAttr('height'))
                                             @foreach (Helper::getSizeByAttr('height') as $data)
-                                                <option value="{{$data->id}}" @if (isset($request) && $request->height == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} /{{$data->size}}cm</option>
+                                                <option value="{{$data->id}}" @if (isset($request) && $request->height == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
                                             @endforeach
                                         @endif
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-6">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-6">
                                     <div class="src-select-wrap">
                                         <label>Weight</label>
-                                        <select class="form-control src-select-style selectOption2" name="weight">
+                                        <div class="price-range-slider">
+                                            <div id="weight_slider_range" class="range-bar"></div>
+                                            <p class="range-value">
+                                              <input type="text" id="weight_filter" readonly>
+                                            </p>
+                                        </div>
+                                        <input type="hidden" name="min_weight" value="" id="min_weight">
+                                        <input type="hidden" name="max_weight" value="" id="max_weight">
+                                        {{-- <select class="form-control src-select-style selectOption2" name="weight">
                                             <option value="">Select weight</option>
                                             @if ($weights)
                                                 @foreach ($weights as $weight)
-                                                    <option value="{{$weight->weight}}" @if (isset($request) && $request->weight == $weight->weight) selected @endif>{{Helper::kgToLb($weight->weight)}} lbs / {{$weight->weight}} kg</option>
+                                                    <option value="{{$weight->weight}}" @if (isset($request) && $request->weight == $weight->weight) selected @endif>{{Helper::kgToLb($weight->weight)}} lbs </option>
                                                 @endforeach
                                             @endif
-                                        </select>
+                                        </select> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-6">
@@ -94,7 +110,7 @@
                                             <option value="">Please select Bust</option>
                                             @if(Helper::getSizeByAttr('chest'))
                                                 @foreach (Helper::getSizeByAttr('chest') as $data)
-                                                    <option value="{{$data->id}}" @if (isset($request) && $request->chest == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} /{{$data->size}}cm</option>
+                                                    <option value="{{$data->id}}" @if (isset($request) && $request->chest == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} {{-- /{{$data->size}}cm --}}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -107,7 +123,7 @@
                                             <option value="">Select waist </option>
                                             @if(Helper::getSizeByAttr('waist'))
                                                 @foreach (Helper::getSizeByAttr('waist') as $data)
-                                                    <option value="{{$data->id}}" @if (isset($request) && $request->waist == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} /{{$data->size}}cm</option>
+                                                    <option value="{{$data->id}}" @if (isset($request) && $request->waist == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -120,7 +136,7 @@
                                             <option value="">Select hip/inseam</option>
                                             @if(Helper::getSizeByAttr('hip'))
                                                 @foreach (Helper::getSizeByAttr('hip') as $data)
-                                                    <option value="{{$data->id}}" @if (isset($request) && $request->hip == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} /{{$data->size}}cm</option>
+                                                    <option value="{{$data->id}}" @if (isset($request) && $request->hip == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} {{-- /{{$data->size}}cm --}}</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -186,7 +202,7 @@
                                                     <option value="{{$data}}" @if (isset($request) && $request->shoe_size == $data) selected @endif>{{$data}}</option>
                                                 @endforeach
                                             @endif
-                                            
+
                                         </select>
                                     </div>
                                 </div>
@@ -195,6 +211,11 @@
                                         <label>Language</label>
                                         <select class="form-control src-select-style selectOption2" name="language">
                                             <option value="">Language</option>
+                                            @if(Helper::languageArr())
+                                                @foreach (Helper::languageArr() as $key => $data)
+                                                    <option value="{{$key}}" @if (isset($request) && $request->language == $key) selected @endif>{{$data}}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
@@ -233,7 +254,7 @@
             <div class="col-lg-8 col-md-8 col-sm-6 col-12">
                 <div class="search-head">
                     <h4>Search Results <span class="search-results">
-                        Showing 
+                        Showing
                         @if ($users->firstItem())
                             {{ $users->firstItem() }} to {{ $users->lastItem() }}
                         @else
@@ -243,9 +264,9 @@
                     </span></h4>
                     <div class="pagination-wrap">{{ $users->appends($_GET)->links() }}</div>
                 </div>
-                
-                <div class="row">
-                    @php 
+
+                <div class="row g-4">
+                    @php
                         $index = 0;
                     @endphp
                     @forelse ($users as $key => $user)
@@ -274,15 +295,15 @@
                                         </div>
                                         <div class="hover-efects-social-link">
                                             <ul>
-                                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                                <li><a target="_blank" href="{{@$user->userDetails->facebook_link}}"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li><a target="_blank" href="{{@$user->userDetails->youtube_link}}"><i class="fab fa-youtube"></i></a></li>
+                                                <li><a target="_blank" href="{{@$user->userDetails->twitter_link}}"><i class="fab fa-twitter"></i></a></li>
+                                                <li><a target="_blank" href="{{@$user->userDetails->linkedin_link}}"><i class="fab fa-linkedin"></i></a></li>
                                             </ul>
                                         </div>
                                     </span>
                                     <div class="model-box-text">
-                                        <h4><a href="{{route('user.view.profile',[$user->category->slug,$user->name_slug])}}">{{$user->userDetails->name}}</a></h4>
+                                        <h4><a href="{{route('user.view.profile',[$user->category->slug,$user->name_slug])}}">{{$user->name}}</a></h4>
                                         <div class="same_height_model_text">
                                             <p>American model ID:<span class="info-model">{{$user->model_id}}</span></p>
                                             <p>Nationality:<span class="info-model">{{$user->userDetails->getCountry->name}}</span></p>
@@ -297,7 +318,12 @@
                             </div>
                         </div>
                     @empty
-                        <div><p>No Data Found</p></div>
+                    <div class="col-12">
+                        <div class="not-found-text">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>no data found</p>
+                        </div>
+                    </div>
                     @endforelse
                 </div>
                 <div class="pagination-wrap">{{ $users->appends($_GET)->links() }}</div>
@@ -313,5 +339,47 @@ $(document).on('click','#resetbtn',function(){
     $('#model_filter_frm').trigger("reset");
     window.location.replace('{{route('user.search',$category->slug)}}');
 })
+$(document).ready(function(){
+    //Start Age range filter
+    var min_age = "{{$request->min_age ? $request->min_age : 15}}";
+    var max_age = "{{$request->max_age ? $request->max_age : 40}}";
+    $( "#age_slider_range" ).slider({
+        range: true,
+        min: 1,
+        max: 60,
+        values: [ min_age, max_age ],
+        slide: function( event, ui ) {
+            $( "#age" ).val(ui.values[ 0 ]+" Years  - " + ui.values[ 1 ]+" Years" );
+            $('#min_age').val(ui.values[ 0 ]);
+            $('#max_age').val(ui.values[ 1 ]);
+        }
+    });
+    $( "#age" ).val( $( "#age_slider_range" ).slider( "values", 0 ) +
+    " Years - " + $( "#age_slider_range" ).slider( "values", 1 )+" Years" );
+
+    $('#min_age').val($( "#age_slider_range" ).slider( "values", 0 ));
+    $('#max_age').val($( "#age_slider_range" ).slider( "values", 1 ));
+    //End Age range filter
+    //Start Weight range filter
+    var min_weight = "{{$request->min_weight ? $request->min_weight : $weights->min('weight')}}";
+    var max_weight = "{{$request->max_weight ? $request->max_weight : $weights->max('weight')}}";
+    $( "#weight_slider_range" ).slider({
+        range: true,
+        min: 10,
+        max: 120,
+        values: [ min_weight, max_weight ],
+        slide: function( event, ui ) {
+            $( "#weight_filter" ).val(ui.values[ 0 ]+" Lbs  - " + ui.values[ 1 ]+" Lbs" );
+            $('#min_weight').val(ui.values[ 0 ]);
+            $('#max_weight').val(ui.values[ 1 ]);
+        }
+    });
+    $( "#weight_filter" ).val( $( "#weight_slider_range" ).slider( "values", 0 ) +
+    " Lbs - " + $( "#weight_slider_range" ).slider( "values", 1 )+" Lbs" );
+
+    $('#min_weight').val($( "#weight_slider_range" ).slider( "values", 0 ));
+    $('#max_weight').val($( "#weight_slider_range" ).slider( "values", 1 ));
+    //End Weight range filter
+});
 </script>
 @endpush

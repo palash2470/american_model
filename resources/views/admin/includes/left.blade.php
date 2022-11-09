@@ -1,6 +1,6 @@
 <!-- Brand Logo -->
-<a href="{{route('admin')}}" class="brand-link">
-    <img src="{{url('/images/logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+<a href="{{route('admin')}}" class="brand-link admin-logo">
+    <img src="{{url('/images/logo2.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-2">
     <span class="brand-text font-weight-light">American Model</span>
 </a>
 
@@ -16,7 +16,7 @@
         </div>
     </div> --}}
     <!-- Sidebar Menu -->
-    <nav class="mt-2">
+    <nav class="mt-4">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item {{ (request()->is('admin/dashboard')) ? 'menu-open' : '' }}">
                 <a href="{{route('admin')}}" class="nav-link {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
@@ -26,45 +26,53 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item {{ (request()->is('admin/user')) ? 'menu-open' : '' }}">
-                <a href="{{route('admin.user')}}" class="nav-link {{ (request()->is('admin/user')) ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-th"></i>
+            <li class="nav-item {{ (request()->is('admin/user*')) ? 'menu-open' : '' }}">
+                <a href="{{route('admin.user')}}" class="nav-link {{ (request()->is('admin/user*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-user"></i>
                     <p>
-                        User
+                        Users
                     </p>
                 </a>
             </li>
 
             <li class="nav-item {{ (request()->is('admin/category')) ? 'menu-open' : '' }}">
                 <a href="{{route('admin.category.index')}}" class="nav-link {{ (request()->is('admin/category')) ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fas fa-boxes"></i>
                     <p>
-                        Category
+                        Categories
                     </p>
                 </a>
             </li>
-            <li class="nav-item {{ (request()->is('admin/colour')) ? 'menu-open' : '' }}">
-                <a href="{{route('admin.colour.index')}}" class="nav-link {{ (request()->is('admin/colour')) ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-th"></i>
+            <li class="nav-item {{ (request()->is('admin/colour*')) ? 'menu-open' : '' }}">
+                <a href="{{route('admin.colour.index')}}" class="nav-link {{ (request()->is('admin/colour*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-palette"></i>
                     <p>
-                        Colour
+                        Colors
                     </p>
                 </a>
             </li>
 
-            <li class="nav-item {{ (request()->is('admin/size')) ? 'menu-open' : '' }}">
-                <a href="{{route('admin.size.index')}}" class="nav-link {{ (request()->is('admin/size')) ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-th"></i>
+            <li class="nav-item {{ (request()->is('admin/size*')) ? 'menu-open' : '' }}">
+                <a href="{{route('admin.size.index')}}" class="nav-link {{ (request()->is('admin/size*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-ruler-combined"></i>
                     <p>
-                        Size
+                        Sizes
                     </p>
                 </a>
             </li>
-            <li class="nav-item {{ (request()->is('admin/ethnicity')) ? 'menu-open' : '' }}">
-                <a href="{{route('admin.ethnicity.index')}}" class="nav-link {{ (request()->is('admin/ethnicity')) ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-th"></i>
+            <li class="nav-item {{ (request()->is('admin/weight*')) ? 'menu-open' : '' }}">
+                <a href="{{route('admin.weight.index')}}" class="nav-link {{ (request()->is('admin/weight*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-weight"></i>
                     <p>
-                        Ethnicity
+                        Weights
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item {{ (request()->is('admin/ethnicity*')) ? 'menu-open' : '' }}">
+                <a href="{{route('admin.ethnicity.index')}}" class="nav-link {{ (request()->is('admin/ethnicity*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Ethnicities
                     </p>
                 </a>
             </li>
@@ -78,9 +86,9 @@
             </li> --}}
             <li class="nav-item {{ (request()->is('admin/plan-attribute*')) ? 'menu-open' : '' }}">
                 <a href="{{route('admin.plan_attribute.index')}}" class="nav-link {{ (request()->is('admin/plan-attribute*')) ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-th"></i>
+                    <i class="nav-icon fas fa-clipboard-list"></i>
                     <p>
-                        Plan Attribute
+                        Plan Attributes
                     </p>
                 </a>
             </li>
@@ -96,7 +104,7 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item {{ (request()->is('admin/plan-group')) ? 'menu-open' : '' }}">
                         <a href="{{route('admin.plan_group.index')}}" class="nav-link {{ (request()->is('admin/plan-group')) ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-th"></i>
+                            <i class="nav-icon fas fa-list"></i>
                             <p>
                                 List
                             </p>
@@ -104,7 +112,7 @@
                     </li>
                     <li class="nav-item {{ (request()->is('admin/plan-group/add')) ? 'menu-open' : '' }}">
                         <a href="{{route('admin.plan_group.create')}}" class="nav-link {{ (request()->is('admin/plan-group/add')) ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-th"></i>
+                            <i class="nav-icon fas fa-plus"></i>
                             <p>
                                 Add
                             </p>
@@ -117,14 +125,14 @@
                 <a href="#" class="nav-link {{ (request()->is('admin/plan') || request()->is('admin/plan/*')) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-shopping-cart"></i>
                     <p>
-                        Plan
+                        Plans
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item {{ (request()->is('admin/plan')) ? 'menu-open' : '' }}">
                         <a href="{{route('admin.plan')}}" class="nav-link {{ (request()->is('admin/plan')) ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-th"></i>
+                            <i class="nav-icon fas fa-list"></i>
                             <p>
                                 List
                             </p>
@@ -132,7 +140,7 @@
                     </li>
                     <li class="nav-item {{ (request()->is('admin/plan/add')) ? 'menu-open' : '' }}">
                         <a href="{{route('admin.create.plan')}}" class="nav-link {{ (request()->is('admin/plan/add')) ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-th"></i>
+                            <i class="nav-icon fas fa-plus"></i>
                             <p>
                                 Add
                             </p>
@@ -140,22 +148,67 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item {{ (request()->is('admin/home-banner')) ? 'menu-open' : '' }}">
-                <a href="{{route('admin.home_banner.index')}}" class="nav-link {{ (request()->is('admin/home-banner')) ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-th"></i>
+            <li class="nav-item {{ (request()->is('admin/home-banner*')) ? 'menu-open' : '' }}">
+                <a href="{{route('admin.home_banner.index')}}" class="nav-link {{ (request()->is('admin/home-banner*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-images"></i>
                     <p>
-                        Home Banner
+                        Home Banners
                     </p>
                 </a>
             </li>
-            <li class="nav-item {{ Request::segment(2)=='settings' ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link {{ Request::segment(2)=='settings' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-shopping-cart"></i>
+            <li class="nav-item {{ (request()->is('admin/setting/*')) ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ (request()->is('admin/setting/*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-cog"></i>
                     <p>
                         Settings
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item {{ (request()->is('admin/setting/advertisement')) ? 'menu-open' : '' }}">
+                        <a href="{{route('admin.advertisement.index')}}" class="nav-link {{ (request()->is('admin/setting/advertisement')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-ad"></i>
+                            <p>
+                                Advertisements
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ (request()->is('admin/setting/edit/*')) ? 'menu-open' : '' }}">
+                        <a href="{{route('admin.setting.edit',1)}}" class="nav-link {{ (request()->is('admin/setting/edit/*')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tools"></i>
+                            <p>
+                                Tools
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ (request()->is('admin/setting/poll*')) ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ (request()->is('admin/setting/poll*')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-poll"></i>
+                            <p>
+                                Polls
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item {{ (request()->is('admin/setting/poll')) ? 'menu-open' : '' }}">
+                                <a href="{{route('admin.poll.index')}}" class="nav-link {{ (request()->is('admin/setting/poll')) ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>
+                                        List
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ (request()->is('admin/setting/poll/add')) ? 'menu-open' : '' }}">
+                                <a href="{{route('admin.poll.create')}}" class="nav-link {{ (request()->is('admin/setting/poll/add')) ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-plus"></i>
+                                    <p>
+                                        Add
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </li>
         </ul>
     </nav>

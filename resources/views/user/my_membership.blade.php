@@ -34,20 +34,20 @@
                         <div class="usser-acc-edit-wrap">
                             <div class="row">
                                 <div class="col-12">
-                                    <table class="table table-responsive">
-                                        <thead>
-                                            <tr>
-                                                <th class="">Members</th>
-                                                <th class="">Plan</th>
-                                                <th class="">Expiry</th>
-                                                <th class="">Price</th>
-                                                <th class="">Recurring</th>
-                                                <th class="">Status</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            
+                                    <div class="table-responsive">
+                                        <table class="table text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th class="">Members</th>
+                                                    <th class="">Plan</th>
+                                                    <th class="">Expiry</th>
+                                                    <th class="">Price</th>
+                                                    <th class="">Recurring</th>
+                                                    <th class="">Status</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                                 <tr class="">
                                                     @if ($userPlan)
                                                         <td class="">{{Auth::user()->category->name}}</td>
@@ -59,16 +59,15 @@
                                                         <td class="">{{ucfirst($userPlan->plan_type)}}</td>
                                                         <td class="text-left capitalize ">Active</td>
                                                         <td>
-                                                        <a class="" href="{{route('user.registration.plan')}}">Change Plan</a>
+                                                        <a class="change-plan" href="{{route('user.registration.plan')}}">Change Plan</a>
                                                         </td>
                                                     @else
                                                     <td colspan="4">No Records Found.</td>
                                                     @endif
                                                 </tr>
-                                            
-                                            
-                                        </tbody>
-                                      </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             

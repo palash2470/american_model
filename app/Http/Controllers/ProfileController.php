@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\books;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\TryCatch;
@@ -18,6 +19,7 @@ use App\Models\Favourite;
 use App\Models\Follow;
 use App\Models\HairLenth;
 use App\Models\Images;
+use App\Models\PhotoLike;
 use App\Models\Weight;
 use App\Models\PlanGroup;
 use App\Models\PlanDetails;
@@ -31,6 +33,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class ProfileController extends Controller
 {
@@ -41,7 +44,7 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        
+
     }
 
     /**
@@ -50,7 +53,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function createBasicInformation()
-    {   
+    {
         $user = User::where('id',Auth::user()->id)->where('is_register_basic',1)->first();
         $countres = Country::all();
         if($user){
@@ -59,7 +62,7 @@ class ProfileController extends Controller
         }else{
             $categories = Category::all();
         }
-        
+
        return view('user.basic_information',compact('countres','categories','user'));
     }
 
@@ -84,18 +87,18 @@ class ProfileController extends Controller
             "profile_image"    => [Rule::requiredIf(function (){
                 if (UserDetails::whereNotNull('profile_image')->where('user_id',Auth::user()->id)->exists()) {
                     return false;
-                } 
+                }
                 return true;
             }),'image','mimes:jpg,png,jpeg,gif,svg'],
         ]);
         DB::beginTransaction();
         try{
             //$slug = $this->createSlug($request->name);
-            
+
             $user = User::where('id',Auth::user()->id)->where('is_register_basic',1)->first();
             if($user){
                 if($request->has('profile_image')) {
-                    if($request->crop_image){ 
+                    if($request->crop_image){
                         $folderPath = public_path('/img/user/profile-image/');
                         $base64Image = explode(";base64,", $request->crop_image);
                         $explodeImage = explode("image/", $base64Image[0]);
@@ -125,14 +128,17 @@ class ProfileController extends Controller
                     'state_id' =>$request->state_id,
                     'city_name' =>$request->city_name,
                     'zip_code' =>$request->zip_code,
-                    'membership_type_id' =>$request->membership_type_id,    
+                    'membership_type_id' =>$request->membership_type_id,
+                    'booking_amount_hour' =>$request->booking_amount_hour,
+                    'booking_amount_day' =>$request->booking_amount_day,
+                    'booking_amount_week' =>$request->booking_amount_week,
                 ]);
                 $full_name = $request->first_name.' '.$request->middle_name.' '.$request->last_name;
                 User::where('id',Auth::user()->id)->update(['membership_id'=> $request->membership_type_id,'name'=>$full_name]);
             }else{
                 $profile_image = 'NULL';
                 if($request->has('profile_image')) {
-                    if($request->crop_image){ 
+                    if($request->crop_image){
                         $folderPath = public_path('/img/user/profile-image/');
                         $base64Image = explode(";base64,", $request->crop_image);
                         $explodeImage = explode("image/", $base64Image[0]);
@@ -161,8 +167,11 @@ class ProfileController extends Controller
                     'state_id' =>$request->state_id,
                     'city_name' =>$request->city_name,
                     'zip_code' =>$request->zip_code,
-                    'membership_type_id' =>$request->membership_type_id,    
-                    'profile_image' =>$profile_image,    
+                    'membership_type_id' =>$request->membership_type_id,
+                    'profile_image' =>$profile_image,
+                    'booking_amount_hour' =>$request->booking_amount_hour,
+                    'booking_amount_day' =>$request->booking_amount_day,
+                    'booking_amount_week' =>$request->booking_amount_week,
                 ]);
                 $full_name = $request->first_name.' '.$request->middle_name.' '.$request->last_name;
                 $slug = $this->createSlug($request->first_name);
@@ -171,7 +180,7 @@ class ProfileController extends Controller
                 if($latest_id){
                     $model_id = ((int)$latest_id->model_id + 1);
                 } */
-                
+
                 User::where('id',Auth::user()->id)
                 ->update([
                     'is_register_basic'=> 1,
@@ -181,7 +190,7 @@ class ProfileController extends Controller
                     'last_active' => Carbon::now(),
                 ]);
             }
-           
+
             $modelArr = Helper::categoryTypeArray();
             $category = Category::where('id',$request->membership_type_id)->first();
             if(in_array($category->slug,$modelArr)){
@@ -191,15 +200,15 @@ class ProfileController extends Controller
                 DB::commit();
                 return redirect()->route('user.registration.plan');
             }
-            
+
         }catch(\Exception $e){
             DB::rollback();
             return redirect()->route('user.basic.information.create')->with('error','something went wrong!');
         }
-        
+
     }
 
-      /** 
+      /**
      * Write code on Method
      *
      * @return response()
@@ -228,7 +237,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function createDetailsInformation()
-    {   
+    {
         if (Auth::user()->is_register_basic == 0) {
             return redirect()->route('user.basic.information.create');
         }
@@ -273,11 +282,11 @@ class ProfileController extends Controller
                 'weight' =>$request->weight,
                 'height' =>$request->height,
                 'ethnicity' =>$request->ethnicity,
-                'shoe_size' =>$request->shoe_size,    
-                'waist' =>$request->waist,    
-                'chest' =>$request->chest,    
-                'dress_size' =>$request->dress_size,    
-                'hip' =>$request->hip,    
+                'shoe_size' =>$request->shoe_size,
+                'waist' =>$request->waist,
+                'chest' =>$request->chest,
+                'dress_size' =>$request->dress_size,
+                'hip' =>$request->hip,
             ]);
             User::where('id',Auth::user()->id)->update(['is_register_details'=> 1 ]);
             //DB::commit();
@@ -287,7 +296,7 @@ class ProfileController extends Controller
             //DB::rollback();
             return redirect()->route('user.details.information.create')->with('error','something went wrong!');
         }
-        
+
     }
 
     public function storeUserPlan(Request $request){
@@ -323,12 +332,12 @@ class ProfileController extends Controller
                     $expiry = Carbon::now()->addYear();
                 }
                 $user_plan = UserPlan::create([
-                    'user_id' => Auth::user()->id, 
-                    'plan_group_id' => $request->plan_group_id, 
-                    'plan_id' => $request->plan, 
-                    'plan_type' => $request->plan_type, 
-                    'price' => $price, 
-                    'expiry' => $expiry, 
+                    'user_id' => Auth::user()->id,
+                    'plan_group_id' => $request->plan_group_id,
+                    'plan_id' => $request->plan,
+                    'plan_type' => $request->plan_type,
+                    'price' => $price,
+                    'expiry' => $expiry,
                 ]);
                 $planDetailsArr=[];
                 foreach($planDetails as $plan_detail){
@@ -348,17 +357,17 @@ class ProfileController extends Controller
                 }
                 UserPlanDetails::insert($planDetailsArr);
 
-                
+
                 if($price == 0){
                     User::where('id',Auth::user()->id)->update(['is_subscribe'=> 1 ]);
                     return response()->json(['status'=>true,'redirect_url'=>route('dashboard')]);
                 }else{
                     return response()->json(['status'=>true,'redirect_url'=>route('user.payment',encrypt($user_plan->id))]);
                 }
-                
+
             }
            // DB::commit();
-            
+
         }catch(\Exception $e){
             //dd($e);
            // DB::rollBack();
@@ -373,7 +382,7 @@ class ProfileController extends Controller
     }
 
     public function updateMyAccount(Request $request){
-        
+
         $this->validate($request, [
             "name"    => "required",
             "gender"    => "required",
@@ -394,7 +403,7 @@ class ProfileController extends Controller
         }else{
             return back()->with('error', 'Wrong password enter');
         }
-        
+
     }
 
     public function changePassword(){
@@ -406,7 +415,7 @@ class ProfileController extends Controller
             'current_password'=> "required",
             'password' => 'required|confirmed|min:6',
         ]);
-        
+
         $checkUser = Hash::check( $request->current_password, Auth::user()->password );
         if($checkUser){
             User::where('id',Auth::user()->id)->update([
@@ -435,9 +444,9 @@ class ProfileController extends Controller
         //DB::beginTransaction();
         try{
             $displayOption = UserDisplayOption::where('user_id', Auth::user()->id)->first();
-            
+
             if($displayOption){
-                
+
                 UserDisplayOption::where('user_id',Auth::user()->id)->update([
                     'age_display'=>$request->age_display,
                     'weight_display'=>$request->weight_display,
@@ -446,7 +455,7 @@ class ProfileController extends Controller
                 ]);
             }else{
                 UserDisplayOption::create([
-                    'user_id' => Auth::user()->id, 
+                    'user_id' => Auth::user()->id,
                     'age_display'=>$request->age_display,
                     'weight_display'=>$request->weight_display,
                     'my_comment_display'=>$request->my_comment_display,
@@ -492,7 +501,8 @@ class ProfileController extends Controller
                 }
             }
         }
-        return view('user.profile',compact('user','count_favourite','count_follow'));
+        $countres = Country::all();
+        return view('user.profile',compact('user','count_favourite','count_follow','countres'));
     }
 
     public function myProfileEdit(){
@@ -501,17 +511,19 @@ class ProfileController extends Controller
         $ethnicities = Ethnicity::all();
         $weights = Weight::all();
         $hairLenths = HairLenth::all();
+        $categories = Category::all();
+        $countres = Country::all();
         if($user->category->slug == 'models'){
             return view('user.profile_edit.my_profile_edit',compact('user','colours','ethnicities','weights','hairLenths'));
-        }elseif($user->category->slug == 'photographer'){
-            return view('user.profile_edit.photographer_profile_edit',compact('user'));
+        }elseif($user->category->slug == 'photographer' || $user->category->slug == 'casting-director'){
+            return view('user.profile_edit.photographer_profile_edit',compact('user','categories','countres'));
         }elseif($user->category->slug == 'child-model-and-actor'){
             return view('user.profile_edit.child-model_profile_edit',compact('user','colours','ethnicities','weights','hairLenths'));
         }else{
             abort(404);
-        }    
+        }
     }
-   
+
     public function myProfileUpdate(Request $request){
         //dd($request->all());
         UserDetails::where('user_id',Auth::user()->id)->update([
@@ -522,21 +534,29 @@ class ProfileController extends Controller
             'weight' =>$request->weight,
             'height' =>$request->height,
             'ethnicity' =>$request->ethnicity,
-            'shoe_size' =>$request->shoe_size,    
-            'waist' =>$request->waist,    
-            'chest' =>$request->chest,    
-            'dress_size' =>$request->dress_size,    
-            'hip' =>$request->hip,    
-            'exprience' =>$request->exprience,    
-            'compensation' =>$request->has('compensation') ? implode(',',$request->compensation) : '',    
-            'biography' =>$request->biography,    
-            'interested' => $request->has('interested') ? implode(',',$request->interested) : '',    
-            'accepted_job' => $request->has('accepted_job') ? implode(',',$request->accepted_job) : '',    
-            'language' => $request->has('language') ? implode(',',$request->language) : '',    
+            'shoe_size' =>$request->shoe_size,
+            'waist' =>$request->waist,
+            'chest' =>$request->chest,
+            'dress_size' =>$request->dress_size,
+            'hip' =>$request->hip,
+            'exprience' =>$request->exprience,
+            //'compensation' =>$request->has('compensation') ? implode(',',$request->compensation) : '',
+            'compensation' =>$request->has('compensation') ? $request->compensation : '',
+            'biography' =>$request->biography,
+            'interested' => $request->has('interested') ? implode(',',$request->interested) : '',
+            'accepted_job' => $request->has('accepted_job') ? implode(',',$request->accepted_job) : '',
+            'language' => $request->has('language') ? implode(',',$request->language) : '',
             'rate_per_hours' => $request->rate_per_hours,
             'rate_half_day' => $request->rate_half_day,
             'rate_full_day' => $request->rate_full_day,
+            'booking_amount_hour' => $request->booking_amount_hour,
+            'booking_amount_day' => $request->booking_amount_day,
+            'booking_amount_week' => $request->booking_amount_week,
             'training' => $request->training,
+            'facebook_link' => $request->facebook_link,
+            'youtube_link' => $request->youtube_link,
+            'twitter_link' => $request->twitter_link,
+            'linkedin_link' => $request->linkedin_link,
         ]);
 
         return response()->json(['status'=>true,'massage'=>'User details saved Successfully']);
@@ -559,7 +579,7 @@ class ProfileController extends Controller
                 if($user_details->profile_image){
                     unlink($folderPath.$user_details->profile_image);
                 }
-                UserDetails::where('user_id',Auth::user()->id)->update(['profile_image' =>$profile_image]);  
+                UserDetails::where('user_id',Auth::user()->id)->update(['profile_image' =>$profile_image]);
             }
         }
         if($request->image_type == 'cover_iamge'){
@@ -577,12 +597,12 @@ class ProfileController extends Controller
                 if($user_details->cover_img){
                     unlink($folderPath.$user_details->cover_img);
                 }
-                UserDetails::where('user_id',Auth::user()->id)->update(['cover_img' =>$cover_image]);  
+                UserDetails::where('user_id',Auth::user()->id)->update(['cover_img' =>$cover_image]);
             }
         }
 
         return response()->json(['status'=>true,'massage'=>'User image saved Successfully']);
-        
+
     }
 
     public function imageUpload(Request $request){
@@ -639,7 +659,7 @@ class ProfileController extends Controller
                 'favour_by' => Auth::user()->id,
             ]);
             return response()->json(['status'=>true,'type'=>'add','massage'=>'Favourite user added Successfully']);
-        } 
+        }
         //return back()->with('success', 'Favourite user added Successfully');
     }
 
@@ -653,12 +673,79 @@ class ProfileController extends Controller
             Follow::where('follower_id',$request->user_id)->where('following_id',Auth::user()->id)->delete();
             return response()->json(['status'=>true,'type'=>'remove','massage'=>'Unfollowed Successfully']);
         }else{
-            Follow::create([
+            $follow = Follow::create([
                 'follower_id' => $request->user_id,
                 'following_id' => Auth::user()->id,
             ]);
-            return response()->json(['status'=>true,'type'=>'add','massage'=>'follow user added Successfully']);
-        } 
-        
+            Mail::send('emails.follow', ['follow' => $follow], function($message) use($follow){
+                $message->to($follow->followingsUser->email);
+                $message->subject('Following');
+            });
+            return response()->json(['status'=>true,'type'=>'add','massage'=>'Follow user added Successfully']);
+        }
+
+    }
+
+    public function ajaxLikePhoto(Request $request){
+        //dd($request->all());
+        $this->validate($request,[
+            'photo_id' => 'required'
+        ]);
+        $photo_like = PhotoLike::where('user_id',Auth::user()->id)->where('photo_id',$request->photo_id)->first();
+        //dd($photo_like);
+        if($photo_like){
+            PhotoLike::where('user_id',Auth::user()->id)->where('photo_id',$request->photo_id)->delete();
+            return response()->json(['status'=>true,'type'=>'remove','photo_like'=>$photo_like,'massage'=>'Remove Like']);
+        }else{
+            $like = PhotoLike::create([
+                'photo_id' => $request->photo_id,
+                'user_id' => Auth::user()->id,
+            ]);
+            Mail::send('emails.photo_like', ['like' => $like], function($message) use($like){
+                $message->to($like->photo->user->email);
+                $message->subject('Like Your Photo');
+            });
+            return response()->json(['status'=>true,'type'=>'add','photo_like'=>$like,'massage'=>'Successfully like photo']);
+        }
+    }
+
+    public function booking(){
+        $bookings = books::with('country')->with('state')->where('booked_user_id',Auth::user()->id)->get();
+        //dd($bookings);
+        return view('user.booking',compact('bookings'));
+    }
+
+    public function sendMailToModels(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'modelId'=>'required',
+                'subject'=>'required',
+                'message'=>'required',
+            ]);
+
+            //Send failed response if request is not valid
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $getModels = user::where('id',$request->modelId)->first();
+            $data = array(
+                'msg' => $request->message,
+                'sub' => $request->subject,
+                'modelsEmail' => $getModels->email,
+                'modelName' => $getModels->name,
+                'userEmail' => auth()->user()->email,
+                'userName' => auth()->user()->name,
+            );
+            Mail::send('emails.sendMailToModels', $data, function($m) use ($data) {
+                $m->to($data['modelsEmail'],$data['modelName'] );
+                $m->subject($data['sub']);
+                $m->from($data['userEmail'],$data['userName'] );
+            });
+            return back()->with('success', 'You send mail successfully');
+        } catch (Exception $e) {
+            return back()->with('error','something went wrong!'.$e);
+        }
     }
 }

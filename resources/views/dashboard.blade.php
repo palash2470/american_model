@@ -8,9 +8,25 @@
                     <h3>Dashboard</h3>
                 </div>
             </div>
+            <div class="col-12">
+                <div class="d-flex align-items-center">
+                    <span class="my-acc-menu-btn user_acc_menu">
+                        <button type="button">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
         </div>
         <div class="user-dashboard-wrap d-flex">
-            <div class="user-dashboard-lft">
+            <div class="user-dashboard-lft my_acc_lft">
+                <span class="acc_close">
+                    <button type="button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </span>
                 <div class="user-dashboard-wrap">
                     <div class="user-dashboard-prf-top">
                         <div class="img-wrap">
@@ -45,27 +61,28 @@
                                     <div class="views-img d-flex align-items-center">
                                         <ul class="d-flex">
                                             @if (count($user->viewes) > 6)
-                                                @foreach (array_slice($user->viewes , 0 ,6) as $view)
+                                                {{-- @foreach (array_slice($user->viewes , 0 ,6) as $view) --}}
+                                                @foreach ($user->viewes as $view)
                                                     <li>
                                                         <a href="javascript:">
-                                                            <img class="img-block" src="{{url('img/user/profile-image/'.$view->viewerUser->userDetails->profile_image)}}" alt="">
+                                                            <img class="img-block" src="{{url('img/user/profile-image/'.@$view->viewerUser->userDetails->profile_image)}}" alt="">
                                                         </a>
-                                                    </li>  
-                                                @endforeach 
+                                                    </li>
+                                                @endforeach
                                             @else
                                                 @foreach ($user->viewes as $view)
                                                     <li>
                                                         <a href="javascript:">
-                                                            <img class="img-block" src="{{url('img/user/profile-image/'.$view->viewerUser->userDetails->profile_image)}}" alt="">
+                                                            <img class="img-block" src="{{url('img/user/profile-image/'.@$view->viewerUser->userDetails->profile_image)}}" alt="">
                                                         </a>
-                                                    </li>  
-                                                @endforeach 
+                                                    </li>
+                                                @endforeach
                                             @endif
                                         </ul>
                                         <a href="#" class="views-all-btn" data-bs-toggle="modal" data-bs-target="#viewsModal">view all</a>
-                                    </div>  
+                                    </div>
                                     @endif
-                                    
+
                                 </li>
                                 <li class="gp">
                                     <a href="{{route('user.profile_edit')}}"><i class="far fa-image"></i><strong>{{count($user->images)}}</strong> images</a>
@@ -80,6 +97,14 @@
                         <ul>
                             <li><a href="{{route('user.profile_edit')}}" class="user-update-pic">Upload Pictures</a></li>
                             <li><a href="#" class="user-update-cal">Manage Calendar</a></li>
+                            @php
+                                if(isset(auth()->user()->userDetails) && auth()->user()->userDetails->membership_type_id === 5)
+                                {
+                            @endphp
+                                <li><a href="{{route('jobs')}}" class="user-update-cal">Jobs</a></li>
+                            @php
+                                }
+                            @endphp
                         </ul>
                     </div>
                 </div>
@@ -106,22 +131,22 @@
               <div class="row">
                 @if (count($user->viewes) > 0)
                     @foreach ($user->viewes as $view)
-                        
+
                     @endforeach
                     <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="views-modal-list d-flex align-items-center">
                         <div class="views-modal-list-lft">
-                            <a href="{{url('/profile/'.$view->viewerUser->category->slug.'/'.$view->viewerUser->name_slug)}}" class="profile-comments-img">
-                                <img class="img-block" src="{{url('img/user/profile-image/'.$view->viewerUser->userDetails->profile_image)}}" alt="">
+                            <a href="{{url('/profile/'.@$view->viewerUser->category->slug.'/'.$view->viewerUser->name_slug)}}" class="profile-comments-img">
+                                <img class="img-block" src="{{url('img/user/profile-image/'.@$view->viewerUser->userDetails->profile_image)}}" alt="">
                             </a>
-                        </div> 
+                        </div>
                         <div class="views-modal-list-rgt">
                             <h4>{{$view->viewerUser->name}}</h4>
-                            <p>{{$view->viewerUser->category->name}}, {{$view->viewerUser->userDetails->city_name}}</p>
-                        </div> 
+                            <p>{{@$view->viewerUser->category->name}}, {{@$view->viewerUser->userDetails->city_name}}</p>
+                        </div>
                         </div>
                     </div>
-                @endif 
+                @endif
               </div>
             </div>
           </div>
@@ -140,7 +165,7 @@
               <div class="row">
                 @if (count($user->favourites) > 0)
                     @foreach ($user->favourites as $favourite)
-                        
+
                     @endforeach
                     <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="views-modal-list d-flex align-items-center">
@@ -148,14 +173,14 @@
                             <a href="{{url('/profile/'.$favourite->favouriteUser->category->slug.'/'.$favourite->favouriteUser->name_slug)}}" class="profile-comments-img">
                                 <img class="img-block" src="{{url('img/user/profile-image/'.$favourite->favouriteUser->userDetails->profile_image)}}" alt="">
                             </a>
-                        </div> 
+                        </div>
                         <div class="views-modal-list-rgt">
                             <h4>{{$favourite->favouriteUser->name}}</h4>
                             <p>{{$favourite->favouriteUser->category->name}}, {{$favourite->favouriteUser->userDetails->city_name}}</p>
-                        </div> 
+                        </div>
                         </div>
                     </div>
-                @endif 
+                @endif
               </div>
             </div>
           </div>

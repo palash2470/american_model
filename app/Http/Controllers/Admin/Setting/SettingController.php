@@ -6,28 +6,80 @@ use App\Http\Controllers\Controller;
 use App\Models\HomeBanner;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-//use App\Models\Setting;
+use App\Models\Settings;
 class SettingController extends Controller
 {
     public function edit(){
-        //$settings = Setting::where('id',1)->first();
+        $settings = Settings::where('id',1)->first();
+        //dd($settings);
         return view('admin.setting.edit',compact('settings'));
     }
-   /*  public function update(Request $request){
+    public function update(Request $request){
+        //dd($request->all());
         $request->validate([
-            'order_tax' => 'required',
+            //'order_tax' => 'required',
         ]);
-        Setting::where('id',$request->id)
+        if($request->file('home_poll_image')){
+            $file= $request->file('home_poll_image');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('img/home'), $filename);
+            $image_name = $filename;
+            Settings::where('id',$request['id'])->update([
+                'home_poll_image' => $image_name,
+            ]);
+        }
+        
+        if($request->file('home_shop_image')){
+            $file= $request->file('home_shop_image');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('img/home'), $filename);
+            $image_name = $filename;
+            Settings::where('id',$request['id'])->update([
+                'home_shop_image' => $image_name,
+            ]);
+        }
+        
+        if($request->file('home_add_img1')){
+            $file= $request->file('home_add_img1');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('img/home'), $filename);
+            $image_name = $filename;
+            Settings::where('id',$request['id'])->update([
+                'home_add_img1' => $image_name,
+            ]);
+        }
+        if($request->file('home_add_img2')){
+            $file= $request->file('home_add_img2');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('img/home'), $filename);
+            $image_name = $filename;
+            Settings::where('id',$request['id'])->update([
+                'home_add_img2' => $image_name,
+            ]);
+        }
+        Settings::where('id',$request->id)
             ->update([
-                'order_tax'     => $request->order_tax,
-                'facebook_link' => $request->facebook_link,
-                'twitter_link'  => $request->twitter_link,
-                'linkedin_link' => $request->linkedin_link,
-                'insta_link'    => $request->insta_link,
+                'home_shop_category'     => $request->home_shop_category,
+                'home_shop_discount' => $request->home_shop_discount,
+                'home_shop_details'  => $request->home_shop_details,
+                'home_add_img1_link' => $request->home_add_img1_link,
+                'home_add_img2_link'    => $request->home_add_img2_link,
+                'newest_face'           => $request->newest_face,
+                'featured_models'           => $request->featured_models,
+                'child_model_and_acting'           => $request->child_model_and_acting,
+                'top_photographer'           => $request->top_photographer,
+                'convention_and_trade_show_model'           => $request->convention_and_trade_show_model,
+                'shop_section'           => $request->shop_section,
+                'advertisement_section'           => $request->advertisement_section,
+                'menu_about_us'           => $request->menu_about_us,
+                'menu_search'           => $request->menu_search,
+                'menu_become_a_member'           => $request->menu_become_a_member,
+                'menu_blog'           => $request->menu_blog,
+                'menu_job'           => $request->menu_job,
             
             ]);
         return redirect()->route('admin.setting.edit',1);
-    } */
+    }
     public function bannerIndex(Request $request){
         if ($request->ajax()) {
             $data = HomeBanner::all();
@@ -42,7 +94,11 @@ class SettingController extends Controller
         
                                 return $btn;
                         })
-                        ->rawColumns(['action'])
+                        ->addColumn('image_name',function($row){
+                            return $img = '<img src="'.url('/img/home_banner/'.$row->image_name.'').'" alt="Girl in a jacket" width="100px">
+                            ';
+                        })
+                        ->rawColumns(['action','image_name'])
                         ->make(true);
         }
         return view('admin.setting.home_banner.banner'); 
@@ -63,6 +119,7 @@ class SettingController extends Controller
         HomeBanner::create([
             'name' => $request['name'],
             'desc' => $request['desc'],
+            'sl_no' => $request['sl_no'],
             'image_name' => $image_name,
         ]);
         return redirect()->route('admin.home_banner.index')->with('success','Add Home banner successfully !');  
@@ -100,6 +157,7 @@ class SettingController extends Controller
         HomeBanner::where('id',$request['id'])->update([
             'name' => $request['name'],
             'desc' => $request['desc'],
+            'sl_no' => $request['sl_no'],
         ]);
         return redirect()->route('admin.home_banner.index')->with('success','Home Banner updated successfully !');
     }

@@ -37,6 +37,8 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
+                                            <th>Image</th>
+                                            <th>Sl No</th>
                                             <th width="100px">Action</th>
                                         </tr>
                                     </thead>
@@ -76,21 +78,40 @@
                                 <label for="brand">Banner Name</label>
                                 <input type="text" name="name" class="form-control" id="brand" value="{{isset($banner)?$banner->name:''}}" placeholder="Banner Name">
                                 @if($errors->has('name'))
-                                    <div class="custom-error">{{ $errors->first('name') }}</div>
+                                    <div class="error">{{ $errors->first('name') }}</div>
                                 @endif
                             </div>
                             <div class="form-group">
                                 <label for="desc">Banner Description</label>
                                 <textarea name="desc" class="form-control" id="desc" value="{{isset($banner)?$banner->desc:''}}" placeholder="Banner Desc">{{isset($banner)?$banner->desc:''}}</textarea>
                                 @if($errors->has('desc'))
-                                    <div class="custom-error">{{ $errors->first('desc') }}</div>
+                                    <div class="error">{{ $errors->first('desc') }}</div>
                                 @endif
                             </div>
                             <div class="form-group">
                                 <label for="image_name">Banner Image</label>
-                               <input type="file" name="image_name" class="form-control" id="image_name"
+                               {{-- <input type="file" name="image_name" class="form-control" id="image_name">
                                 @if($errors->has('image_name'))
-                                    <div class="custom-error">{{ $errors->first('image_name') }}</div>
+                                    <div class="error">{{ $errors->first('image_name') }}</div>
+                                @endif --}}
+                                <div class="onlyname-imgfile position-relative">
+                                    <div class="file-select">
+                                        <div class="file-select-name" id="noFile">No file chosen...</div> 
+                                        <input type="file" name="image_name" class="form-control" id="chooseFile">
+                                        <label for="chooseFile" class="file-label">File Upload</label>
+                                    </div>
+                                    @if (isset($banner) && $banner->image_name != '')
+                                        <div class="show-img">
+                                            <img src="{{url('/img/home_banner/'.$banner->image_name)}}" alt="" width="100px">
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sl_no">Sl No.</label>
+                                <input type="number" name="sl_no" class="form-control" id="sl_no" value="{{isset($banner)?$banner->sl_no:''}}" placeholder="Sl No">
+                                @if($errors->has('sl_no'))
+                                    <div class="error">{{ $errors->first('sl_no') }}</div>
                                 @endif
                             </div>
                             
@@ -99,9 +120,9 @@
 
                         <div class="card-footer">
                             @if(isset($id))
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="cmn-btn-tag">Update</button>
                             @else
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="cmn-btn-tag">Add</button>
                             @endif
                         </div>
                     </form>
@@ -122,9 +143,24 @@ $(document).ready(function(){
             ajax: "{{ route('admin.home_banner.index') }}",
             columns: [
                 {data: 'name', name: 'name'},
+                {data: 'image_name', name: 'image_name'},
+                {data: 'sl_no', name: 'sl_no'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
+    });
+
+    // File name
+    $('#chooseFile').bind('change', function () {
+    var filename = $("#chooseFile").val();
+    if (/^\s*$/.test(filename)) {
+        $(".file-upload").removeClass('active');
+        $("#noFile").text("No file chosen..."); 
+    }
+    else {
+        $(".file-upload").addClass('active');
+        $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+    }
     });
 });
 </script>

@@ -33,10 +33,10 @@
                             </div>
                             <!-- ./card-header -->
                             <div class="card-body table-responsive data-table-space">
-                                <table class="table table-bordered data-table">
+                                <table class="table table-bordered data-table text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th>Size (CM)</th>
+                                            <th>Size (Inch)</th>
                                             <th>Height</th>
                                             <th>Waist</th>
                                             <th>Chest/Bust</th>
@@ -56,7 +56,7 @@
                  <!-- /.row -->
             </div>
             <div class="col-lg-5 col-md-5 col-sm-12 col-12 connectedSortable">
-                <div class="card card-primary">
+                <div class="card">
                     <div class="card-header">
                         @if(isset($id))
                             <h3 class="card-title">Update Size</h3>
@@ -77,28 +77,28 @@
                     @csrf
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="brand">Size (CM)</label>
-                                <input type="text" name="size" class="form-control" id="brand" value="{{isset($get_size)?$get_size->size:''}}" placeholder="Size in cm">
+                                <label for="brand">Size (Inch)</label>
+                                <input type="text" name="size" class="form-control" id="brand" value="{{isset($get_size)?$get_size->size:''}}" placeholder="Size in inch">
                                 @if($errors->has('size'))
                                     <div class="custom-error">{{ $errors->first('size') }}</div>
                                 @endif
                             </div>
                             <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"  name="height" {{isset($get_size)?($get_size->height == 1 ? 'checked' : '0'):' '}}>
-                                    <label class="form-check-label">Height</label>
+                                <div class="form-check checkbox">
+                                    <input class="form-check-input" id="height" type="checkbox"  name="height" {{isset($get_size)?($get_size->height == 1 ? 'checked' : '0'):' '}}>
+                                    <label class="form-check-label" for="height">Height</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="waist" {{isset($get_size)?($get_size->waist == 1 ? 'checked' : '0') : ' '}}>
-                                    <label class="form-check-label">Waist</label>
+                                <div class="form-check checkbox">
+                                    <input class="form-check-input" id="waist" type="checkbox" name="waist" {{isset($get_size)?($get_size->waist == 1 ? 'checked' : '0') : ' '}}>
+                                    <label class="form-check-label" for="waist">Waist</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="chest" {{isset($get_size)?($get_size->chest == 1 ? 'checked' : '0') : ' '}}>
-                                    <label class="form-check-label">Chest/Bust</label>
+                                <div class="form-check checkbox">
+                                    <input class="form-check-input" id="chest_bust" type="checkbox" name="chest" {{isset($get_size)?($get_size->chest == 1 ? 'checked' : '0') : ' '}}>
+                                    <label class="form-check-label" for="chest_bust">Chest/Bust</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="hip" {{isset($get_size)?($get_size->hip == 1 ? 'checked' : '0') : ' '}}>
-                                    <label class="form-check-label">Hip/Inseam</label>
+                                <div class="form-check checkbox">
+                                    <input class="form-check-input" id="hip_inseam" type="checkbox" name="hip" {{isset($get_size)?($get_size->hip == 1 ? 'checked' : '0') : ' '}}>
+                                    <label class="form-check-label" for="hip_inseam">Hip/Inseam</label>
                                 </div>
                             </div>
                         </div>
@@ -106,9 +106,9 @@
 
                         <div class="card-footer">
                             @if(isset($id))
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="cmn-btn-tag">Update</button>
                             @else
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="cmn-btn-tag">Add</button>
                             @endif
                         </div>
                     </form>

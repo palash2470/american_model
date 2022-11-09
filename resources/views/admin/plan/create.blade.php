@@ -24,7 +24,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 connectedSortable">
-                <div class="card card-primary">
+                <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Add Member Plan</h3> 
                     </div>
@@ -113,7 +113,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="cmn-btn-tag">Save</button>
                         </div>
                     </form>
                 </div>

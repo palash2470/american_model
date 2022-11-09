@@ -40,7 +40,7 @@ class AuthenticationController extends Controller
         //dd($request->name);
         $validator = Validator::make($request->all(), [
             //'email' => 'required|email|unique:users',
-            
+            'agree' => 'accepted',
             'password' => 'required|confirmed|min:6',
             'g-recaptcha-response' => 'required|recaptchav3:signup,0.5',
             'email' => ['required','email', Rule::unique('users')->where(function ($query) use ($request) {
@@ -69,6 +69,8 @@ class AuthenticationController extends Controller
                 'password'  => Hash::make($request->password),
                 'user_type' => '2',
                 'model_id' => $model_id,
+                'status' => '0',
+                'ip_address' => $request->ip(),
                 'email_verify_token'  => $token,
             ]);
             
@@ -130,7 +132,11 @@ class AuthenticationController extends Controller
                 Mail::send('emails.wellcome',['user'=>$verifyUser], function($message) use($verifyUser){
                     $message->to($verifyUser->email);
                     $message->subject('Wellcome Mail');
-                    });
+                });
+                Mail::send('emails.admin_new_registration',['user'=>$verifyUser], function($message) use($verifyUser){
+                    $message->to('admin@gmail.com');
+                    $message->subject('New Registration ');
+                });    
                 return view('auth.successVerifyEmail');   
             } else {
                 $message = "Your e-mail is already verified. You can now login.";
@@ -153,7 +159,8 @@ class AuthenticationController extends Controller
         $credentials = $request->only('email', 'password');
         if(auth()->attempt(['email' => $credentials['email'], 'password' => $credentials['password'],'user_type'=>'2']))
         {   
-            User::where('id',Auth::user()->id)->update(['last_active' => Carbon::now()]);
+            //echo $request->ip();die;
+            User::where('id',Auth::user()->id)->update(['last_active' => Carbon::now(),'ip_address' => $request->ip()]);
             if(Session::has('url_back')){
                 return Redirect::to(Session::get('url_back'));
             }

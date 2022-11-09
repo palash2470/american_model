@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{url('images/favicon.ico')}}">
     <title>American Model</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -21,7 +22,8 @@
     <!-- Tempusdominus Bootstrap 4 -->
     <!-- <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"> -->
     <!-- iCheck -->
-    <link rel="stylesheet" href="{{url('/Admin/css/icheck-bootstrap.min.css')}}">
+    {{-- <link rel="stylesheet" href="{{url('/Admin/css/icheck-bootstrap.min.css')}}"> --}}
+    <link rel="stylesheet" href="{{url('/Admin/css/bootstrap.css')}}">
     <!-- JQVMap -->
     <!-- <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css"> -->
     <!-- Theme style -->
@@ -40,8 +42,16 @@
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="{{url('/Admin/js/moment.js')}}"></script>
     <script rel="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{url('/Admin/js/admincustom.js')}}"></script>
+    <script>
+        var base_url = '{{url('/')}}';
+        var csrf = '{{ csrf_token() }}';
+    </script>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -67,7 +77,8 @@
     // $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
-    <script src="{{url('/Admin/js/bootstrap.bundle.min.js')}}"></script>
+    {{-- <script src="{{url('/Admin/js/bootstrap.bundle.min.js')}}"></script> --}}
+    <script src="{{url('/Admin/js/bootstrap.js')}}"></script>
     <!-- ChartJS -->
     <!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
     <!-- Sparkline -->

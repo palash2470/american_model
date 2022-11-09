@@ -52,7 +52,7 @@
                  <!-- /.row -->
             </div>
             <div class="col-lg-5 col-md-5 col-sm-12 col-12 connectedSortable">
-                <div class="card card-primary">
+                <div class="card">
                     <div class="card-header">
                         @if(isset($id))
                             <h3 class="card-title">Update Ethnicity</h3>
@@ -84,9 +84,9 @@
 
                         <div class="card-footer">
                             @if(isset($id))
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="cmn-btn-tag">Update</button>
                             @else
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="cmn-btn-tag">Add</button>
                             @endif
                         </div>
                     </form>

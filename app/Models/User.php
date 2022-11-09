@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +25,8 @@ class User extends Authenticatable
         'user_type',
         'email_verify_token',
         'model_id',
+        'ip_address',
+        'status',
     ];
 
     /**
@@ -52,7 +55,7 @@ class User extends Authenticatable
     public function userPlan(){
         return $this->hasOne(UserPlan::class,'user_id','id')->where('status',1);
     }
-    
+
     public function category(){
         return $this->hasOne(Category::class,'id','membership_id');
     }
@@ -74,5 +77,13 @@ class User extends Authenticatable
     }
     public function followings(){
         return $this->hasMany(Follow::class,'following_id','id');
+    }
+
+    public function comments(){
+        return $this->hasMany(ProfileComment::class,'comment_to_user_id','id')/* ->orderBy('id','desc') */;
+    }
+
+    public function usersComments(){
+        return $this->hasMany(ProfileComment::class,'comment_to_user_id','id')->orderBy('id','desc');
     }
 }

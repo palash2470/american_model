@@ -23,11 +23,10 @@ class CategoryController extends Controller
             return DataTables::of($data)
                         ->addIndexColumn()
                         ->addColumn('action', function($row){
-        
-                            $btn = '<a class="edtBtn" href="'.route('admin.category.edit',$row['id']).'"><i class="fas fa-edit"></i></a>';
-                            $btn  .='&nbsp;&nbsp;&nbsp;&nbsp;';
-                            $btn .= '<a class="delBtn" href="'.route('admin.category.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
-        
+                            $btn = '<ul class="datatable-action-btn">';
+                            $btn .= '<li><a class="edtBtn edit-btn" href="'.route('admin.category.edit',$row['id']).'"><i class="fas fa-edit"></i></a></li>';
+                            $btn .= '<li><a class="delBtn delete-btn" href="'.route('admin.category.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a></li>';
+                            $btn .= '</ul>' ;  
                                 return $btn;
                         })
                         ->rawColumns(['action'])
@@ -92,9 +91,10 @@ class CategoryController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
      
-                           $btn = '<a class="edtBtn" href="'.route('admin.category.edit',$row['id']).'"><i class="fas fa-edit"></i></a>';
-                           $btn  .='&nbsp;&nbsp;&nbsp;&nbsp;';
-                           $btn .= '<a class="delBtn" href="'.route('admin.category.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
+                            $btn = '<ul class="datatable-action-btn">';
+                            $btn .= '<li><a class="edtBtn edit-btn" href="'.route('admin.category.edit',$row['id']).'"><i class="fas fa-edit"></i></a></li>';
+                            $btn .= '<li><a class="delBtn delete-btn" href="'.route('admin.category.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a></li>';
+                            $btn .= '</ul>' ; 
        
                             return $btn;
                     })

@@ -21,13 +21,15 @@
         <link rel="stylesheet" href="{{url('custom-fonts/custom_font.css')}}" media="all">
         <link rel="stylesheet" href="{{url('css/jquery.fancybox.min.css')}}" media="all">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"/>
+
+        <link rel="stylesheet" href="{{url('css/jquery-ui.css')}}" type="text/css" media="all" />
         <!-- Css Style -->
         <link rel="stylesheet" href="{{url('css/style.css')}}" media="all">
 
          <!-- Jquary -->
         <script src="{{url('js/jquery-3.6.0.js')}}"></script>
         <!-- Bootstrap js -->
-        <script src="{{url('js/bootstrap.js')}}"></script>    
+        <script src="{{url('js/bootstrap.js')}}"></script>
         <!-- owl -->
         <script src="{{url('js/owl.carousel.js')}}"></script>
         <!-- WOW -->
@@ -37,9 +39,17 @@
         {{-- Validation  --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
         <script src="{{url('js/jquery.fancybox.min.js')}}"></script>
+
+        <script src="{{url('js/jquery-ui.min.js')}}"></script>
         <!-- Custom Js -->
         <script src="{{url('js/custom.js')}}"></script>
         <script src="{{url('js/developer.js')}}"></script>
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
         <script>
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -53,10 +63,10 @@
 <body>
     <!-- Header -->
     @include('includes.header')
-    
+
     <!-- Body -->
     @yield('content')
-    
+
     <!-- Footer -->
     @include('includes.footer')
 
@@ -75,6 +85,20 @@
             </div>
         </div>
     </div> --}}
+    <div class="loader-wrap" id="loading_container" style="display: none">
+        <div class="mesh-loader-wrap">
+            <div class="mesh-loader">
+            <div class="set-one">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <div class="set-two">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
     {{-- End loader --}}
 </body>
 </html>

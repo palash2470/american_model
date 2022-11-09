@@ -34,12 +34,13 @@
 }
 
 .logo {
-    flex: 0 0 198px;
-    max-width: 198px;
+    flex: 0 0 270px;
+    max-width: 270px;
+    // max-width: 198px;
     padding: 0 15px;
     a {
         display: block;
-        max-width: 130px;
+        // max-width: 150px;
     }
 }
 
@@ -86,7 +87,7 @@
     flex-grow: 1;
     max-width: 100%;
     position: relative;
-    margin: 0 15px;
+    margin: 0 5px;
 }
 
 .navigation ul li a {
@@ -96,7 +97,8 @@
     text-align: center;
     text-transform: uppercase;
     letter-spacing: .5px;
-    padding: 0 25px;
+    padding: 0 5px;
+    // padding: 0 25px;
     font-weight: 600;
     line-height: 2;
     font-family: "TrajanPro";
@@ -124,7 +126,9 @@
 //     transform: scale(1, 1);
 //     transform-origin: left;
 // }
-
+.navigation{
+    width: 100%;
+}
 .navigation ul li a::before {
     content: "";
     position: absolute;
@@ -137,6 +141,22 @@
     top: 50%;
     transform: translateY(-50%) scale(0);
     transition: all .3s ease-in-out;
+}
+.navigation{
+    &.after-login-menu{
+        ul{
+            li{
+                a{
+                    &::before{
+                        left: 30px; 
+                    }
+                }
+            }
+        }
+    }
+}
+.navigation ul li.sub_menu_open .submenu li a::before {
+    left: 0;
 }
 
 .navigation ul > li.active > a::before,
@@ -160,8 +180,12 @@
     color: #000;
     padding-left: 0;
 }
+.navigation ul li ul.submenu li {
+    margin: 0 15px;
+}
 
-.navigation ul li ul.submenu li a:hover {
+.navigation ul li ul.submenu li a:hover,
+.navigation ul li ul.submenu li.active a {
     // color: #fff;
     // background: #29538f;
     padding-left: 25px;
@@ -189,20 +213,21 @@
 }
 
 .login-area {
-    flex: 0 0 200px;
-    max-width: 200px;
+    flex: 0 0 225px;
+    max-width: 225px;
     padding: 0 15px;
-}
-
-.login-area .login-btn {
-    line-height: 2.5;
-    display: block;
-    border: 1px solid #1dcdfe;
-    padding: 0 15px;
-    color: #1dcdfe;
-    font-size: 15px;
-    font-weight: 500;
-    text-align: center;
+    display: flex;
+    justify-content: end;
+    .login-btn {
+        line-height: 2.5;
+        display: block;
+        border: 1px solid #1dcdfe;
+        padding: 0 15px;
+        color: #1dcdfe;
+        font-size: 15px;
+        font-weight: 500;
+        text-align: center;
+    }
 }
 
 .main-background {
@@ -218,7 +243,7 @@
 .start-header {
 	opacity: 1;
 	// transform: translateY(0);
-	padding: 15px 0;
+	padding: 10px 0;
 	transition : all 0.3s ease-out;
     box-shadow: 0 5px 10px 9px rgb(138 155 165 / 8%);
     &.scroll-on{
@@ -263,7 +288,7 @@
     .after-login-menu-wrap{
         position: absolute;
         right: 0;
-        width: 100%;
+        width: 150px;
         background: #fff;
         top: 150%;
         padding: 5px;
@@ -298,7 +323,7 @@
     }
 }
 .top-header-bar {
-    background: #000;
+    background: #c10816;
     padding: 15px 0;
 }
 .top-phone{
@@ -403,26 +428,31 @@
 }
 .log-reg-nav {
     ul{
-        a{
-            color: #000;
-            font-size: 15px;
-            display: block;
-            text-align: center;
-            text-transform: capitalize;
-            letter-spacing: 0.5px;
-            padding: 0 10px;
-            font-weight: 600;
-            line-height: 2;
-            font-family: "TrajanPro";
-            &:hover{
-                color: #d90303;
-            }
-            &.reg-nav{
-                background-color: #000;
-                color: #fff;
+        li{
+            a{
+                color: #000;
+                font-size: 15px;
+                display: block;
+                text-align: center;
+                text-transform: capitalize;
+                letter-spacing: 0.5px;
+                padding: 0 10px;
+                font-weight: 600;
+                line-height: 2;
+                font-family: "TrajanPro";
                 &:hover{
-                    background: #d90303;
+                    color: #d90303;
+                }
+                i{
+                    margin-right: 8px;
+                }
+                &.reg-nav{
+                    background-color: #c10816;
                     color: #fff;
+                    &:hover{
+                        background: #000;
+                        color: #fff;
+                    }
                 }
             }
         }

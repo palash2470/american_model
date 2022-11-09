@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\TryCatch;
 use Carbon\Carbon;
 use App\Models\PlanGroup;
+use App\Models\User;
 use App\Models\UserPlan;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -46,8 +49,11 @@ class PaymentController extends Controller
         if($request->pay_method == 'paypal'){
             return  $this->paypalPayment($user_plan,$payment->id);
         }elseif($request->pay_method == 'card'){
+            $countres = Country::all();
             $enc_plan_id = $request->user_plan;
-            return view('payment.stripe',compact('enc_plan_id'));
+            $user = Auth::user();
+            $payment_id = encrypt($payment->id);
+            return view('payment.stripe',compact('enc_plan_id','countres','user','user_plan','payment_id'));
         }
     }
 
@@ -121,7 +127,7 @@ class PaymentController extends Controller
             //update responce status
             Payment::where('transaction_id', $response['id'])
             ->update(['payment_status'=> $response['status']]);
-
+            User::where('id',Auth::user()->id)->update(['is_subscribe'=>1,'is_payment'=>1]);
             //Get order details
             /* $order = order::with('orderDetails')
             ->where('transaction_id',$response['id'])
@@ -137,7 +143,7 @@ class PaymentController extends Controller
             }); */
 
             //return view('finishPayment');
-            return redirect()->route('dashboard')->with('success', 'Transaction complete.');
+            return redirect()->route('payment.success')->with('success', 'Transaction complete.');
         } else {
             return redirect()
             ->route('user.payment')
@@ -155,6 +161,68 @@ class PaymentController extends Controller
         Payment::where('transaction_id', $request['token'])
         ->update(['payment_status'=> 'CANCEL']);
         return redirect()->route('dashboard')->with('error', $response['message'] ?? 'You have canceled the transaction.');
+    }
+
+    //Stripe palyment
+    public function stripePost(Request $request){
+        $user_plan_id =  decrypt($request->plan);
+        $payment_id =  decrypt($request->payment);
+        //$payment = Payment::where('id',$payment_id)->first();
+        $user_plan = UserPlan::where('id',$user_plan_id)->first();
+        //echo round($user_plan->price);die;
+        if(isset($user_plan)){
+            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+            try {
+                $payment = $stripe->charges->create([
+                    'shipping' => [
+                        'name' => $request->name,
+                        'address' => [
+                        'line1' => $request->address,
+                        'postal_code' => $request->zip_code,
+                        'city' => $request->city,
+                        'state' => $request->state ? Helper::getDataById('App\Models\State','id',$request->state)->name : '',
+                        'country' => $request->country ? Helper::getDataById('App\Models\Country','id',$request->country)->iso : '',
+                        ],
+                    ],
+                    'amount' => $user_plan->price*100,
+                    //'amount' => 10,
+                    'currency' => 'usd',
+                    'source' => $request->stripeToken,
+                    'description' => 'Subscription',
+                    //"metadata" => ["order_id" => "6735"]
+                ]);
+                
+                if($payment['status'] == 'succeeded') {
+                    Payment::where('id', $payment_id)
+                    ->update(['payment_status'=> 'COMPLETED','transaction_id'=>$payment['id']]);
+                    User::where('id',Auth::user()->id)->update(['is_subscribe'=>1,'is_payment'=>1]);
+                    return redirect()->route('payment.success');
+                }else{
+                    Session::flash('error', 'Something went wrong!');
+                    return back();
+                } 
+            } catch(\Stripe\Exception\CardException $e) {
+                Session::flash('error', "A payment error occurred: {$e->getError()->message}");
+                return back();
+                //error_log("A payment error occurred: {$e->getError()->message}");
+            } catch (\Stripe\Exception\InvalidRequestException $e) {
+                Session::flash('error', "An invalid request occurred.: {$e->getError()->message}");
+                return back();
+                //error_log("An invalid request occurred.");
+            } catch (Exception $e) {
+                Session::flash('error', "Another problem occurred, maybe unrelated to Stripe.");
+                return back();
+                //error_log("Another problem occurred, maybe unrelated to Stripe.");
+            }    
+        }else{
+            Session::flash('error', 'Something went wrong!');
+            return back();
+        }
+       
+    }
+
+    public function successPayment(){
+        return view('payment.success');
     }
 
 }

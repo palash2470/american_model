@@ -45,25 +45,25 @@
                         <input type="hidden" name="crop_image" id="crop_image" value="">
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 col-12">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                             <div class="src-input-wrap">
                                 <label>First Name</label>
-                                <input type="text" class="form-control src-input-style @if($errors->has('first_name')) error @endif" name="first_name" value="@if(isset($user)) {{$user->userDetails->first_name}}@endif">
+                                <input type="text" class="form-control src-input-style @if($errors->has('first_name')) error @endif" name="first_name" placeholder="First Name" value="@if(isset($user)) {{$user->userDetails->first_name}}@endif">
                             </div>
                         </div>
-                        <div class="col-lg-4 col-12">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                             <div class="src-input-wrap">
                                 <label>Middle Name</label>
-                                <input type="text" class="form-control src-input-style @if($errors->has('middle_name')) error @endif" name="middle_name" value="@if(isset($user)) {{$user->userDetails->middle_name}}@endif">
+                                <input type="text" class="form-control src-input-style @if($errors->has('middle_name')) error @endif" name="middle_name" placeholder="Middle Name" value="@if(isset($user)) {{$user->userDetails->middle_name}}@endif">
                             </div>
                         </div>
-                        <div class="col-lg-4 col-12">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                             <div class="src-input-wrap">
                                 <label>Last Name</label>
-                                <input type="text" class="form-control src-input-style @if($errors->has('last_name')) error @endif" name="last_name" value="@if(isset($user)) {{$user->userDetails->last_name}}@endif">
+                                <input type="text" class="form-control src-input-style @if($errors->has('last_name')) error @endif" name="last_name" placeholder="Last Name" value="@if(isset($user)) {{$user->userDetails->last_name}}@endif">
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="src-select-wrap">
                                 <label>gender</label>
                                 <select class="form-control src-select-style selectOption2 @if($errors->has('gender')) error @endif" name="gender">
@@ -73,13 +73,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="src-input-wrap">
                                 <label>birthday</label>
                                 <input type="date" class="form-control src-input-style @if($errors->has('dob')) error @endif" name="dob" value="@if(isset($user)){{$user->userDetails->dob}}@endif">
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="src-select-wrap">
                                 <label>country</label>
                                 <select class="form-control src-select-style selectOption2 @if($errors->has('country_id')) error @endif" name="country_id" id="country-dd">
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <input type="hidden" id="selected_state" value="@if(isset($user)){{$user->userDetails->state_id}}@endif">
-                        <div class="col-lg-6 col-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="src-select-wrap">
                                 <label>state</label>
                                 <select class="form-control src-select-style selectOption2 @if($errors->has('state_id')) error @endif" name="state_id" id="state-dd">
@@ -110,19 +110,62 @@
                                 </select>
                             </div>
                         </div> --}}
-                        <div class="col-lg-6 col-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="src-input-wrap">
                                 <label>City</label>
-                                <input type="text" class="form-control src-input-style @if($errors->has('city_name')) error @endif" name="city_name" value="@if(isset($user)){{$user->userDetails->city_name}}@endif">
+                                <input type="text" class="form-control src-input-style @if($errors->has('city_name')) error @endif" name="city_name" placeholder="City" value="@if(isset($user)){{$user->userDetails->city_name}}@endif">
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="src-input-wrap">
                                 <label>zip code</label>
-                                <input type="text" class="form-control src-input-style @if($errors->has('zip_code')) error @endif" name="zip_code" value="@if(isset($user)){{$user->userDetails->zip_code}}@endif">
+                                <input type="text" class="form-control src-input-style @if($errors->has('zip_code')) error @endif" name="zip_code" placeholder="Zip Code" value="@if(isset($user)){{$user->userDetails->zip_code}}@endif">
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                            <div class="src-input-wrap">
+                                <label>Booking Amount (USD)</label>
+                                <div class="ad-price-type">
+                                    <input type="number" class="form-control src-input-style" name="booking_amount_hour" placeholder="Amount (USD/Hour)" value="@if(isset($user)){{$user->userDetails->booking_amount_hour}}@endif">
+                                    <span class="ad-price-name">Hour</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                            <div class="src-input-wrap">
+                                <label>Booking Amount (USD)</label>
+                                <div class="ad-price-type">
+                                    <input type="number" class="form-control src-input-style" name="booking_amount_day" placeholder="Amount (USD/Day)" value="@if(isset($user)){{$user->userDetails->booking_amount_day}}@endif">
+                                    <span class="ad-price-name">Day</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                            <div class="src-input-wrap">
+                                <label>Booking Amount (USD)</label>
+                                <div class="ad-price-type">
+                                    <input type="number" class="form-control src-input-style" name="booking_amount_week" placeholder="Amount (USD/Week)" value="@if(isset($user)){{$user->userDetails->booking_amount_week}}@endif">
+                                    <span class="ad-price-name">Week</span>
+                                </div>
+                            </div>
+                        </div>
+                       {{--  <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="src-input-wrap">
+                                <label>Booking Amount (USD)</label>
+                                <input type="text" class="form-control src-input-style" name="booking_amount" placeholder="Booking Amount (USD)" value="@if(isset($user)){{$user->userDetails->booking_amount}}@endif">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="src-select-wrap">
+                                <label>Select Booking Amount PER</label>
+                                <select class="form-control src-select-style selectOption2" name="booking_amount_per">
+                                    <option value="hour">Hour</option>
+                                    <option value="day">Day</option>
+                                    <option value="week">Week</option>
+                                </select>
+                            </div>
+                        </div> --}}
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="src-select-wrap">
                                 <label>Member Type</label>
                                 <select class="form-control src-select-style selectOption2 @if($errors->has('membership_type_id')) error @endif" name="membership_type_id">

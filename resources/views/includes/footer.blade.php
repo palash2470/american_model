@@ -1,55 +1,43 @@
-<footer class="footer">
+<footer class="footer bg-footer" style="background: url({{ url('images/bg-footer.png') }}) no-repeat center center;">
     <div class="container-fluid left-right-40">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="ftr-about">
                     <span class="ftr-logo">
-                        <img class="img-block" src="{{url('images/ftr-logo.png')}}" alt="">
+                        <img class="img-block" src="{{ url('images/logo.png') }}" alt="">
                     </span>
-                    <p>W. Vista Ave, Phoenix, AZ 85069</p>
+                    {{-- <p><i class="fas fa-map-marker-alt"></i>W. Vista Ave, Phoenix, AZ 85069</p> --}}
                     <ul class="ftr-contact">
+                        <li><i class="fas fa-map-marker-alt"></i>W. Vista Ave, Phoenix, AZ 85069</li>
                         <li><a href="#"><i class="far fa-envelope"></i>admin@americanmodel.net</a></li>
-                        <li><a href="#"><i class="fas fa-phone-square"></i>(480) 265-0187</a></li>
+                        <li><a href="#"><i class="fas fa-phone-alt"></i>(480) 265-0187</a></li>
                     </ul>
                     <p>All Rights Reserved By Model Management, LLC.</p>
-                    <ul class="d-flex ftr-social">
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                <div class="ftr-menu-box">
-                    <h4>Q & A Usefull Links</h4>
-                    <ul>
-                        <li><a href="#">Lorem ipsum dolor sit amet ?</a></li>
-                        <li><a href="#">Sed ut perspiciatis unde omnis iste?</a></li>
-                        <li><a href="#">Ut enim ad minima veniam quis ?</a></li>
-                        <li><a href="#">But I must explain to you how all?</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                <div class="ftr-menu-box">
-                    <h4>LATEST POST</h4>
-                    <ul>
-                        <li><a href="#">Lorem ipsum dolor sit amet ?
-                            <span class="dates">April 16, 2019 by AmericanModel</span>
-                        </a></li>
-                        <li><a href="#">Sed ut perspiciatis unde omnis iste?
-                            <span class="dates">April 16, 2019 by AmericanModel</span>
-                        </a></li>
-                        <li><a href="#">Ut enim ad minima veniam quis ?
-                            <span class="dates">April 16, 2019 by AmericanModel</span>
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-12">
-                <div class="ftr-menu-box">
-                    <h4>INSTAGRAM</h4>
+            <div class="col-lg-5 col-md-6 col-sm-6 col-12">
+                <ul class="d-flex justify-content-center ftr-social-list">
+                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                </ul>
+                <div class="ftr-newsltr">
+                    <p>Subscribe to our Newsletter and stay update</p>
+                    {{-- Ajax  call developer.js  --}}
+                    <form action="" method="GET"  id="newsletter_form">
+                        @csrf
+                        <div class="ftr-newsltr-wrap d-flex">
+                            <div class="newsltr-wrap-lft">
+                                <div class="input-white-wrap">
+                                    <input type="email" name="email" class="form-control input-white" placeholder="ex. email@gmail.com" required>
+                                </div>
+                            </div>
+                            <div class="newsltr-wrap-rgt">
+                                <button type="submit" class="ftr-subs-btn">subscribe</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -24,12 +24,13 @@ class SizeController extends Controller
             return DataTables::of($data)
                         ->addIndexColumn()
                         ->addColumn('action', function($row){
+
+                            $btn = '<ul class="datatable-action-btn">';
+                            $btn .= '<li><a class="edtBtn edit-btn" href="'.route('admin.size.edit',$row['id']).'"><i class="fas fa-edit"></i></a></li>';
+                            $btn .= '<li><a class="delBtn delete-btn delete-item" href="#" data-url="'.route('admin.size.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a></li>';
+                            $btn .= '</ul>' ;
         
-                            $btn = '<a class="edtBtn" href="'.route('admin.size.edit',$row['id']).'"><i class="fas fa-edit"></i></a>';
-                            //$btn  .='&nbsp;&nbsp;&nbsp;&nbsp;';
-                            //$btn .= '<a class="delBtn" href="'.route('admin.colour.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
-        
-                                return $btn;
+                            return $btn;
                         })
                         ->addColumn('height', function($row){
                             return $row['height'] == 1 ? '<i class="fas fa-check-circle"></i>' : '<i class="fa fa-times-circle" aria-hidden="true"></i>
@@ -112,11 +113,12 @@ class SizeController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
      
-                           $btn = '<a class="edtBtn" href="'.route('admin.size.edit',$row['id']).'"><i class="fas fa-edit"></i></a>';
-                           //$btn  .='&nbsp;&nbsp;&nbsp;&nbsp;';
-                           //$btn .= '<a class="delBtn" href="'.route('admin.category.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
-       
-                            return $btn;
+                        $btn = '<ul class="datatable-action-btn">';
+                        $btn .= '<li><a class="edtBtn edit-btn" href="'.route('admin.size.edit',$row['id']).'"><i class="fas fa-edit"></i></a></li>';
+                        $btn .= '<li><a class="delBtn delete-btn delete-item" href="#" data-url="'.route('admin.size.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a></li>';
+                        $btn .= '</ul>' ;
+    
+                        return $btn;
                     })
                     ->addColumn('height', function($row){
                         return $row['height'] == 1 ? '<i class="fas fa-check-circle"></i>' : '<i class="fa fa-times-circle" aria-hidden="true"></i>
@@ -167,8 +169,9 @@ class SizeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        Size::find($id)->delete();
+        return redirect()->route('admin.size.index')->with('success','Size deleted successfully !');
     }
 }

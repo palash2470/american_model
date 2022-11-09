@@ -428,3 +428,98 @@ input:focus, select:focus, textarea:focus{
     }
 }
 
+.ad-price-type{
+    position: relative;
+    .ad-price-name{
+        position: absolute;
+        right: 0;
+        top: 0;
+        background: #3e3e3e;
+        height: 38px;
+        line-height: 38px;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 0 10px;
+        color: #fff;
+        .src-input-style{
+            padding-right: 55px;
+        }
+    }
+}
+
+.book-input-wrap {
+    margin-bottom: 6px;
+    label{
+        font-weight: 500;
+        text-transform: capitalize;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    .book-input-style{
+        background: #fff;
+        border-radius: 0px;
+        padding: 5px 10px;
+        color: #000;
+        height: 34px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+}
+.book-select-wrap{
+    margin-bottom: 6px;
+    label{
+        font-weight: 500;
+        text-transform: capitalize;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    .book-select-style{
+        background-color: #fff;
+        border-radius: 0px;
+        padding: 5px 25px 5px 15px;
+        color: #000;
+        height: 34px;
+        font-size: 14px;
+        font-weight: 500;
+        border: 1px solid #ced4da;
+    }
+}
+.book-txtare-wrap{
+    margin-bottom: 6px;
+    label{
+        font-weight: 500;
+        text-transform: capitalize;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    .book-txtare-style{
+        background-color: #fff;
+        border-radius: 0px;
+        padding: 5px 10px;
+        color: #000;
+        font-size: 14px;
+        font-weight: 500;
+        resize: none;
+    }
+}
+
+
+.log-input2 {
+    margin-bottom: 12px;
+    label{
+        font-weight: 500;
+        text-transform: capitalize;
+    }
+    .log-input-style2{
+        background: #fff;
+        border: none;
+        border-radius: 0px;
+        padding: 5px 15px;
+        color: #000;
+        height: 34px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+}
+
+

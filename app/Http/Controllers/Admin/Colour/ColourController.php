@@ -22,8 +22,11 @@ class ColourController extends Controller
             return DataTables::of($data)
                         ->addIndexColumn()
                         ->addColumn('action', function($row){
-        
-                            $btn = '<a class="edtBtn" href="'.route('admin.colour.edit',$row['id']).'"><i class="fas fa-edit"></i></a>';
+                            $btn = '<ul class="datatable-action-btn">';
+                            $btn .= '<li><a class="edtBtn edit-btn" href="'.route('admin.colour.edit',$row['id']).'"><i class="fas fa-edit"></i></a></li>';
+                            $btn .= '<li><a class="delBtn delete-btn delete-item" href="#" data-url="'.route('admin.colour.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a></li>';
+                            $btn .= '</ul>' ;
+                            // $btn = '<a class="edtBtn" href="'.route('admin.colour.edit',$row['id']).'"><i class="fas fa-edit"></i></a>';
                             //$btn  .='&nbsp;&nbsp;&nbsp;&nbsp;';
                             //$btn .= '<a class="delBtn" href="'.route('admin.colour.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
         
@@ -105,7 +108,9 @@ class ColourController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
      
-                           $btn = '<a class="edtBtn" href="'.route('admin.category.edit',$row['id']).'"><i class="fas fa-edit"></i></a>';
+                            $btn = '<ul class="datatable-action-btn">';
+                            $btn .= '<li><a class="edtBtn edit-btn" href="'.route('admin.colour.edit',$row['id']).'"><i class="fas fa-edit"></i></a></li>';
+                            $btn .= '</ul>' ;
                            //$btn  .='&nbsp;&nbsp;&nbsp;&nbsp;';
                            //$btn .= '<a class="delBtn" href="'.route('admin.category.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
        
@@ -155,8 +160,9 @@ class ColourController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        Colour::find($id)->delete();
+        return redirect()->route('admin.colour.index')->with('success','Colour deleted successfully !');
     }
 }

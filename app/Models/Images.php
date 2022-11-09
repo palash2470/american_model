@@ -12,4 +12,14 @@ class Images extends Model
     protected $table = 'images';
 
     protected $fillable = ['title','user_id','image'];
+
+    public function comments(){
+        return $this->hasMany(PhotoComment::class,'photo_id','id');
+    }
+    public function user(){
+        return $this->hasOne(User::class,'id','user_id');
+    }
+    public function likes(){
+        return $this->hasMany(PhotoLike::class,'photo_id','id');
+    }
 }

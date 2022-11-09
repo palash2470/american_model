@@ -11,11 +11,12 @@ class Helper
         return strtoupper($string);
     } */
 
-    public static function cmTofeet($cm){
+    public static function cmTofeet($inch){
        //Convert the cm into inches by multiplying the figure by 0.393701
-        $inches = round($cm * 0.393701);
+        //$inches = round($cm * 0.393701);
+        $inches = $inch;
         //Get the feet by dividing the inches by 12.
-        $feet = intval($inches / 12);
+        $feet = intval($inch / 12);
         //Then, get the remainder of that division.
         $inches = $inches % 12;
         //If there is no remainder, then it's an even figure
@@ -112,4 +113,7 @@ class Helper
         ];
     }
 
+    public static function getDataById($model,$column,$value){
+        return $model::where($column, $value)->first();
+    }
 }

@@ -52,7 +52,7 @@
                 <div class="model-user-info d-flex flex-wrap align-items-end justify-content-between">
                     <div class="model-user-info-lft">
                         <div class="model-name">
-                            <h3>{{@$user->userDetails->name}}</h3>
+                            <h3>{{@$user->name}}</h3>
                             <ul class="ratting-star d-flex">
                                 <li><i class="fas fa-star"></i></li>
                                 <li><i class="fas fa-star"></i></li>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="model-user-info-rgt">
                         <div class="model-user">
-                            <p>{{$user->userDetails->city_name}}, {{$user->userDetails->getState->iso2}}</p>
+                            <p>{{$user->userDetails->city_name}}, {{@$user->userDetails->getState->iso2}}</p>
                             {{-- <p>{{url('/'.$user->category->slug.'/'.$user->name_slug)}}</p> --}}
                             <ul class="d-flex copy-url">
                                 <li class="crnt-url">{{url('/profile/'.$user->category->slug.'/'.$user->name_slug)}}</li>
@@ -281,7 +281,7 @@
                                                                 <select class="form-control edit-select-style selectOptionEdit disabled" id="weight" name="weight">
                                                                     @if ($weights)
                                                                     @foreach ($weights as $weight)
-                                                                        <option value="{{$weight->weight}}" @if (isset($user) && $user->userDetails->weight == $weight->weight) selected @endif>{{Helper::kgToLb($weight->weight)}} lbs / {{$weight->weight}} kg</option>
+                                                                        <option value="{{$weight->weight}}" @if (isset($user) && $user->userDetails->weight == $weight->weight) selected @endif>{{Helper::kgToLb($weight->weight)}} lbs {{-- / {{$weight->weight}} kg --}}</option>
                                                                     @endforeach
                                             
                                                                 @endif
@@ -303,7 +303,7 @@
                                                                 <select class="form-control edit-select-style selectOptionEdit disabled" id="height" name="height">
                                                                     @if(Helper::getSizeByAttr('height'))
                                                                         @foreach (Helper::getSizeByAttr('height') as $data)
-                                                                            <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->height == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} /{{$data->size}}cm</option>
+                                                                            <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->height == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </select>
@@ -366,7 +366,7 @@
                                                                 <select class="form-control edit-select-style selectOptionEdit disabled" id="waist" name="waist">
                                                                     @if(Helper::getSizeByAttr('waist'))
                                                                         @foreach (Helper::getSizeByAttr('waist') as $data)
-                                                                            <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->waist == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} /{{$data->size}}cm</option>
+                                                                            <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->waist == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </select>
@@ -387,7 +387,7 @@
                                                                 <select class="form-control edit-select-style selectOptionEdit disabled" id="chest" name="chest">
                                                                     @if(Helper::getSizeByAttr('chest'))
                                                                         @foreach (Helper::getSizeByAttr('chest') as $data)
-                                                                            <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->chest == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} /{{$data->size}}cm</option>
+                                                                            <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->chest == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </select>
@@ -429,7 +429,7 @@
                                                                 <select class="form-control edit-select-style selectOptionEdit disabled" id="hip" name="hip">
                                                                     @if(Helper::getSizeByAttr('hip'))
                                                                         @foreach (Helper::getSizeByAttr('hip') as $data)
-                                                                            <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->hip == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} /{{$data->size}}cm</option>
+                                                                            <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->hip == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </select>
@@ -443,7 +443,7 @@
                                 </div>
                                 </div>
                                 
-                                <div class="accordion-item">
+                                {{-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="infoThree">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                     Experience
@@ -474,7 +474,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                </div>
+                                </div> --}}
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="infoFour">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
@@ -563,6 +563,128 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="infoEight">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSix">
+                                        Rates
+                                    </button>
+                                    </h2>
+                                    <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="infoEight" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="info-edit-wrap d-flex align-items-center">
+                                                <div class="info-edit-lft">
+                                                    <h4>Per Hours</h4>
+                                                </div>
+                                                <div class="info-edit-rgt">
+                                                    <div class="info-edit-box d-flex align-items-center">
+                                                        <div class="info-edit-icon" onclick="enabledOption('booking_amount_hour')"><i class="fas fa-pencil-alt"></i></div>
+                                                        <div class="info-edit-value">
+                                                            <div class="edit-value-input add-dlr-icon">
+                                                                <input type="number" class="form-control edit-input-style disabled" placeholder="Enter Amount in USD" id="booking_amount_hour" name="booking_amount_hour" value="{{$user->userDetails->booking_amount_hour}}">
+                                                                <span class="dlr-icon"><i class="fas fa-dollar-sign"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="info-edit-wrap d-flex align-items-center">
+                                                <div class="info-edit-lft">
+                                                    <h4>Per day</h4>
+                                                </div>
+                                                <div class="info-edit-rgt">
+                                                    <div class="info-edit-box d-flex align-items-center">
+                                                        <div class="info-edit-icon" onclick="enabledOption('booking_amount_day')"><i class="fas fa-pencil-alt"></i></div>
+                                                        <div class="info-edit-value">
+                                                            <div class="edit-value-input add-dlr-icon">
+                                                                <input type="number" class="form-control edit-input-style disabled" placeholder="Enter Amount in USD" id="booking_amount_day" name="booking_amount_day" value="{{$user->userDetails->booking_amount_day}}">
+                                                                <span class="dlr-icon"><i class="fas fa-dollar-sign"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="info-edit-wrap d-flex align-items-center">
+                                                <div class="info-edit-lft">
+                                                    <h4>Per Week</h4>
+                                                </div>
+                                                <div class="info-edit-rgt">
+                                                    <div class="info-edit-box d-flex align-items-center">
+                                                        <div class="info-edit-icon" onclick="enabledOption('booking_amount_week')"><i class="fas fa-pencil-alt"></i></div>
+                                                        <div class="info-edit-value">
+                                                            <div class="edit-value-input add-dlr-icon">
+                                                                <input type="number" class="form-control edit-input-style disabled" placeholder="Enter Amount in USD" id="booking_amount_week" name="booking_amount_week" value="{{$user->userDetails->booking_amount_week}}">
+                                                                <span class="dlr-icon"><i class="fas fa-dollar-sign"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="infoSeven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                        Social
+                                    </button>
+                                    </h2>
+                                    <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="infoSeven" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="info-bio-edit">
+                                                <div class="info-bio-edit-head d-flex align-items-center justify-content-between">
+                                                    <div class="info-bio-lft">
+                                                        <h4>Facebook Link</h4>
+                                                    </div> 
+                                                    <div class="info-bio-rgt">
+                                                        <div class="info-edit-icon" onclick="enabledOption('facebook_link')"><i class="fas fa-pencil-alt"></i></div>
+                                                    </div>
+                                                </div>
+                                                <div class="bio-info-dtls mt-1">
+                                                    <input type="text" class="form-control disabled" name="facebook_link" id="facebook_link" value="{{@$user->userDetails->facebook_link}}">
+                                                </div>
+                                            </div>
+                                            <div class="info-bio-edit">
+                                                <div class="info-bio-edit-head d-flex align-items-center justify-content-between">
+                                                    <div class="info-bio-lft">
+                                                        <h4>Youtube Link</h4>
+                                                    </div> 
+                                                    <div class="info-bio-rgt">
+                                                        <div class="info-edit-icon" onclick="enabledOption('youtube_link')"><i class="fas fa-pencil-alt"></i></div>
+                                                    </div>
+                                                </div>
+                                                <div class="bio-info-dtls mt-1">
+                                                    <input type="text" class="form-control disabled" name="youtube_link" id="youtube_link" value="{{@$user->userDetails->youtube_link}}">
+                                                </div>
+                                            </div>
+                                            <div class="info-bio-edit">
+                                                <div class="info-bio-edit-head d-flex align-items-center justify-content-between">
+                                                    <div class="info-bio-lft">
+                                                        <h4>Twitter Link</h4>
+                                                    </div> 
+                                                    <div class="info-bio-rgt">
+                                                        <div class="info-edit-icon" onclick="enabledOption('twitter_link')"><i class="fas fa-pencil-alt"></i></div>
+                                                    </div>
+                                                </div>
+                                                <div class="bio-info-dtls mt-1">
+                                                    <input type="text" class="form-control disabled" name="twitter_link" id="twitter_link" value="{{@$user->userDetails->twitter_link}}">
+                                                </div>
+                                            </div>
+                                            <div class="info-bio-edit">
+                                                <div class="info-bio-edit-head d-flex align-items-center justify-content-between">
+                                                    <div class="info-bio-lft">
+                                                        <h4>Linkedin Link</h4>
+                                                    </div> 
+                                                    <div class="info-bio-rgt">
+                                                        <div class="info-edit-icon" onclick="enabledOption('linkedin_link')"><i class="fas fa-pencil-alt"></i></div>
+                                                    </div>
+                                                </div>
+                                                <div class="bio-info-dtls mt-1">
+                                                    <input type="text" class="form-control disabled" name="linkedin_link" id="linkedin_link" value="{{@$user->userDetails->linkedin_link}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -571,19 +693,19 @@
                     <div class="models-tab-information">
                         <ul class="nav nav-tabs first-tab-list" id="modelsTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                              <button class="nav-link active" id="portfolio-tab" data-bs-toggle="tab" data-bs-target="#portfolio" type="button" role="tab" aria-controls="portfolio" aria-selected="true">portfolio</button>
+                              <button class="nav-link active" id="portfolio-tab" data-bs-toggle="tab" data-bs-target="#portfolio" type="button" role="tab" aria-controls="portfolio" aria-selected="true">portfolio<i class="fas fa-user"></i></button>
+                            </li>
+                            {{-- <li class="nav-item" role="presentation">
+                              <button class="nav-link" id="comments-tab" data-bs-toggle="tab" data-bs-target="#comments" type="button" role="tab" aria-controls="comments" aria-selected="false">comments<i class="far fa-comment-alt"></i></button>
+                            </li> --}}
+                            <li class="nav-item" role="presentation">
+                              <button class="nav-link" id="calender-tab" data-bs-toggle="tab" data-bs-target="#calender" type="button" role="tab" aria-controls="calender" aria-selected="false">calendar<i class="fas fa-calendar-alt"></i></button>
                             </li>
                             <li class="nav-item" role="presentation">
-                              <button class="nav-link" id="comments-tab" data-bs-toggle="tab" data-bs-target="#comments" type="button" role="tab" aria-controls="comments" aria-selected="false">comments</button>
+                                <button class="nav-link" id="followers-tab" data-bs-toggle="tab" data-bs-target="#followers" type="button" role="tab" aria-controls="followers" aria-selected="false">followers<i class="fas fa-user-friends"></i></button>
                             </li>
                             <li class="nav-item" role="presentation">
-                              <button class="nav-link" id="calender-tab" data-bs-toggle="tab" data-bs-target="#calender" type="button" role="tab" aria-controls="calender" aria-selected="false">calendar</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="followers-tab" data-bs-toggle="tab" data-bs-target="#followers" type="button" role="tab" aria-controls="followers" aria-selected="false">followers</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="following-tab" data-bs-toggle="tab" data-bs-target="#following" type="button" role="tab" aria-controls="following" aria-selected="false">following</button>
+                                <button class="nav-link" id="following-tab" data-bs-toggle="tab" data-bs-target="#following" type="button" role="tab" aria-controls="following" aria-selected="false">following<i class="fas fa-user-friends"></i></button>
                             </li>
                           </ul>
                         <div class="tab-content" id="modelsTabContent">
@@ -629,20 +751,28 @@
                                                     @foreach ($user->images->sortByDesc('id') as $image)
                                                     <div class="col-lg-4 col-md-6 col-ms-6 col-12">
                                                         <div class="model-photos-gallery add-dlt">
-                                                            <a class="gal-img" data-fancybox="img-gallery" href="{{url('img/user/images/'.$image->image)}}"><img class="img-block" src="{{url('img/user/images/'.$image->image)}}">
-                                                            </a>
+                                                            {{-- <a class="gal-img" data-fancybox="img-gallery" href="{{url('img/user/images/'.$image->image)}}"><img class="img-block" src="{{url('img/user/images/'.$image->image)}}">
+                                                            </a> --}}
+                                                            <span class="gal-img photo_view" data-photo="photo_{{$image->id}}">
+                                                                <img class="img-block" src="{{url('img/user/images/'.$image->image)}}" alt="">
+                                                            </span>
                                                             <span class="delete-btn" onclick="deletePhoto({{$image->id}})"><i class="fas fa-trash-alt"></i></span>
                                                             <div class="model-photos-like-cmnt">
                                                                 <ul class="d-flex justify-content-between">
                                                                     <li><p><i class="fas fa-thumbs-up"></i>0</p></li>
-                                                                    <li><a href="#"><i class="far fa-comment-alt"></i></a>0</li>
+                                                                    <li class="photo_view"><a href="#"><i class="far fa-comment-alt"></i></a>0</li>
                                                                 </ul>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     @endforeach
                                                 @else
-                                                <div><p>No image Found</p></div>    
+                                                <div class="col-12">
+                                                    <div class="not-found-text">
+                                                        <i class="fas fa-exclamation-triangle"></i>
+                                                        <p>no image found</p>
+                                                    </div>
+                                                </div>
                                                 @endif
                                                {{--  <div class="col-lg-4 col-md-6 col-ms-6 col-12">
                                                     <div class="model-photos-gallery">
@@ -726,7 +856,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">...</div>
+                            {{-- <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+                                @include('comments.profile.commentsDisplay', ['comments' => $user->comments, 'profile_id' => $user->id])
+
+                                <div class="msg-cmnt">
+                                    <form action="{{route('profile.comment.store')}}" method="post" class="profile_comment">
+                                        @csrf
+                                        <div class="profile-input-wrap">
+                                            <input type="text" name="comment" class="form-control profile-input-style" placeholder="Type your comment">
+                                            <input type="hidden" name="comment_to_user_id" value="{{Crypt::encrypt($user->id)}}">
+                                            <span class="profile-input-btn-wrap">
+                                                <button class="profile-input-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div> --}}
                             <div class="tab-pane fade" id="calender" role="tabpanel" aria-labelledby="calender-tab">...</div>
                             <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
                                 <div class="row">
@@ -959,7 +1104,114 @@
     </div>
 </div>
 {{-- end Crop cover Image Modal --}}
-
+<!-- Photo View Modal -->
+<div class="popup-wrap popup_open">
+    <div class="popup-body-main">
+        <div class="popup-body">
+            <button class="popup-wrap-btn close_popup"><i class="far fa-times-circle"></i></button>
+            <div class="photo-list-wrap">
+                @if(count($user->images) > 0)
+                    @foreach ($user->images->sortByDesc('id') as $image)
+                        <div id="photo_{{$image->id}}" class="photo-list">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-6 col-sm-12 col-12">
+                                    <div class="popup-img">
+                                        <img class="img-block photo_Height" src="{{url('img/user/images/'.$image->image)}}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-md-6 col-sm-12 col-12">
+                                    <div class="ftr-cmnt photo_Height">
+                                        <div class="photo-comments-main">
+                                            <div class="photo-comments" id="photo_cmt_{{$image->id}}">
+                                                @if (count($image->comments) > 0)
+                                                    @foreach ($image->comments as $comment)
+                                                        <div class="photo-comments-wrap d-flex">
+                                                            <div class="photo-comments-wrap-lft">
+                                                                <a href="{{url('/profile/'.$comment->user->category->slug.'/'.$comment->user->name_slug)}}" class="photo-comments-img">
+                                                                    <img class="img-block" src="{{url('/img/user/profile-image/'.$comment->user->userDetails->profile_image)}}" alt="">
+                                                                </a>
+                                                            </div>
+                                                            <div class="photo-comments-wrap-rgt">
+                                                                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                                                                    <h4><a href="{{url('/profile/'.$comment->user->category->slug.'/'.$comment->user->name_slug)}}">{{$comment->user->name}}</a> <span>{{$comment->user->category->name}}</span></h4>
+                                                                    <div class="cmnts-rply-date">
+                                                                        <ul class="d-flex">
+                                                                            <li>{{\Carbon\Carbon::parse(now())->diffInDays(\Carbon\Carbon::parse($comment->created_at))}} days ago</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <p>{{$comment->comment}}</p>
+                                                                {{-- <div class="cmnts-rply-date">
+                                                                    <ul class="d-flex">
+                                                                        <li><a href="#"><i class="far fa-thumbs-up"></i></a></li>
+                                                                        <li><a href="#"><i class="fas fa-reply"></i></a></li>
+                                                                        <li><a href="#"><i class="fas fa-trash-alt"></i></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="photo-input-wrap">
+                                                                    <input type="text" class="form-control photo-input-style" placeholder="Type your comment">
+                                                                    <span class="photo-input-btn-wrap">
+                                                                        <button class="photo-input-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
+                                                                    </span>
+                                                                </div> --}}
+                                                            </div>
+                                                        </div>
+                                                    @endforeach 
+                                                @else
+                                                    <div class="row h-100 align-items-center" id="no_comment_msg_{{$image->id}}">
+                                                        <div class="col-12">
+                                                            <div class="not-found-text no-msg-area">
+                                                                <i class="far fa-comments"></i>
+                                                                <p>no Comments yet</p>
+                                                                <p><small>Be the first comment</small></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                                @endif
+                                            </div>
+                                            <div class="msg-cmnt when-fixed">
+                                                <form  action="{{route('photo.comment.store')}}" method="post" class="photo_comment">
+                                                    @csrf
+                                                    <div class="profile-input-wrap">
+                                                        <input type="text" class="form-control profile-input-style" name="comment" placeholder="Type your comment" id="comment">
+                                                        <input type="hidden" name="photo_id" value="{{Crypt::encrypt($image->id)}}">
+                                                        <span class="profile-input-btn-wrap">
+                                                            <button class="profile-input-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif        
+                
+            </div>
+            <div class="popup-nav-wrap">
+                <div class="popup-next" id="next"><i class="fas fa-chevron-right"></i></div>
+                <div class="popup-prev" id="prev"><i class="fas fa-chevron-left"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="loader-wrap" id="loading_container_modal" style="display: none">
+        <div class="mesh-loader-wrap">
+            <div class="mesh-loader">
+            <div class="set-one">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <div class="set-two">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- end model photo popup --}}
 @endsection
 @push('scripts')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -1213,5 +1465,141 @@
         //$("p").text("URL copied!");
         toastr.success('Link copied!')
     }
+
+    $(document).on('submit','.profile_comment',function(){
+        $("#loading_container").attr("style", "display:block");
+    });
+    //photo view popup
+$(document).on('click', '.photo_view', function(){
+    var photo_id  = $(this).data("photo");
+    $('#'+photo_id).show();
+    $(".popup_open").addClass("open");
+});
+$(document).on('click', '.close_popup', function(){
+    //$(this).find(".photo-list-wrap .photo-list").hide();
+    $(".photo-list-wrap .photo-list").hide();
+    //console.log($(this).closest("div").find(".photo-list-wrap .photo-list").attr('id'));
+    //$(".photo-list-wrap .photo-list").hide().attr('style','transition: all 0.5s ease-in-out');
+    $(".popup_open").removeClass("open");
+    
+});
+
+$(document).ready(function(){
+    $(".photo-list-wrap .photo-list").each(function(e) {
+        /* if (e != 0) */
+            $(this).hide();
+    });
+    
+    $("#next").click(function(){
+        if ($(".photo-list-wrap .photo-list:visible").next().length != 0)
+            $(".photo-list-wrap .photo-list:visible").next().show().prev().hide();
+        else {
+            $(".photo-list-wrap .photo-list:visible").hide();
+            $(".photo-list-wrap .photo-list:first").show();
+        }
+        return false;
+    });
+
+    $("#prev").click(function(){
+        if ($(".photo-list-wrap .photo-list:visible").prev().length != 0)
+            $(".photo-list-wrap .photo-list:visible").prev().show().next().hide();
+        else {
+            $(".photo-list-wrap .photo-list:visible").hide();
+            $(".photo-list-wrap .photo-list:last").show();
+        }
+        return false;
+    });
+
+    
+});
+//end photo popup
+//Photo comment submit
+$(document).on('submit','.photo_comment',function(e){
+    e.preventDefault(); 
+    var form_value = $(this).serialize();
+    var form_valueArr = $(this).serializeArray();
+    var comment = form_valueArr[1]['value'];
+    //console.log(form_valueArr[1]['value']);
+    if(comment == ''){
+        toastr.options.timeOut = 2000;
+        toastr.error('Please enter comment');
+    }else{
+        var check_login = '{{Auth::check()}}';
+        if(check_login == ''){
+            window.location.href = '{{route('login')}}';
+        }else{
+            //var token = '{{csrf_token()}}';
+            $("#loading_container_modal").attr("style", "display:block");
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "{{route('photo.comment.store')}}",
+                data: form_value,
+                success: function(responce){
+                    $("#loading_container_modal").attr("style", "display:none");
+                    $('.photo_comment').each(function(){
+                        this.reset();
+                    });
+                    $('#no_comment_msg_'+responce.comment_details.photo_id).hide();
+                    //console.log(responce.comment_details.photo_id);
+                    $('#photo_cmt_'+responce.comment_details.photo_id).append(`<div class="photo-comments-wrap d-flex">
+                                                <div class="photo-comments-wrap-lft">
+                                                    <a href="`+responce.comment_details.profile_url+`" class="photo-comments-img">
+                                                        <img class="img-block" src="`+responce.comment_details.profile_img+`" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="photo-comments-wrap-rgt">
+                                                    <div class="d-flex flex-wrap justify-content-between align-items-center">
+                                                        <h4><a href="`+responce.comment_details.profile_url+`">`+responce.comment_details.user_name+`</a> <span>`+responce.comment_details.category_name+`</span></h4>
+                                                        <div class="cmnts-rply-date">
+                                                            <ul class="d-flex">
+                                                                <li>`+responce.comment_details.created_at
+                                                                    +` days ago</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <p>`+responce.comment_details.comment+`</p>
+                                                </div>
+                                            </div>`);
+                }
+            });
+            
+        } 
+    }
+    
+    //$("#loading_container_modal").attr("style", "display:block");
+
+});
+(function () {
+    'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+            //console.log(forms);
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    
+                    if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+            //photo height
+        var photoHeight = 0;
+        $('.photo_Height').each(function () {
+            if ($(this).outerHeight() >= photoHeight) {
+                photoHeight = $(this).outerHeight();
+            }
+        });
+        $('.photo_Height').css({
+            'min-height': photoHeight
+        });    
+
+    })()
 </script>
 @endpush

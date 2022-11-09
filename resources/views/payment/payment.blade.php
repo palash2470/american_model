@@ -68,7 +68,7 @@
                     </div>
                     <div class="pay-btn-wrap" id="continue_btn">
                         {{-- <a href="payment-card.html" class="pay-btn">Continue</a> --}}
-                        <button type="submit" class="pay-btn">Continue</button>
+                        <button type="submit" class="pay-btn-continue">Continue</button>
                     </div>
                 </div>
                 </form>

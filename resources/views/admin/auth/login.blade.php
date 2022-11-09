@@ -14,13 +14,49 @@
     <link rel="stylesheet" href="{{url('/Admin/css/icheck-bootstrap.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{url('/Admin/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{url('/Admin/css/login.css')}}">
 </head>
 <body class="hold-transition login-page">
-    <div class="login-box">
+    <section class="log-reg-banner" style="background: url({{ url('images/log-reg/log-reg-banner.jpg') }}) no-repeat center center;">
+        <div class="log-reg-area">
+            @include('flashmessage.flash-message')
+            <form action="{{route('admin.logins')}}" method="post">
+            @csrf
+                <div class="log-reg-box">
+                    <h3>welcome back!</h3>
+                    <div class="heading-icon-wrap">
+                        <span class="heading-icon"><img src="images/pattern-heading.png" alt=""></span>
+                    </div>
+                    <div class="log-input">
+                        <label>email adress</label>
+                        <input type="email" class="form-control log-input-style" name="email" placeholder="Email" value="{{ old('email') }}" required>
+                        @error('email')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="log-input">
+                        <label>password</label>
+                        <div class="add-pass-eye">
+                           {{--  <input type="password" class="form-control" name="password" placeholder="Password" required> --}}
+                            <input type="password" class="form-control log-input-style pass_input" placeholder="*********" name="password" required>
+                            <span class="pass-eye">
+                                <i class="far fa-eye-slash pass_eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="log-btn-wrap">
+                        <ul class="d-flex justify-content-center align-items-center">
+                            <li><button type="submit" class="reg-btn">login</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    {{-- <div class="login-box">
         <div class="login-logo">
             <a href="javascript:void(0)">American Model</a>
         </div>
-        <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
@@ -55,17 +91,14 @@
                                 </label>
                             </div>
                         </div>
-                        <!-- /.col -->
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </form>
             </div>
-            <!-- /.login-card-body -->
         </div>
-    </div>
+    </div> --}}
     <!-- /.login-box -->
 
 <!-- jQuery -->
@@ -74,5 +107,19 @@
 <script src="{{url('/Admin/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{url('/Admin/js/adminlte.min.js')}}"></script>
+
+
+<!-- /*-------------------------------------Password Eye-----------------------------------*/ -->
+<script>
+    $(document).on('click', '.pass_eye', function(){   
+        if($(this).closest('.add-pass-eye').find(".pass_input").attr('type')=='password'){
+        $(this).closest('.add-pass-eye').find(".pass_input").attr('type','text');
+        $(this).closest('.add-pass-eye').find(".far").addClass("fa-eye").removeClass("fa-eye-slash");
+        }else{
+        $(this).closest('.add-pass-eye').find(".pass_input").attr('type', 'password');
+        $(this).closest('.add-pass-eye').find(".far").removeClass("fa-eye").addClass("fa-eye-slash");
+        } 
+    });
+</script>
 </body>
 </html>

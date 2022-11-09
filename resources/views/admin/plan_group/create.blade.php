@@ -24,7 +24,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 connectedSortable">
-                <div class="card card-primary">
+                <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Add Plan Group</h3> 
                     </div>
@@ -54,15 +54,13 @@
                                 <div class="col-12">
                                     <div class="plan-attr">
                                         <label for="details">Select Plan Attribute</label>
-                                        <ul class="d-flex flex-wrap">
+                                        <ul class="d-flex flex-wrap plan-attribute">
                                             @if(count($planAttributes) > 0)
                                                 @foreach ($planAttributes as $planAttribute)
-                                                <li>
-                                                    <div class="form-group">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" name="plan_attributes[]" value="{{$planAttribute->id}}">
-                                                            <label class="form-check-label">{{$planAttribute->name}}</label>
-                                                        </div>
+                                                <li class="checkbox">
+                                                    <div class="form-check form-group">
+                                                        <input class="form-check-input" id="attribute_{{$planAttribute->id}}" type="checkbox" name="plan_attributes[]" value="{{$planAttribute->id}}">
+                                                        <label class="form-check-label" for="attribute_{{$planAttribute->id}}">{{$planAttribute->name}}</label>
                                                     </div>
                                                 </li>
                                                 @endforeach
@@ -101,7 +99,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="cmn-btn-tag">Save</button>
                         </div>
                     </form>
                 </div>

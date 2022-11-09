@@ -12,7 +12,7 @@
                     <li><a href="{{route('user.change_password')}}" class="{{request()->is('myaccount/change-password') ? 'active' : ''}}">change password</a></li>
                 </ul>
             </li>
-            <li class="{{ (request()->is('myaccount/display-options')) ? 'open' : '' }}"><a href="javascript:;" class="icon-menu">privecy</a>
+            <li class="{{ (request()->is('myaccount/display-options')) ? 'open' : '' }}"><a href="javascript:;" class="icon-menu">Privacy</a>
                 <ul class="submenu">
                     <li><a href="{{route('user.display_option')}}" class="{{ request()->is('myaccount/display-options') ? 'active' : '' }}">Display Options</a></li>
                     {{-- <li><a href="#">Blocked People</a></li> --}}
@@ -30,12 +30,11 @@
                     <li><a href="#">My Subscribers</a></li>
                 </ul>
             </li>
-            {{-- <li><a href="javascript:;" class="icon-menu">preferences</a>
+            <li class="{{ (request()->is('myaccount/booking-list')) ? 'open' : '' }}"><a href="javascript:;" class="icon-menu">Booking</a>
                 <ul class="submenu">
-                    <li><a href="#" class="">account</a></li>
-                    <li><a href="#">change password</a></li>
+                    <li><a href="{{route('user.booking')}}" class="{{ request()->is('myaccount/booking-list') ? 'active' : '' }}">Booking List</a></li>
                 </ul>
-            </li> --}}
+            </li>
         </ul>
     </div>
 </div>

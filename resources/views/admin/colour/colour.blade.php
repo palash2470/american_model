@@ -55,7 +55,7 @@
                  <!-- /.row -->
             </div>
             <div class="col-lg-5 col-md-5 col-sm-12 col-12 connectedSortable">
-                <div class="card card-primary">
+                <div class="card">
                     <div class="card-header">
                         @if(isset($id))
                             <h3 class="card-title">Update Colour</h3>
@@ -83,17 +83,17 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"  name="eye" {{isset($get_colour)?($get_colour->eye == 1 ? 'checked' : '0'):' '}}>
-                                    <label class="form-check-label">Eye</label>
+                                <div class="form-check checkbox">
+                                    <input class="form-check-input" id="eye" type="checkbox"  name="eye" {{isset($get_colour)?($get_colour->eye == 1 ? 'checked' : '0'):' '}}>
+                                    <label class="form-check-label" for="eye">Eye</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="skin" {{isset($get_colour)?($get_colour->skin == 1 ? 'checked' : '0') : ' '}}>
-                                    <label class="form-check-label">Skin</label>
+                                <div class="form-check checkbox">
+                                    <input class="form-check-input" id="skin" type="checkbox" name="skin" {{isset($get_colour)?($get_colour->skin == 1 ? 'checked' : '0') : ' '}}>
+                                    <label class="form-check-label" for="skin">Skin</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="hair" {{isset($get_colour)?($get_colour->hair == 1 ? 'checked' : '0') : ' '}}>
-                                    <label class="form-check-label">Hair</label>
+                                <div class="form-check checkbox">
+                                    <input class="form-check-input" id="hair" type="checkbox" name="hair" {{isset($get_colour)?($get_colour->hair == 1 ? 'checked' : '0') : ' '}}>
+                                    <label class="form-check-label" for="hair">Hair</label>
                                 </div>
                             </div>
                         </div>
@@ -101,9 +101,9 @@
 
                         <div class="card-footer">
                             @if(isset($id))
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="cmn-btn-tag">Update</button>
                             @else
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="cmn-btn-tag">Add</button>
                             @endif
                         </div>
                     </form>

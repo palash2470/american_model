@@ -5,19 +5,20 @@
         max-width: 500px;
         width: 100%;
         margin: 100px auto;
-        .log-reg-box{
-            background: #fff;
-            padding: 20px;
-            h3{
-                // font-family: "goboldregular";
-                font-family: 'TrajanPro';
-                text-transform: uppercase;
-                font-size: 30px;
-                line-height: 1;
-                text-align: center;
-                padding-bottom: 0;
-            }
-        }
+    }
+}
+.log-reg-box{
+    background: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 20px;
+    h3{
+        // font-family: "goboldregular";
+        font-family: 'TrajanPro';
+        text-transform: uppercase;
+        font-size: 30px;
+        line-height: 1;
+        text-align: center;
+        padding-bottom: 0;
     }
 }
 .log-input {
@@ -65,9 +66,9 @@
                 padding: 0 50px;
             }
             .reg-btn{
-                background: #000;
+                background: #d90303;
                 color: #fff;
-                border: 1px solid #000;
+                border: 1px solid #d90303;
                 &:hover{
                     background: #d90303;
                     border-color: #d90303;
@@ -472,4 +473,149 @@ label{
         text-align: center;
         color: #f00;
     }
+}
+
+.log-reg-banner-new {
+    position: relative;
+    padding: 50px 0 0 0;
+    &::after{
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background: url("../images/log-bg.jpg") no-repeat center center;
+        z-index: -1;
+        background-size: cover !important;
+    }
+}
+.lft-back {
+    max-width: 45%;
+    // max-width: 63%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.banner-new-lft {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 65%;
+    flex: 0 0 65%;
+    max-width: 65%;
+    h2{
+        font-size: 55px;
+        font-weight: 800;
+        color: #fff;
+        text-align: center;
+    }
+    p{
+        font-size: 40px;
+        color: #fff;
+        text-align: center;
+        line-height: 1;
+        padding-bottom: 20px;
+    }
+}
+.banner-new-rgt{
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 35%;
+    flex: 0 0 35%;
+    max-width: 35%;
+    padding: 0 65px 65px 0;
+}
+.log-logo {
+    max-width: 200px;
+    margin: 0 auto 10px;
+    display: block;
+}
+.log-btn-new {
+    font-family: "TrajanPro";
+    font-size: 18px;
+    line-height: 2;
+    padding: 0 20px;
+    background: #1e8cc2;
+    color: #fff !important;
+    margin-left: 20px;
+}
+.log-reg-banner-new{
+    .log-input {
+        .log-input-style {
+            border-bottom: none;
+            padding: 5px;
+            background: #fff;
+            border-radius: 5px;
+        }
+        .add-pass-eye {
+            .pass-eye {
+                right: 4px;
+            }
+        }
+    }
+}
+.log-menu {
+    display: flex;
+    justify-content: center;
+    li{
+        a{
+            color: #000;
+            font-size: 12px;
+            display: block;
+        }
+        &:not(:last-child){
+            border-right: 1px solid #000;
+            padding-right: 10px;
+        }
+        &:not(:first-child){
+            padding-left: 10px;
+        }
+    }
+}
+.sgn-text-icon{
+    margin: 10px 0;
+    li{
+        h4{
+            font-size: 16px;
+            padding-bottom: 0;
+        }
+        img{
+            max-width: 80px;
+        }
+        &:not(:last-child){
+            margin-right: 10px;
+        }
+    }
+}
+
+
+
+
+  
+.flip-container {
+	perspective: 1000;
+}
+.flipper {
+    min-height: 648px;
+    position: relative;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+}
+
+.front, .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    backface-visibility: hidden;
+}
+
+.front{
+	z-index: 2;
+	transform: rotateY(0deg);
+}
+
+.back{
+    transform: rotateY(180deg);
+}
+.flip{
+	transform: rotateY(180deg);
 }

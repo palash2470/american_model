@@ -3,6 +3,11 @@
 <section class="blog-page-sec">
     <div class="container-fluid left-right-40">
         <div class="row">
+            <div class="col-12">
+                <div class="gelleries-page-head">
+                    <h3>blog</h3>
+                </div>
+            </div>
             <div class="col-lg-9 col-md-9 col-sm-6 col-12">
                 
                 <div class="blog-list-wrap">

@@ -8,9 +8,9 @@
                     </span>
                     {{-- <p><i class="fas fa-map-marker-alt"></i>W. Vista Ave, Phoenix, AZ 85069</p> --}}
                     <ul class="ftr-contact">
-                        <li><i class="fas fa-map-marker-alt"></i>W. Vista Ave, Phoenix, AZ 85069</li>
+                        <li><i class="fas fa-map-marker-alt"></i>PO Box 39697 Phoenix, AZ 85069</li>
                         <li><a href="#"><i class="far fa-envelope"></i>admin@americanmodel.net</a></li>
-                        <li><a href="#"><i class="fas fa-phone-alt"></i>(480) 265-0187</a></li>
+                        {{-- <li><a href="#"><i class="fas fa-phone-alt"></i>(480) 265-0187</a></li> --}}
                     </ul>
                     <p>All Rights Reserved By Model Management, LLC.</p>
                 </div>

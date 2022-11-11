@@ -116,9 +116,9 @@
                     </div>
                     @foreach ($job as $jobKey => $jobValue)
                         <div class="job-listing-wrap position-relative">
-                            {{-- <div class="edit-job">
-                                <a href="{{route('job.post.update',[$jobValue->id])}}" class="edit-job-btn"><i class="fas fa-pencil-alt"></i></a>
-                            </div> --}}
+                            <div class="edit-job">
+                                <a href="{{route('job.post.update',[Crypt::encrypt($jobValue->id)])}}" class="edit-job-btn"><i class="fas fa-pencil-alt"></i></a>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                                     <div class="job-thumb relative">

@@ -42,7 +42,7 @@ class AuthenticationController extends Controller
             //'email' => 'required|email|unique:users',
             'agree' => 'accepted',
             'password' => 'required|confirmed|min:6',
-            'g-recaptcha-response' => 'required|recaptchav3:signup,0.5',
+            'g-recaptcha-response' => 'required',
             'email' => ['required','email', Rule::unique('users')->where(function ($query) use ($request) {
                 return $query->where('is_email_verified', 1);
             })],
@@ -149,11 +149,11 @@ class AuthenticationController extends Controller
 
     //user login
     public function doLogin(Request $request){
-        
+        //dd($request->all());
         $request->validate([
             'email' => 'required',
             'password' => 'required',
-            'g-recaptcha-response' => 'required|recaptchav3:login,0.5'
+            'g-recaptcha-response' => 'required'
         ]);
         
         $credentials = $request->only('email', 'password');

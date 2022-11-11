@@ -3981,7 +3981,7 @@ $breakpointsTwo: (
 }
 .change-plan{
     background: #000;
-    color: #fff;
+    color: #fff !important;
     padding: 0 10px;
     line-height: 1.5;
     text-transform: capitalize;
@@ -4172,6 +4172,7 @@ $breakpointsTwo: (
             font-size: 13px;
             color: #000;
             font-weight: 600;
+            line-height: 1;
             &::after {
                 content: "\f00c";
                 position: absolute;
@@ -4180,7 +4181,8 @@ $breakpointsTwo: (
                 font-family: "Font awesome 5 free";
                 font-weight: 900;
                 font-size: 12px;
-                line-height: 2;
+                top: 0px;
+                line-height: 1;
             }
             +{
                 li{
@@ -4772,6 +4774,7 @@ $breakpointsTwo: (
     position: absolute;
     right: 10px;
     top: 10px;
+    z-index: 1;
     .edit-job-btn{
         display: block;
         background: #c10816;
@@ -4982,6 +4985,8 @@ $breakpointsTwo: (
     li{
         .selectOptionBdr{
             background-color: #fff;
+            height: 38px;
+            line-height: 1;
         }
         .select2-container {
             .select2-selection--single {
@@ -5160,6 +5165,11 @@ $breakpointsTwo: (
         .fit-add{
             margin-top: 1.5rem;
         }
+    }
+}
+label{
+    &#email-error {
+        color: red;
     }
 }
 

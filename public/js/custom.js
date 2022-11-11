@@ -153,4 +153,27 @@ $(function() {
     $(document).on('click', '.acc_close', function() {
         $(".my_acc_lft").removeClass("acc-open");
     });
+
+    /*-------------------------------------Plan Mobile-----------------------------------*/
+    $(function() {
+        // Makes sure the code contained doesn't run until
+        // all the DOM elements have loaded
+        var selected_val = $('.planSelector').find(":selected").val();
+        //console.log(selected_val);
+        myfuc(selected_val);
+        $('.planSelector').change(function() {
+            var selectval = $(this).val();
+            //console.log(selectval);
+            myfuc(selectval);
+        });
+    });
+
+    function myfuc(id) {
+        $('.only-mobile').hide();
+        $('#' + id).show();
+    }
+    $('.collapse').on('show.bs.collapse', function(e) {
+        var selected_val = $(this).find('.planSelector').find(":selected").val();
+        myfuc(selected_val);
+    });
 });

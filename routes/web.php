@@ -59,7 +59,7 @@ Route::get('reset-password/{token}', [UserAuthController::class, 'showResetPassw
 Route::post('reset-password', [UserAuthController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 //Ajax state and city list
 Route::post('/fetch-states', [DropdownController::class, 'fetchState']);
-//Route::post('/fetch-cities', [DropdownController::class, 'fetchCity']);
+Route::post('/fetch-cities', [DropdownController::class, 'fetchCity']);
 Route::post('/fetch-city-autocomplete', [DropdownController::class, 'autoCompleteCity']);
 
 Route::get('/subscription-plan',[UserPlanController::class,'showSubscriptionPlan'])->name('user.subscription.plan');

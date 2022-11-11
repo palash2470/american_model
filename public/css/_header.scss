@@ -41,6 +41,9 @@
     a {
         display: block;
         // max-width: 150px;
+        img{
+            transition : all 0.3s ease-in-out;
+        }
     }
 }
 
@@ -188,7 +191,7 @@
 .navigation ul li ul.submenu li.active a {
     // color: #fff;
     // background: #29538f;
-    padding-left: 25px;
+    padding-left: 27px;
 }
 
 .navigation ul li ul.submenu {
@@ -257,6 +260,13 @@
         width: 100%;
         z-index: 3;
         background: #fff;
+        // .logo{
+        //     a{
+        //         img{
+        //             width: 200px;
+        //         }
+        //     }
+        // }
     } 
 }
 .after-login-wrap {

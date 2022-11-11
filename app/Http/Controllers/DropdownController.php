@@ -20,8 +20,9 @@ class DropdownController extends Controller
     }
     public function fetchCity(Request $request)
     {
-       /*  $data['cities'] = City::where("state_id",$request->state_id)->get(["name", "id"]);
-        return response()->json($data); */
+        $data['cities'] = City::select('city_name as name','id')->where("state_id",$request->state_id)->get();
+        //dd($data['cities']);
+        return response()->json($data);
     }
     public function autoCompleteCity(Request $request){
         $cities = City::where('city_name','LIKE','%'.$request->q.'%')->limit(10)->get(["city_name", "id"]);

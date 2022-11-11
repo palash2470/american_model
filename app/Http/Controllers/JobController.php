@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
@@ -47,7 +48,7 @@ class JobController extends Controller
                 $job = Job::where('jobCategory',$data['jobCategory'])->whereDate('toJobDate', '>=', now())->paginate(10);
             }
         } else {
-            $job = Job::all();
+            $job = Job::whereDate('toJobDate', '>=', now())->paginate(10);
         }
         $category = Category::where('id', '!=', 5)->get();
         return view('job.job',compact('category','job','data'));
@@ -138,6 +139,31 @@ class JobController extends Controller
                     }
                     JobImage::insert($insert);
                 }
+                if(isset($request->location) && !empty($request->location)){
+                    JobLocation::create([
+                        'jobId' => $jobs->id,
+                        'location' => $request->location
+                    ]);
+                    $getCity = Cities::where('id',$request->location)->first();
+                    $users = UserDetails::where(['membership_type_id' => $request->jobCategory,'city_name'=>$getCity->name])->get();
+                    foreach ($users as $userskey => $usersvalue) {
+                        if (isset($usersvalue->getUser)) {
+                            $data = array(
+                                'msg' => $request->jobDescription,
+                                'sub' => 'New job in your area',
+                                'modelsEmail' => $usersvalue->getUser->email,
+                                'modelName' => $usersvalue->getUser->name,
+                                'userEmail' => auth()->user()->email,
+                                'userName' => auth()->user()->name,
+                            );
+                            Mail::send('emails.sendMailToModels', $data, function($m) use ($data) {
+                                $m->to($data['modelsEmail'],$data['modelName'] );
+                                $m->subject($data['sub']);
+                            });
+                        }
+                        
+                    }
+                }
                 
                 /* foreach ($request->location as $key => $value) {
                     JobLocation::create([
@@ -212,10 +238,13 @@ class JobController extends Controller
 
     public function postJobUpdate ($id)
     {
+        $job_id = Crypt::decrypt($id);
+        //dd($job_id);
         $getCities = Cities::where('state_id', 41)->get();
         $category = Category::where('id', '!=', 5)->get();
-        $job = Job::where('id',$id)->first();
+        $job = Job::where('id',$job_id)->first();
         $joblocation = array_column($job->getJobLocations->toArray(),'location');
+        //dd($joblocation);
         return view('job.postJobUpdate', compact('getCities','category','job','joblocation'));
     }
 
@@ -228,6 +257,8 @@ class JobController extends Controller
             
             $jobs = Job::where('id', $request->id)->update([
                 'jobDescription'    => $request->jobDescription,
+                'jobPreference'    => $request->jobPreference,
+                'jobRequirement'    => $request->jobRequirement,
             ]);
             return redirect()->to('job')->with('success', 'Update job successfully');
         } catch (Exception $e) {

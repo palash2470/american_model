@@ -521,5 +521,26 @@ input:focus, select:focus, textarea:focus{
         font-weight: 500;
     }
 }
+// .checkbox-wrap{
+//     .checkbox {
+//         input[type="checkbox"]{
+//             display: none;
+//         }
+//     }
+// }
 
+span{
+    &.error {
+        position: absolute;
+        left: 0;
+        color: red;
+        top: 100%;
+    }
+}
+span{
+    &#agree-error {
+        position: inherit;
+        color: red;
+    }
+}
 

@@ -15,8 +15,8 @@
 
 <section class="plan-sect-wrap">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="row justify-content-center g-3">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12 order-sm-1 order-2">
                 <form action="{{route('payment.process')}}" method="get" id="payment_frm">
                     @csrf
                 <div class="payment-card-wrap-lft">
@@ -73,7 +73,7 @@
                 </div>
                 </form>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-12 order-sm-2 order-1">
                 <div class="payment-box-wrap">
                     <div class="payment-card-wrap-box">
                         <div class="payment-box-wrap-head">

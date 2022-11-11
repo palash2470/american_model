@@ -21,8 +21,8 @@
 
 <section class="plan-sect-wrap">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+        <div class="row justify-content-center g-3">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12 order-sm-1 order-2">
                 <div class="payment-card-wrap-lft">
                     @if (Session::has('success'))
                         <div class="alert alert-success" role="alert">  
@@ -145,8 +145,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 error hide">
-                                    <div class="alert-danger alert">Please correct the errors and try
-                                        again.</div>
+                                    <div class="alert-danger alert">Please correct the errors and try again.</div>
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -161,7 +160,7 @@
                 </div>
             </div>
             
-            <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-12 order-sm-2 order-1">
                 <div class="payment-box-wrap">
                     <div class="payment-box-wrap-head">
                         <h4>Your payment details</h4>

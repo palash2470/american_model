@@ -30,7 +30,7 @@ $(function() {
         });
     }
     //selected city
-    /* if (selected_state_id != '') {
+    if (selected_state_id != '') {
         //var idState = this.value;
         $("#city-dd").html('');
         $.ajax({
@@ -53,13 +53,14 @@ $(function() {
                 });
             }
         });
-    } */
+    }
     //End state list
     //get state by country
     $(document).on('change', '#country-dd', function() {
         var idCountry = this.value;
         //console.log(idCountry);
         $("#state-dd").html('');
+        $("#loading_container").attr("style", "display:block");
         $.ajax({
             url: base_url + "/fetch-states",
             type: "POST",
@@ -75,14 +76,16 @@ $(function() {
                         .id + '">' + value.name + '</option>');
                 });
                 $('#city-dd').html('<option value="">Select City</option>');
+                $("#loading_container").attr("style", "display:none");
             }
         });
     });
 
     //get city by state
-    /* $(document).on('change', '#state-dd', function() {
+    $(document).on('change', '#state-dd', function() {
         var idState = this.value;
         $("#city-dd").html('');
+        $("#loading_container").attr("style", "display:block");
         $.ajax({
             url: base_url + "/fetch-cities",
             type: "POST",
@@ -97,12 +100,14 @@ $(function() {
                     $("#city-dd").append('<option value="' + value
                         .id + '">' + value.name + '</option>');
                 });
+                $("#loading_container").attr("style", "display:none");
             }
         });
-    }); */
+    });
     $("#city_autocomplete").autocomplete({
         source: function(request, response) {
             //console.log(request.term);
+            $("#loading_container").attr("style", "display:block");
             $.ajax({
                 url: base_url + "/fetch-city-autocomplete",
                 dataType: "json",
@@ -114,6 +119,7 @@ $(function() {
                 success: function(data) {
                     console.log(data);
                     response(data);
+                    $("#loading_container").attr("style", "display:none");
                 }
             });
         },
@@ -155,6 +161,11 @@ $(function() {
             });
             return false; // required to block normal submit since you used ajax
         }
+    });
+
+    $('#city-dd').change(function() {
+        var selectedCity = $("#city-dd option:selected").text();
+        $('#city_name').val(selectedCity);
     });
 
 });

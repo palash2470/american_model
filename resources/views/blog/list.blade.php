@@ -8,7 +8,7 @@
                     <h3>blog</h3>
                 </div>
             </div>
-            <div class="col-lg-9 col-md-9 col-sm-6 col-12">
+            <div class="col-lg-9 col-md-8 col-sm-6 col-12">
                 
                 <div class="blog-list-wrap">
                     <div class="row">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                 <div class="recnt-blog-stcky">
                     <div class="blog-title-head">
                         <h3>Recent Blog</h3>

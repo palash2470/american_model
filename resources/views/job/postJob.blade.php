@@ -52,7 +52,7 @@
                         <ul class="d-flex">
                             <li class="create-list-lft input-title">compensation:</li>
                             <li class="create-list-rgt book-input-wrap">
-                                <input type="text" name="compensation" class="form-control book-input-style" placeholder="model, photographer, mua" value="old('compensation')">
+                                <input type="text" name="compensation" class="form-control book-input-style" placeholder="model, photographer, mua" value="{{old('compensation')}}">
                             </li>
                         </ul>
                         <ul class="d-flex">

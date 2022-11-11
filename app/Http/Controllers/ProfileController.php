@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
-use App\Models\books;
+use App\Models\Books;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\TryCatch;
@@ -81,7 +81,8 @@ class ProfileController extends Controller
             "dob"    => "required",
             "country_id"    => "required",
             "state_id"    => "required",
-            "city_name"    => "required",
+            //"city_name"    => "required",
+            "city_id"    => "required",
             "zip_code"    => "required",
             "membership_type_id"    => "required",
             "profile_image"    => [Rule::requiredIf(function (){
@@ -126,6 +127,7 @@ class ProfileController extends Controller
                     'dob' =>$request->dob,
                     'country_id' =>$request->country_id,
                     'state_id' =>$request->state_id,
+                    'city_id' =>$request->city_id,
                     'city_name' =>$request->city_name,
                     'zip_code' =>$request->zip_code,
                     'membership_type_id' =>$request->membership_type_id,
@@ -165,6 +167,7 @@ class ProfileController extends Controller
                     'dob' =>$request->dob,
                     'country_id' =>$request->country_id,
                     'state_id' =>$request->state_id,
+                    'city_id' =>$request->city_id,
                     'city_name' =>$request->city_name,
                     'zip_code' =>$request->zip_code,
                     'membership_type_id' =>$request->membership_type_id,
@@ -641,7 +644,16 @@ class ProfileController extends Controller
     }
 
     public function ajaxDeleteImg(Request $request){
-        dd($request->all());
+        $image = Images::where('id',$request->image_id)->where('user_id',Auth::user()->id)->first();
+        if($image){
+            unlink(public_path('/img/user/images/'.$image->image)); 
+            Images::where("id", $image->id)->delete();
+            return response()->json(['status'=>true,'massage'=>'Image delete Successfully']);
+        }else{
+            return response()->json(['status'=>true,'massage'=>'something went wrong!']);
+        }
+        
+        //dd($request->all());
     }
 
     //Favourite
@@ -710,7 +722,7 @@ class ProfileController extends Controller
     }
 
     public function booking(){
-        $bookings = books::with('country')->with('state')->where('booked_user_id',Auth::user()->id)->get();
+        $bookings = Books::with('country')->with('state')->where('booked_user_id',Auth::user()->id)->get();
         //dd($bookings);
         return view('user.booking',compact('bookings'));
     }

@@ -486,22 +486,22 @@
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link active" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos" type="button" role="tab" aria-controls="photos" aria-selected="true">photos</button>
                                             </li>
-                                            <li class="nav-item" role="presentation">
+                                            {{-- <li class="nav-item" role="presentation">
                                                 <button class="nav-link " id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos" type="button" role="tab" aria-controls="videos" aria-selected="false">videos</button>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </div>
                                     <div class="col-auto">
-                                        <div class="img-video-up d-flex">
+                                        <div class="img-video-up d-flex align-items-center">
                                             <ul class="img-video-btn-wrap d-flex">
                                                 <li>
                                                     <input type="file" id="img_upload">
                                                     <label for="img_upload" class="img-video-btn" {{-- data-bs-toggle="modal" data-bs-target="#imgUp" --}}><i class="fas fa-image"></i>image upload</label>
                                                 </li>
-                                                <li>
+                                                {{-- <li>
                                                     <input type="file" id="vid-up">
                                                     <label for="vid-up" class="img-video-btn"><i class="fas fa-video"></i>video upload</label>
-                                                </li>
+                                                </li> --}}
                                             </ul>
                                             <div class="src-select-wrap">
                                                 <select class="form-control src-select-style selectOption2">
@@ -815,6 +815,20 @@
         </form>
       </div>
     </div>
+    <div class="loader-wrap" id="loading_container_modal" style="display: none">
+        <div class="mesh-loader-wrap">
+            <div class="mesh-loader">
+            <div class="set-one">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <div class="set-two">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
 </div>
 {{-- end Image upload  Model--}}
 {{-- Crop Profile Image Modal --}}
@@ -966,7 +980,7 @@
             </div>
         </div>
     </div>
-    <div class="loader-wrap" id="loading_container_modal" style="display: none">
+    <div class="loader-wrap" id="loading_container_photo_modal" style="display: none">
         <div class="mesh-loader-wrap">
             <div class="mesh-loader">
             <div class="set-one">
@@ -1343,25 +1357,38 @@
                 required: true,
             }
         },
+        submitHandler: function(form) {
+            $("#loading_container_modal").attr("style", "display:block");
+            form.submit();
+        }
     });
 
     //delete Photo
     function deletePhoto(img){
-        if (confirm('Are you sure ?')) {
-            var token = '{{csrf_token()}}';
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                url: "{{route('user.delete_img')}}",
-                data: {'_token': token,'image_id':img},
-                success: function(data){
-                    location.reload();
-                }
-            });
-        }else
-        {
-        console.log('cancel')
-        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                $("#loading_container").attr("style", "display:block");
+                var token = '{{csrf_token()}}';
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "{{route('user.delete_img')}}",
+                    data: {'_token': token,'image_id':img},
+                    success: function(data){
+                        toastr.success(data.massage);
+                        location.reload();
+                    }
+                });
+            }
+        });
     }
 
     var $temp = $("<input>");
@@ -1457,14 +1484,14 @@ $(document).on('submit','.photo_comment',function(e){
             window.location.href = '{{route('login')}}';
         }else{
             //var token = '{{csrf_token()}}';
-            $("#loading_container_modal").attr("style", "display:block");
+            $("#loading_container_photo_modal").attr("style", "display:block");
             $.ajax({
                 type: "POST",
                 dataType: "json",
                 url: "{{route('photo.comment.store')}}",
                 data: form_value,
                 success: function(responce){
-                    $("#loading_container_modal").attr("style", "display:none");
+                    $("#loading_container_photo_modal").attr("style", "display:none");
                     $('.photo_comment').each(function(){
                         this.reset();
                     });

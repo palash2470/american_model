@@ -40,6 +40,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
         <script src="{{url('js/jquery.fancybox.min.js')}}"></script>
 
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <script src="{{url('js/jquery-ui.min.js')}}"></script>
         <!-- Custom Js -->
         <script src="{{url('js/custom.js')}}"></script>

@@ -23,6 +23,7 @@
 }
 .log-input {
     margin-bottom: 20px;
+    position: relative;
     label{
         text-transform: uppercase;
         font-weight: 600;
@@ -34,11 +35,17 @@
         border-radius: 0;
         box-shadow: none;
         padding: 5px 5px 5px 0;
+        height: 38px;
     }
     .add-pass-eye{
         .log-input-style{
             padding-right: 25px;
         } 
+    }
+    input{
+        &::placeholder{
+            font-size: 14px;
+        }
     }
 }
 .add-pass-eye {
@@ -618,4 +625,14 @@ label{
 }
 .flip{
 	transform: rotateY(180deg);
+}
+.register-wrap {
+    .lft-back{
+        max-width: 63%;
+    }
+}
+div{
+    &#captcha_error {
+        color: red;
+    }
 }

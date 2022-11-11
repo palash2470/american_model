@@ -21,7 +21,7 @@ class BookController extends Controller
             'preferred_date' => 'required',
             'description' => 'required',
             'booked_id' => 'required',
-            'g-recaptcha-response' => 'required|recaptchav3:booking,0.5'
+            'g-recaptcha-response' => 'required'
         ]);
         try{
             $booking = Books::create([

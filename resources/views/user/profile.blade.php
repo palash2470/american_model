@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{!! RecaptchaV3::initJs() !!}
+{{-- {!! RecaptchaV3::initJs() !!} --}}
 @section('content')
 <section class="model-details-page-sec">
     <div class="model-details-banner">
@@ -717,9 +717,9 @@
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link active" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos" type="button" role="tab" aria-controls="photos" aria-selected="true">photos</button>
                                             </li>
-                                            <li class="nav-item" role="presentation">
+                                            {{-- <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos" type="button" role="tab" aria-controls="videos" aria-selected="false">videos</button>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </div>
                                     <div class="col-auto">
@@ -735,7 +735,7 @@
                                 <div class="tab-content" id="portflTabContent">
                                     <div class="tab-pane fade show active" id="photos" role="tabpanel" aria-labelledby="photos-tab">
                                         <div class="model-photos-wrap">
-                                            <div class="row">
+                                            <div class="row g-3">
                                                 @if(count($user->images) > 0)
                                                     @foreach ($user->images->sortByDesc('id') as $image)
                                                     <div class="col-lg-4 col-md-6 col-ms-6 col-12">
@@ -768,7 +768,7 @@
                                     </div>
                                     <div class="tab-pane fade " id="videos" role="tabpanel" aria-labelledby="videos-tab">
                                         <div class="model-video-wrap">
-                                            <div class="row">
+                                            <div class="row g-3">
                                                 <div class="col-lg-4 col-md-6 col-ms-6 col-12">
                                                     <div class="model-video-gallery">
                                                         <a class="gal-video" data-fancybox="video-gallery" data-fancybox-type="iframe" href="https://youtu.be/UzHHNVtiRMc">
@@ -867,9 +867,9 @@
                                 <div id="full_calendar_events"></div>
                             </div>
                             <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
-                                <div class="row">
+                                <div class="row g-3">
                                     @forelse ($user->followers as $followers)
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                                             <div class="model-box-wrap followrs-box">
                                                 <div class="model-box-design">
                                                     <span class="model-box-img">
@@ -893,9 +893,9 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
-                                <div class="row">
+                                <div class="row g-3">
                                     @forelse ($user->followings as $followings )
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                                             <div class="model-box-wrap followrs-box">
                                                 <div class="model-box-design">
                                                     <span class="model-box-img">
@@ -1279,7 +1279,7 @@
                         <label for="description">Description/Comments:</label>
                         <textarea rows="3" class="form-control book-txtare-style" id="description" name="description" required></textarea>
                     </div>
-                    <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                    {{-- <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
                         <div class="col-md-6">
                             {!! RecaptchaV3::field('booking') !!}
                             @if ($errors->has('g-recaptcha-response'))
@@ -1288,7 +1288,12 @@
                                 </span>
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
+                    <div class="g-recaptcha" data-sitekey="{{env('RECAPTCHAV2_SITEKEY')}}"></div>
+                    <div class="error" id="captcha_error"></div>
+                    @if ($errors->has('g-recaptcha-response'))
+                        <div class="error">{{ $errors->first('g-recaptcha-response') }}</div>
+                    @endif
                     <div class="booked-now-wrap text-end">
                         <button type="submit" class="booked-now" id="book_now">Book</button>
                     </div>
@@ -1296,7 +1301,7 @@
             </form>
         </div>
     </div>
-    <div class="loader-wrap" id="loading_container_modal" style="display: none">
+    <div class="loader-wrap" id="loading_container_book_modal" style="display: none">
         <div class="mesh-loader-wrap">
             <div class="mesh-loader">
             <div class="set-one">
@@ -1486,8 +1491,18 @@ $(document).on("click", ".book-now", function () {
      // it is unnecessary to have to manually call the modal.
      // $('#addBookDialog').modal('show');
 });
-$(document).on('submit','#book_now_frm',function(e){
-    $("#loading_container_modal").attr("style", "display:block");
+$(document).on('submit','#book_now_frm',function(event){
+    //$("#loading_container_modal").attr("style", "display:block");
+    if (grecaptcha.getResponse()) {
+        //event.preventDefault();
+        $("#loading_container_book_modal").attr("style", "display:block");
+    } 
+    else {
+        event.preventDefault();
+        $('#book_now_modal').modal('show');
+        $('#captcha_error').text('Please confirm captcha to proceed');
+    //alert('Please confirm captcha to proceed');
+    }
 });
 
 $(document).on('click','#reply',function(e){
@@ -1511,6 +1526,7 @@ $(document).on('submit','.photo_comment',function(e){
         if(check_login == ''){
             window.location.href = '{{route('login')}}';
         }else{
+            //alert('sdfsdf');
             //var token = '{{csrf_token()}}';
             $("#loading_container_modal").attr("style", "display:block");
             $.ajax({

@@ -1,6 +1,187 @@
 @extends('layouts.app')
 @section('content')
 <section class="user-dashboard">
+    <form action="{{route('job.post.update.store')}}" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="container-fluid left-right-40">
+            <input type="hidden" name="id" value="{{$job->id}}" />
+            <div class="jobs-post-wrap d-flex flex-wrap">
+                <div class="jobs-post-wrap-lft">
+                    <div class="jobs-post-create-list">
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">title:</li>
+                            <li class="create-list-rgt book-input-wrap">
+                                <input type="text" name="jobTitle" class="form-control book-input-style" placeholder="Type Job title" value="{{$job->title}}" disabled>
+                                @if ($errors->has('jobTitle'))
+                                    <span class="text-danger">{{ $errors->first('jobTitle') }}</span>
+                                @endif
+                            </li>
+                        </ul>
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">seeking:</li>
+                            <li class="create-list-rgt book-input-wrap">
+                                <input type="text" name="seeking" class="form-control book-input-style" placeholder="model, photographer, mua" value="{{$job->seeking}}" disabled>
+                            </li>
+                        </ul>
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">catagory:</li>
+                            <li class="create-list-rgt book-select-wrap">
+                                <select class="form-control book-select-style selectOption2" name="jobCategory" disabled>
+                                    <option value="">Select Job Category</option>
+                                    @foreach ($category as $categoryKey => $categoryValue )
+                                    <option value="{{$categoryValue->id}}" {{$categoryValue->id === $job->jobCategory? 'selected':''}}>{{$categoryValue->name}}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('jobCategory'))
+                                    <span class="text-danger">{{ $errors->first('jobCategory') }}</span>
+                                @endif
+                            </li>
+                        </ul>
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">gender:</li>
+                            <li class="create-list-rgt book-select-wrap">
+                                <select class="form-control book-select-style selectOption2" name="gender" disabled>
+                                    <option value="">Select Gender</option>
+                                    <option value="male" {{$job->gender === 'male' ?'selected':''}}>Male</option>
+                                    <option value="female" {{$job->gender === 'female' ?'selected':''}}>Female</option>
+                                </select>
+                                @if ($errors->has('gender'))
+                                    <span class="text-danger">{{ $errors->first('gender') }}</span>
+                                @endif
+                            </li>
+                        </ul>
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">compensation:</li>
+                            <li class="create-list-rgt book-input-wrap">
+                                <input type="text" name="compensation" class="form-control book-input-style" placeholder="model, photographer, mua" value="{{$job->compensation}}" disabled>
+                            </li>
+                        </ul>
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">Ages:</li>
+                            <li class="create-list-rgt book-input-wrap d-flex">
+                                <input type="number" name="fromAge" class="form-control book-input-style" placeholder="From" value="{{$job->fromAge}}" disabled>
+                                <input type="number" name="toAge" class="form-control book-input-style" placeholder="To" value="{{$job->toAge}}" disabled>
+                                @if ($errors->has('fromAge'))
+                                    <span class="text-danger">{{ $errors->first('fromAge') }}</span>
+                                @endif
+                                </br>
+                                @if ($errors->has('toAge'))
+                                    <span class="text-danger">{{ $errors->first('toAge') }}</span>
+                                @endif
+                            </li>
+                        </ul>
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">location:</li>
+                            <li class="create-list-rgt book-input-wrap">
+                                <div class="ui-widget">
+                                    <input type="text" class="form-control book-input-style ui-autocomplete-input" placeholder="Search Your Location " value="{{$getCities[0]->city_name}}" id="city_autocomplete">
+                                    <input type="hidden" name="location" id="location_id" value="{{$getCities[0]->id}}">
+                                </div>
+                                @if ($errors->has('location'))
+                                    <span class="text-danger">{{ $errors->first('location') }}</span>
+                                @endif
+                            </li>
+                        </ul>
+                        
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">casting end date:</li>
+                            <li class="create-list-rgt book-input-wrap">
+                                <input type="date" name="toJobDate" class="form-control book-input-style" value="{{$job->toJobDate}}" disabled>
+                            </li>
+                        </ul>
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">Height/Weight:</li>
+                            <li class="create-list-rgt book-input-wrap">
+                                <input type="test" class="form-control book-input-style" name="height" value="{{$job->height}}" disabled>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="jobs-post-wrap-rgt">
+                    <div class="img-post-jobs d-flex">
+                        <div class="img-post-jobs-lft">
+                            <div class="jobs-img-post-wrap">
+                                {{-- <input type="file" id="jobsImgPost" name="images[]" class="mutliple_image" data-max_length="2" multiple>
+                                <label for="jobsImgPost" class="jobs-img-post-text">
+                                    <span>
+                                        <i class="far fa-images"></i>
+                                        <p>Click to load image</p>
+                                    </span>
+                                </label>
+                                @if ($errors->has('images'))
+                                    <span class="text-danger">{{ $errors->first('images') }}</span>
+                                @endif --}}
+                            </div>
+                        </div>
+                        <div class="img-post-jobs-rgt d-flex">
+                            @if (count($job->images) > 0)
+                                @foreach ($job->images as $image)
+                                    <div class="post-jobs-imgbox">
+                                        <img class="img-block" src="{{ url('images/job').'/'.$image->image }}" alt="">
+                                        {{-- <span class="img-close">
+                                            <button type="button" class="img-close-btn"><i class="fas fa-times"></i></button>
+                                        </span> --}}
+                                    </div>
+                                @endforeach
+                            @endif
+                            {{-- <div class="post-jobs-imgbox">
+                                <img class="img-block" src="images/newest/newest1.jpg" alt="">
+                                <span class="img-close">
+                                    <button type="button" class="img-close-btn"><i class="fas fa-times"></i></button>
+                                </span>
+                            </div>
+                            <div class="post-jobs-imgbox">
+                                <img class="img-block" src="images/makeupartist/make-artist-dp.jpg" alt="">
+                                <span class="img-close">
+                                    <button type="button" class="img-close-btn"><i class="fas fa-times"></i></button>
+                                </span>
+                            </div>
+                            <div class="post-jobs-imgbox">
+                                <img class="img-block" src="images/feutered-model/model4.jpg" alt="">
+                                <span class="img-close">
+                                    <button type="button" class="img-close-btn"><i class="fas fa-times"></i></button>
+                                </span>
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jobs-post-create-list mt-3">
+                <ul class="d-flex">
+                    <li class="create-list-lft input-title">Details:</li>
+                    <li class="create-list-rgt book-txtare-wrap">
+                        <textarea rows="4" class="form-control book-txtare-style resize" placeholder="Type Details" name="jobDescription" value="{{$job->jobDescription}}">{{$job->jobDescription}}</textarea>
+                        @if ($errors->has('jobDescription'))
+                            <span class="text-danger">{{ $errors->first('jobDescription') }}</span>
+                        @endif
+                    </li>
+                </ul>
+                <ul class="d-flex">
+                    <li class="create-list-lft input-title">Preferences:</li>
+                    <li class="create-list-rgt book-txtare-wrap">
+                        <textarea rows="4" class="form-control book-txtare-style resize" placeholder="Type Preferences" name="jobPreference" value="{{$job->jobPreference}}">{{$job->jobPreference}}</textarea>
+                        @if ($errors->has('jobPreference'))
+                            <span class="text-danger">{{ $errors->first('jobPreference') }}</span>
+                        @endif
+                    </li>
+                </ul>
+                <ul class="d-flex">
+                    <li class="create-list-lft input-title">Requirements:</li>
+                    <li class="create-list-rgt book-txtare-wrap">
+                        <textarea rows="4" class="form-control book-txtare-style resize" placeholder="Type Requirements" name="jobRequirement" value="{{$job->jobRequirement}}">{{$job->jobRequirement}}</textarea>
+                        @if ($errors->has('jobRequirement'))
+                            <span class="text-danger">{{ $errors->first('jobRequirement') }}</span>
+                        @endif
+                    </li>
+                </ul>
+            </div>
+            <div class="cmn-btn-tag text-end">
+                <button type="submit" class="cmn-btn-tag-btn">Post</button>
+            </div>
+        </div>
+    </form>
+</section>
+{{-- <section class="user-dashboard">
     <div class="container-fluid left-right-40">
         <div class="row">
             <div class="col-12">
@@ -111,61 +292,92 @@
             <div class="user-dashboard-rgt">
                 @include('flashmessage.flash-message')
                 <div class="welcome-text-user">
-                    <h3>Update Your Job</h3>
+                    <h3>Create Your Job</h3>
                     <div class="job-create-wrap">
-                        <form action="{{route('job.post.update.store')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('job.post.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <input type="hidden" name="id" value="{{$job->id}}" />
+                                <div class="col-12">
+                                    <div class="job-photo-upload">
+                                        <input type="file" id="job-photo" name="image">
+                                        <label for="job-photo"></label>
+                                    </div>
+                                </div>
                                 <div class="col-lg-8 col-md-8 col-sm-6 col-12">
                                     <div class="book-input-wrap">
                                         <label>Job title</label>
-                                        <input type="text" name="jobTitle" class="form-control book-input-style" placeholder="Type Job title" value="{{$job->title}}" disabled>
+                                        <input type="text" name="jobTitle" class="form-control book-input-style" placeholder="Type Job title" value="{{old('jobTitle')}}">
+                                        @if ($errors->has('jobTitle'))
+                                            <span class="text-danger">{{ $errors->first('jobTitle') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                     <div class="book-select-wrap">
                                         <label>Job Category</label>
-                                        <select name="jobCategory" class="form-control book-select-style selectOption2" disabled>
+                                        <select name="jobCategory" class="form-control book-select-style selectOption2">
                                             <option>Select Job Category</option>
                                             @foreach ($category as $categoryKey => $categoryValue )
-                                                <option value="{{$categoryValue->id}}" {{$categoryValue->id === $job->jobCategory? 'selected':''}}>{{$categoryValue->name}}</option>
+                                                <option value="{{$categoryValue->id}}">{{$categoryValue->name}}</option>
                                             @endforeach
                                         </select>
+                                        @if ($errors->has('jobCategory'))
+                                            <span class="text-danger">{{ $errors->first('jobCategory') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                     <div class="book-select-wrap">
                                         <label>Job Location</label>
-                                        <select class="js-example-basic-multiple form-control book-select-style selectOption2" name="location[]" multiple="multiple" data-allow-clear="true" disabled>
+                                        <select class="js-example-basic-multiple form-control book-select-style selectOption2" name="location[]" multiple="multiple" data-allow-clear="true">
                                             @foreach ($getCities as $cityKey => $cityValue )
-                                                <option value="{{$cityValue->id}}" {{in_array($cityValue->id, $joblocation)?'selected':''}}>{{$cityValue->city_name}}</option>
+                                                <option value="{{$cityValue->id}}">{{$cityValue->city_name}}</option>
                                             @endforeach
                                         </select>
+                                        @if ($errors->has('location'))
+                                            <span class="text-danger">{{ $errors->first('location') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                     <div class="book-input-wrap">
                                         <label>Job Budget</label>
-                                        <input type="text" name="budget" class="form-control book-input-style" placeholder="Type Budget" value="{{$job->budget}}" disabled>
+                                        <input type="text" name="budget" class="form-control book-input-style" placeholder="Type Budget" value="{{old('budget')}}">
+                                        @if ($errors->has('budget'))
+                                            <span class="text-danger">{{ $errors->first('budget') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                     <div class="book-input-wrap">
                                         <label>Job Date (From - To)</label>
                                         <div class="d-flex">
-                                            <input type="date" name="fromJobDate" class="form-control book-input-style" value="{{$job->fromJobDate}}" disabled>
-                                            <input type="date" name="toJobDate" class="form-control book-input-style" value="{{$job->toJobDate}}" disabled>
+                                            <input type="date" name="fromJobDate" class="form-control book-input-style" value="{{old('fromJobDate')}}">
+                                            <input type="date" name="toJobDate" class="form-control book-input-style" value="{{old('toJobDate')}}">
                                         </div>
+                                        @if ($errors->has('fromJobDate'))
+                                            <span class="text-danger">{{ $errors->first('fromJobDate') }}</span>
+                                        @endif
+                                        </br>
+                                        @if ($errors->has('toJobDate'))
+                                            <span class="text-danger">{{ $errors->first('toJobDate') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                     <div class="book-input-wrap">
                                         <label>Age Range (From - To)</label>
                                         <div class="d-flex">
-                                            <input type="text" name="fromAge" class="form-control book-input-style" placeholder="From" value="{{$job->fromAge}}" disabled>
-                                            <input type="text" name="toAge" class="form-control book-input-style" placeholder="To" value="{{$job->toAge}}" disabled>
+                                            <input type="text" name="fromAge" class="form-control book-input-style" placeholder="From" value="{{old('fromAge')}}">
+                                            <input type="text" name="toAge" class="form-control book-input-style" placeholder="To" value="{{old('toAge')}}">
                                         </div>
+                                        @if ($errors->has('fromAge'))
+                                            <span class="text-danger">{{ $errors->first('fromAge') }}</span>
+                                        @endif
+                                        </br>
+                                        @if ($errors->has('toAge'))
+                                            <span class="text-danger">{{ $errors->first('toAge') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
@@ -173,20 +385,23 @@
                                         <label>Gender</label>
                                         <ul class="d-flex">
                                             <li class="checkbox">
-                                                <input type="radio" id="male" name="gender" value="male" {{$job->gender === 'male' ?'checked':''}} disabled>
+                                                <input type="radio" id="male" name="gender" value="male" {{old('gender') === 'male' ?'checked':''}}>
                                                 <label for="male">Male</label>
                                             </li>
                                             <li class="checkbox">
-                                                <input type="radio" id="female" name="gender" value="female" {{$job->gender === 'female' ?'checked':''}} disabled>
+                                                <input type="radio" id="female" name="gender" value="female" {{old('gender') === 'female' ?'checked':''}}>
                                                 <label for="female">Female</label>
                                             </li>
                                         </ul>
+                                        @if ($errors->has('gender'))
+                                            <span class="text-danger">{{ $errors->first('gender') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="book-txtare-wrap">
                                         <label>Job Description</label>
-                                        <textarea rows="4" name="jobDescription" class="form-control book-txtare-style resize" placeholder="Type Job Description">{{$job->jobDescription}}</textarea>
+                                        <textarea rows="4" name="jobDescription" class="form-control book-txtare-style resize" placeholder="Type Job Description">{{old('jobDescription')}}</textarea>
                                         @if ($errors->has('jobDescription'))
                                             <span class="text-danger">{{ $errors->first('jobDescription') }}</span>
                                         @endif
@@ -204,7 +419,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 @endsection
 
 @push('scripts')
@@ -213,6 +428,105 @@ $(document).ready(function(){
     $('.js-example-basic-multiple').select2({
         placeholder: 'Select an job location',
     });
+    
 });
+$(document).ready(function () {
+    //$('#jobsImgPost').on('change', function() {
+        ImgUpload();
+    //});
+  //ImgUpload();
+});
+
+function ImgUpload() {
+    var imgWrap = "";
+    var imgArray = [];
+    //console.log('dsfds');
+    $('.mutliple_image').each(function () {
+        //console.log('dsfs');
+        $(this).on('change', function (e) {
+            //console.log(this);
+            imgWrap = $(this).closest('.img-post-jobs').find('.img-post-jobs-rgt');
+            var maxLength = $(this).attr('data-max_length');
+            //console.log(imgWrap);
+            var files = e.target.files;
+            var filesArr = Array.prototype.slice.call(files);
+            var iterator = 0;
+            filesArr.forEach(function (f, index) {
+
+            if (!f.type.match('image.*')) {
+                return;
+            }
+            
+            if (imgArray.length > maxLength) {
+                return false
+            } else {
+                var len = 0;
+                for (var i = 0; i < imgArray.length; i++) {
+                if (imgArray[i] !== undefined) {
+                    len++;
+                }
+                }
+                if (len > maxLength) {
+                return false;
+                } else {
+                imgArray.push(f);
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var html = `<div class="post-jobs-imgbox" data-number="` + $(".img-close-btn").length + `">
+                                <img class="img-block" src="`+e.target.result+`" alt="">
+                                <span class="img-close">
+                                    <button type="button" class="img-close-btn" data-file="` + f.name + `"><i class="fas fa-times"></i></button>
+                                </span>
+                            </div>`;
+                    imgWrap.append(html);
+                    iterator++;
+                }
+                reader.readAsDataURL(f);
+                
+                }
+            }
+            });
+        });
+    });
+   
+    $('body').on('click', ".img-close-btn", function (e) {
+        var file = $(this).data("file");
+        //console.log(file);
+        for (var i = 0; i < imgArray.length; i++) {
+            if (imgArray[i].name === file) {
+            imgArray.splice(i, 1);
+            break;
+            }
+        }
+        $(this).parent().parent().remove();
+        //console.log(imgArray.length);
+    });
+    
+}
+/* $(function() {
+    // Multiple images preview with JavaScript
+    var previewImages = function(input, imgPreviewPlaceholder) {
+    if (input.files) {
+        var filesAmount = input.files.length;
+        console.log(filesAmount);
+        for (i = 0; i < filesAmount; i++) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                $($.parseHTML(`<div class="post-jobs-imgbox">
+                                <img class="img-block" src="`+event.target.result+`" alt="">
+                                <span class="img-close">
+                                    <button type="button" class="img-close-btn"><i class="fas fa-times"></i></button>
+                                </span>
+                            </div>`)).appendTo(imgPreviewPlaceholder);
+            }
+            reader.readAsDataURL(input.files[i]);
+        }
+    }
+    };
+    $('#jobsImgPost').on('change', function() {
+        previewImages(this, 'div.img-post-jobs-rgt');
+    });
+}); */
 </script>
 @endpush

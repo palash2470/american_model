@@ -101,21 +101,22 @@
                                 </select>
                             </div>
                         </div>
-                       {{--  <input type="hidden" id="selected_city" value="@if(isset($user)){{$user->userDetails->city_id}}@endif"> --}}
-                        {{-- <div class="col-lg-6 col-12">
+                        <input type="hidden" id="selected_city" value="@if(isset($user)){{$user->userDetails->city_id}}@endif">
+                        <div class="col-lg-6 col-12">
                             <div class="src-select-wrap">
                                 <label>City</label>
                                 <select class="form-control src-select-style selectOption2 @if($errors->has('city_id')) error @endif" name="city_id" id="city-dd">
                                     <option value="">Please Select City</option>
                                 </select>
                             </div>
-                        </div> --}}
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        </div>
+                        <input type="hidden" name="city_name" id="city_name" value="@if(isset($user)){{$user->userDetails->city_name}}@endif">
+                        {{-- <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="src-input-wrap">
                                 <label>City</label>
                                 <input type="text" class="form-control src-input-style @if($errors->has('city_name')) error @endif" name="city_name" placeholder="City" value="@if(isset($user)){{$user->userDetails->city_name}}@endif">
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="src-input-wrap">
                                 <label>zip code</label>

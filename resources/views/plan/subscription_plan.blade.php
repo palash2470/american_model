@@ -108,6 +108,20 @@
                                                             <p><strong>All Plans include:</strong> {{$plan_group->details}}</p>
                                                         </div>
                                                     </div>
+                                                    <div class="plan-row d-flex d-md-none align-items-center justify-content-end mb-3">
+                                                        <div class="plan-row-grid plan-select-mob">
+                                                            <select class="form-control selectOptionBdr planSelector" id="planSelector">
+                                                                @if($plan_group->plans)
+                                                                    @foreach ($plan_group->plans as $plan)
+                                                                        <option value="{{ $plan->name}}_{{$plan_group->id}}">{{ $plan->name }}</option>
+                                                                        {{-- <option value="silver-mob">Silver</option>
+                                                                        <option value="gold-mob">Gold</option>
+                                                                        <option value="platinum-mob">Platinum</option> --}}
+                                                                    @endforeach
+                                                                @endif
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                     <div class="all-plan-row d-flex">
                                                         <div class="all-plan-row-grid allplan-list-lft">
                                                             <div class="name-list head-gap">
@@ -140,7 +154,7 @@
                                                                                 $plan_colour = '';
                                                                             } */
                                                                         @endphp
-                                                                        <div class="all-plan-row-grid allplan-list-box {{$plan_name == 'gold' ? 'plan-gold' : ''}}">
+                                                                        <div class="all-plan-row-grid allplan-list-box {{$plan_name == 'gold' ? 'plan-gold' : ''}} only-mobile d-md-block" id="{{ $plan->name }}_{{$plan_group->id}}">
                                                                             <div class="allplan-list-box-head {{$plan_name == 'gold' ? 'add-tag' : ''}}">{{$plan->name}}
                                                                                 @if ($plan_name == 'gold')
                                                                                     <span class="gold-tag">

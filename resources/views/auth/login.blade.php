@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{!! RecaptchaV3::initJs() !!}
+{{-- {!! RecaptchaV3::initJs() !!} --}}
 @section('content')
 {{-- @include('flashmessage.flash-message') --}}
 <style>
@@ -14,11 +14,11 @@
     }
    
 </style>
-<section class="log-reg-banner-new">
-    <div class="banner-new d-flex justify-content-center align-items-start">
+<section class="log-reg-banner-new login-wrap">
+    <div class="banner-new d-flex justify-content-center align-items-lg-start align-items-md-center">
         <div class="banner-new-lft">
-            <h2>Join Our Community Of</h2>
-            <p>Models, Photographers, and MUA's</p>
+            <h2>WELCOME BACK!</h2>
+            {{-- <p>Models, Photographers, and MUA's</p> --}}
             <span class="lft-back d-block">
                 <img class="img-block" src="images/log-lft-bg.png" alt="">
             </span>
@@ -28,7 +28,7 @@
                 <span class="log-logo">
                     <img class="img-block" src="images/american-model.png" alt="">
                 </span>
-                <p>You have no account? <a href="{{route('signup')}}" class="log-btn-new">Signup</a></p>
+                <p><strong>You Don't Have An Account?</strong> <a href="{{route('signup')}}" class="log-btn-new">Signup</a></p>
                 <ul class="sgn-text-icon d-flex align-items-center">
                     <li><h4>Login</h4></li>
                     <li><img class="img-block" src="{{url('images/icons.png')}}" alt=""></li>
@@ -56,8 +56,12 @@
                             @endif
                         </div>
                     </div>
-                    
-                    <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                    <div class="g-recaptcha" data-sitekey="{{env('RECAPTCHAV2_SITEKEY')}}"></div>
+                    <div class="error" id="captcha_error"></div>
+                    @if ($errors->has('g-recaptcha-response'))
+                        <div class="error">{{ $errors->first('g-recaptcha-response') }}</div>
+                    @endif
+                    {{-- <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
                         <div class="col-md-6">
                             {!! RecaptchaV3::field('login') !!}
                             @if ($errors->has('g-recaptcha-response'))
@@ -66,7 +70,7 @@
                                 </span>
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
                     {{-- <div class="checkbox-wrap">
                         <div class="checkbox">
                             <input type="checkbox" id="terms">
@@ -136,10 +140,22 @@
                 }
                 
             },
+            submitHandler: function(form) {
+         		if (grecaptcha.getResponse()) {
+                    event.preventDefault();
+         		//alert('Captcha Confirmed!');
+                    $("#loading_container").attr("style", "display:block");
+         		    form.submit();
+         		} 
+         		else {
+                    $('#captcha_error').text('Please confirm captcha to proceed');
+         		//alert('Please confirm captcha to proceed');
+         		}
+         	}
         });
     })
-    $(document).on('submit','#regfrm',function(e){
+   /*  $(document).on('submit','#regfrm',function(e){
         $("#loading_container").attr("style", "display:block");
-    });
+    }); */
 </script>
 @endpush

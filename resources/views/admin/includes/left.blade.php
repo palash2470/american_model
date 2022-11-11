@@ -156,6 +156,33 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item {{ (request()->is('admin/gallery*')) ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ (request()->is('admin/gallery/*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-clipboard-list"></i>
+                    <p>
+                        Gallery
+                    </p>
+                    <i class="right fas fa-angle-left"></i>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item {{ (request()->is('admin/gallery/album/*')) ? 'menu-open' : '' }}">
+                        <a href="{{route('admin.gallery.album.index')}}" class="nav-link {{ (request()->is('admin/gallery/album')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-regular fa-images"></i>
+                            <p>
+                                Album
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ (request()->is('admin/gallery/image/*')) ? 'menu-open' : '' }}">
+                        <a href="{{route('admin.gallery.index')}}" class="nav-link {{ (request()->is('admin/gallery/image/*')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-regular fa-image"></i>
+                            <p>
+                                Images
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="nav-item {{ (request()->is('admin/setting/*')) ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ (request()->is('admin/setting/*')) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-cog"></i>

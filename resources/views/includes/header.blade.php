@@ -55,7 +55,7 @@
 
                                 <ul class="d-flex justify-content-between">
                                     {{-- <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{route('home')}}">home</a></li> --}}
-                                    <li class="{{ request()->is('about-us') ? 'active' : '' }}"><a href="{{$settings->menu_about_us === 1 ? route('about_us') : '#'}}">About Us</a></li>
+                                    {{-- <li class="{{ request()->is('about-us') ? 'active' : '' }}"><a href="{{$settings->menu_about_us === 1 ? route('about_us') : '#'}}">About Us</a></li> --}}
                                     <li class="sub_menu_open {{ request()->is('filter/*') || Route::currentRouteName() == 'search.talent' ? 'active' : '' }}">
                                         <a href="javascript:;">Search</a>
                                         @if ($settings->menu_search === 1)
@@ -73,6 +73,7 @@
                                     @if(!Auth::check())
                                         <li class="{{ request()->is('subscription-plan') ? 'active' : '' }}"><a href="{{$settings->menu_become_a_member === 1 ? route('user.subscription.plan') : '#'}}">Become a Member</a></li>
                                     @endif
+                                    <li class="{{ request()->is('gallery*') ? 'active' : '' }}" ><a href="{{route('gallery.album.list')}}">GALLERIES</a></li>
                                     <li class="{{ request()->is('blog*') ? 'active' : '' }}" ><a href="{{$settings->menu_blog === 1 ? route('blog') : '#'}}">Blog</a></li>
                                     <li class="{{ request()->is('job*') ? 'active' : '' }}" ><a href="{{$settings->menu_job === 1 ? route('job') : '#'}}">Job</a></li>
                                 </ul>

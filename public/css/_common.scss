@@ -1908,10 +1908,11 @@
 .model-photos-gallery {
     position: relative;
     overflow: hidden;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     .gal-img{
         position: relative;
         display: block;
+        cursor: pointer;
         img{
             height: 370px;
             object-fit: cover;
@@ -1927,6 +1928,50 @@
             background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
             opacity: 0;
             transition: all 0.3s ease-in-out;
+        }
+    }
+    &.no-overlay{
+        .gal-img{
+            &::after{
+                display: none;
+            }
+        }
+    }
+    &.add-scle{
+        .gal-img{
+            img{
+                transform: scale(1);
+                transition: all 0.3s ease-in-out;
+            }
+        }
+        &:hover{
+            .gal-img{
+                img{
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+    &.gal-count{
+        .gal-count-wrap{
+            position: absolute;
+            display: block;
+            left: 0;
+            padding: 0 10px 0 20px;
+            bottom: 20px;
+            h4{
+                color: #fff;
+                font-size: 16px;
+            }
+            p{
+                color: #fff;
+                line-height: 1;
+            }
+        }
+        .gal-img{
+            &::after{
+                opacity: 1;
+            }
         }
     }
     .model-photos-like-cmnt{
@@ -4421,7 +4466,7 @@ $breakpointsTwo: (
 .ftr-cmnt{
     position: relative;
     height: 100%;
-    padding-bottom: 47px;
+    padding-bottom: 65px;
     .when-fixed{
         position: absolute;
         bottom: 0;

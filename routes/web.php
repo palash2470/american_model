@@ -14,6 +14,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\GalleryController as GalleryImageController;
 
 use App\Http\Controllers\Admin\Auth\AuthenticationController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
@@ -27,6 +28,8 @@ use App\Http\Controllers\Admin\Plan\PlanGroupController;
 use App\Http\Controllers\Admin\Plan\PlanAttributeController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Advertisement\AdvertisementController;
+use App\Http\Controllers\Admin\Gallery\GalleryAlbumController;
+use App\Http\Controllers\Admin\Gallery\GalleryController;
 use App\Http\Controllers\Admin\Weight\WeightController;
 use App\Http\Controllers\Admin\Poll\PollController;
 
@@ -86,6 +89,11 @@ Route::post('/job-search-post', [JobController::class, 'jobSearchPost'])->name('
 Route::get('/job/details/{slug}',[JobController::class, 'jobDetails']);
 //newsletter
 Route::post('/store-newsletter',[HomeController::class,'storeNewsletter']);
+
+//gallery images
+Route::get('/gallery',[GalleryImageController::class,'index'])->name('gallery.album.list');
+Route::get('/gallery/showcase/{id}',[GalleryImageController::class,'getImageByAlbum'])->name('gallery.image.list');
+
 Route::middleware(['auth', 'is_verify_email'])->group(function(){
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard')->middleware('has_profile');
     Route::get('/user/register-basicinfo',[ProfileController::class,'createBasicInformation'])->name('user.basic.information.create');
@@ -286,6 +294,27 @@ Route::group(['middleware'=>'is_admin','prefix'=>'admin'],function(){
             Route::get('/delete/{id}',[PollController::class,'destroy'])->name('admin.poll.delete');
         });
     });
+
+     //Home Page Banner
+     Route::group(['prefix'=>'gallery'], function(){
+        Route::group(['prefix'=>'image'], function(){
+            Route::get('/',[GalleryController::class,'index'])->name('admin.gallery.index');
+            //Route::get('/add',[CategoryCOntroller::class,'create'])->name('admin.category.create');
+            Route::post('/add',[GalleryController::class,'store'])->name('admin.gallery.store');
+            Route::get('/edit/{slug}',[GalleryController::class,'edit'])->name('admin.gallery.edit');
+            Route::post('/edit',[GalleryController::class,'update'])->name('admin.gallery.update');
+            Route::get('/delete/{id}',[GalleryController::class,'delete'])->name('admin.gallery.delete');
+        });
+        Route::group(['prefix'=>'album'], function(){
+            Route::get('/',[GalleryAlbumController::class,'index'])->name('admin.gallery.album.index');
+            //Route::get('/add',[CategoryCOntroller::class,'create'])->name('admin.category.create');
+            Route::post('/add',[GalleryAlbumController::class,'store'])->name('admin.gallery.album.store');
+            Route::get('/edit/{slug}',[GalleryAlbumController::class,'edit'])->name('admin.gallery.album.edit');
+            Route::post('/edit',[GalleryAlbumController::class,'update'])->name('admin.gallery.album.update');
+            Route::get('/delete/{id}',[GalleryAlbumController::class,'delete'])->name('admin.gallery.album.delete');
+        });
+    });
+
 
     //End Master secton
 });

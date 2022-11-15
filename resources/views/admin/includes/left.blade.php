@@ -43,6 +43,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item {{ (request()->is('admin/image-category')) ? 'menu-open' : '' }}">
+                <a href="{{route('admin.image_category.index')}}" class="nav-link {{ (request()->is('admin/image-category*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-boxes"></i>
+                    <p>
+                        Photo Categories
+                    </p>
+                </a>
+            </li>
             <li class="nav-item {{ (request()->is('admin/colour*')) ? 'menu-open' : '' }}">
                 <a href="{{route('admin.colour.index')}}" class="nav-link {{ (request()->is('admin/colour*')) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-palette"></i>
@@ -156,7 +164,7 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item {{ (request()->is('admin/gallery*')) ? 'menu-open' : '' }}">
+            {{-- <li class="nav-item {{ (request()->is('admin/gallery*')) ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ (request()->is('admin/gallery/*')) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-clipboard-list"></i>
                     <p>
@@ -182,7 +190,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <li class="nav-item {{ (request()->is('admin/setting/*')) ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ (request()->is('admin/setting/*')) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-cog"></i>

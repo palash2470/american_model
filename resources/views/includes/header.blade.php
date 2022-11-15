@@ -75,7 +75,7 @@
                                     @endif
                                     <li class="{{ request()->is('gallery*') ? 'active' : '' }}" ><a href="{{route('gallery.album.list')}}">GALLERIES</a></li>
                                     <li class="{{ request()->is('blog*') ? 'active' : '' }}" ><a href="{{$settings->menu_blog === 1 ? route('blog') : '#'}}">Blog</a></li>
-                                    <li class="{{ request()->is('job*') ? 'active' : '' }}" ><a href="{{$settings->menu_job === 1 ? route('job') : '#'}}">Job</a></li>
+                                    <li class="{{ request()->is('job*') ? 'active' : '' }}" ><a href="{{$settings->menu_job === 1 ? route('job') : '#'}}">Jobs</a></li>
                                 </ul>
                             </nav>
                         </div>

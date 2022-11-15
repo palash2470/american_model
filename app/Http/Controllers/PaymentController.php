@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\UserPlan;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Session;
 use Stripe;
@@ -141,8 +142,13 @@ class PaymentController extends Controller
                 $message->to(Auth()->user()->email);
                 $message->subject('Order receipt');
             }); */
-
+            $payment = Payment::where('transaction_id', $response['id'])->first();
+            $user_plan = UserPlan::where('id',$payment->user_plan_id)->first();
             //return view('finishPayment');
+            Mail::send('emails.subscription', ['user_plan' => $user_plan], function($message) use($user_plan){
+                $message->to($user_plan->user->email);
+                $message->subject('Subscription');
+            });
             return redirect()->route('payment.success')->with('success', 'Transaction complete.');
         } else {
             return redirect()
@@ -196,6 +202,11 @@ class PaymentController extends Controller
                     Payment::where('id', $payment_id)
                     ->update(['payment_status'=> 'COMPLETED','transaction_id'=>$payment['id']]);
                     User::where('id',Auth::user()->id)->update(['is_subscribe'=>1,'is_payment'=>1]);
+                    
+                    Mail::send('emails.subscription', ['user_plan' => $user_plan], function($message) use($user_plan){
+                        $message->to($user_plan->user->email);
+                        $message->subject('Subscription');
+                    });
                     return redirect()->route('payment.success');
                 }else{
                     Session::flash('error', 'Something went wrong!');

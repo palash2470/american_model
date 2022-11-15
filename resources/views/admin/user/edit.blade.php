@@ -142,6 +142,18 @@
                                         </div>
                                     </div>
                                 @endif
+                                @if ($user->membership_id == 2)
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <ul>
+                                                <li class="checkbox">
+                                                    <input type="checkbox" name="feature_photographer" id="feature_photographer" value="1" @if(isset($user) && $user->feature_photographer == 1) checked @endif>
+                                                    <label for="feature_photographer">FEATURED PHOTOGRAPHER</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endif
                                
                                 <div class="col-sm-6">
                                     <div class="form-group">

@@ -62,6 +62,21 @@
             }
         }
     }
+    
+    .model-photos-gallery {
+        .gal-img{
+            img{
+                height: 400px;
+            }
+        }
+    }
+    .model-photos-wrap{
+        .top-filter-gallery{
+            .src-filter{
+                width: 400px;
+            }
+        }
+    }
 }
 
 @media only screen and (max-width: 1366px) {}
@@ -93,6 +108,13 @@
 }
 
 @media only screen and (max-width: 1280px) {
+    .model-photos-wrap{
+        .top-filter-gallery{
+            .src-filter{
+                width: 300px;
+            }
+        }
+    }
     .register-wrap {
         .banner-new-lft {
             margin-top: 9rem;
@@ -174,10 +196,37 @@
             flex: 0 0 120px;
             max-width: 120px;
         }
-    }
+    }    
 }
 
 @media only screen and (max-width: 1135px) {
+    .model-photos-wrap{
+        .top-filter-gallery{
+            .filter-list{
+                li{
+                    a{
+                        font-size: 14px;
+                    }
+                    &:not(:last-child){
+                        margin-right: 10px;
+                    }
+                }
+            }
+            .src-filter{
+                .src-icon-gal{
+                    .src-icon-gal-btn{
+                        font-size: 14px;
+                    }
+                }
+            }
+            .allplan-choose{
+                margin-left: 10px;
+                span{
+                    font-size: 14px;
+                }
+            }
+        }
+    }
     .register-wrap {
         .banner-new-lft {
             margin-top: 0;
@@ -896,7 +945,15 @@
 
 @media only screen and (max-width: 885px) {}
 
-@media only screen and (max-width: 880px) {}
+@media only screen and (max-width: 880px) {
+    .model-photos-wrap{
+        .top-filter-gallery{
+            .filter-list{
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
 
 @media only screen and (max-width: 800px) {
     .only-for-edit-page {
@@ -1283,6 +1340,13 @@
 }
 
 @media only screen and (max-width: 600px) {
+    .model-photos-wrap{
+        .top-filter-gallery{
+            .src-filter{
+                width: 250px;
+            }
+        }
+    }
     .bannar-text-wrap {
         .bannar-text-box {
             width: 65%;
@@ -1723,6 +1787,39 @@
 }
 
 @media only screen and (max-width: 545px) {
+    .model-photos-wrap{
+        .col-auto{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .top-filter-gallery{
+            width: 100%;
+            justify-content: center;
+            display: flex;
+            .filter-list{
+                justify-content: center;
+                li{
+                    a{
+                        font-size: 12px;
+                    }
+                }
+            }
+            .src-filter{
+                width: 100%;
+                .src-icon-gal{
+                    .src-icon-gal-btn{
+                        font-size: 12px;
+                    }
+                }
+            }
+            .allplan-choose{
+                margin-left: 0;
+                span{
+                    font-size: 12px;
+                }
+            }
+        }
+    }
     // .menu-responsive {
     //     top: 15px;
     //     left: -48px;
@@ -1987,7 +2084,6 @@
             padding: 0 10px;
         }
     }
-
 }
 
 @media only screen and (max-width: 414px) {

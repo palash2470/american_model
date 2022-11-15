@@ -1,4 +1,4 @@
-<footer class="footer bg-footer" style="background: url({{ url('images/bg-footer.png') }}) no-repeat center center;">
+<footer class="footer bg-footer" id="footer" style="background: url({{ url('images/bg-footer.png') }}) no-repeat center center;">
     <div class="container-fluid left-right-40">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">

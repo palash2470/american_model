@@ -18,6 +18,7 @@ use App\Models\Ethnicity;
 use App\Models\Favourite;
 use App\Models\Follow;
 use App\Models\HairLenth;
+use App\Models\ImageCategory;
 use App\Models\Images;
 use App\Models\PhotoLike;
 use App\Models\Weight;
@@ -516,12 +517,13 @@ class ProfileController extends Controller
         $hairLenths = HairLenth::all();
         $categories = Category::all();
         $countres = Country::all();
+        $image_categories = ImageCategory::where('status',1)->orderBy('name')->get();
         if($user->category->slug == 'models'){
-            return view('user.profile_edit.my_profile_edit',compact('user','colours','ethnicities','weights','hairLenths'));
+            return view('user.profile_edit.my_profile_edit',compact('user','colours','ethnicities','weights','hairLenths','image_categories'));
         }elseif($user->category->slug == 'photographer' || $user->category->slug == 'casting-director'){
-            return view('user.profile_edit.photographer_profile_edit',compact('user','categories','countres'));
+            return view('user.profile_edit.photographer_profile_edit',compact('user','categories','countres','image_categories'));
         }elseif($user->category->slug == 'child-model-and-actor'){
-            return view('user.profile_edit.child-model_profile_edit',compact('user','colours','ethnicities','weights','hairLenths'));
+            return view('user.profile_edit.child-model_profile_edit',compact('user','colours','ethnicities','weights','hairLenths','image_categories'));
         }else{
             abort(404);
         }
@@ -613,6 +615,7 @@ class ProfileController extends Controller
         $this->validate($request,[
             'image' => 'required',
             'title' => 'required',
+            'image_category' => 'required',
         ]);
         $image_name = 'NULL';
         if($request->has('image')) {
@@ -637,7 +640,8 @@ class ProfileController extends Controller
             'user_id' => Auth::user()->id,
             'image' => $image_name,
             'title' => $request->title,
-            'category' => $request->title,
+            'category' => $request->image_category,
+            'description' => $request->description,
         ]);
         return back()->with('success', 'Image upload Successfully');
         //return response()->json(['status'=>true,'massage'=>'Image upload Successfully']);

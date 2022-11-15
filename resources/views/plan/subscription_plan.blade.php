@@ -333,7 +333,7 @@
                         <div class="plan-page-btm sdw-box rds-box">
                             <h3>FAQs</h3>
                             <p>How do I cancel my paid subscription?</p>
-                            <p>For security purposes, please write us on cs@onemodelplace.com to cancel your membership.</p>
+                            <p>For security purposes, please write us on admin@americanmodel.net to cancel your membership.</p>
                             <p>NOTE: The scheduled payment MUST be canceled at least three (3) days prior to the scheduled date of the next payment. Canceling a Subscription on the day of a scheduled payment will not guarantee that the payment will not be sent.</p>
                         </div>
                     </div>

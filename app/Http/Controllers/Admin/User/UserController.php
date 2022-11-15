@@ -128,6 +128,7 @@ class UserController extends Controller
                 'status'=> $request->status,
                 'feature_model' =>isset($request->feature_model) ? 1 : 0, 
                 'convention_and_trade' =>isset($request->convention_and_trade) ? 1 : 0, 
+                'feature_photographer' =>isset($request->feature_photographer) ? 1 : 0, 
             ]);
             if($user->status == 0 && $request->status == 1){
                 Mail::send('emails.account_approved', ['user' => $user], function($message) use($user){

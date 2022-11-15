@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <section class="blog-page-sec bg-light-grey">
-    <div class="container-fluid left-right-40">
+    <div class="container container-custom">
         <div class="row">
             <div class="col-12">
                 <div class="gelleries-page-head">
@@ -145,6 +145,7 @@
                             @endif
                         @else
                             <div class="job-btn-cover">
+                                {{Session::put('url_back', url()->current())}}
                                 <a href="{{url('job-apply').'/'.$job->id}}" class="job-read-more">Apply</a>
                             </div>
                         @endif

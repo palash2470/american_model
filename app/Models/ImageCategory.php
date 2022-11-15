@@ -5,9 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Payment extends Model
+class ImageCategory extends Model
 {
     use HasFactory;
+    
+ /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'image_categories';
     /**
      * The attributes that aren't mass assignable.
      *
@@ -15,11 +22,7 @@ class Payment extends Model
      */
     protected $guarded = [];
 
-    public function user(){
-        return $this->hasOne(User::class,'id','user_id');
-    }
-
-    public function userPlan(){
-        return $this->hasOne(UserPlan::class,'id','user_plan_id');
+    public function images(){
+        return $this->hasMany(Images::class,'category','id');
     }
 }

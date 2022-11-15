@@ -61,13 +61,13 @@
                     <div class="model-user-info-lft">
                         <div class="model-name">
                             <h3>{{@$user->name}}</h3>
-                            <ul class="ratting-star d-flex">
+                            <!-- <ul class="ratting-star d-flex">
                                 <li><i class="fas fa-star"></i></li>
                                 <li><i class="fas fa-star"></i></li>
                                 <li><i class="fas fa-star"></i></li>
                                 <li><i class="fas fa-star"></i></li>
                                 <li><i class="fas fa-star-half-alt"></i></li>
-                            </ul>
+                            </ul> -->
                             <div class="model-user">
                                 <p><span class="info-type">Category:</span>{{$user->category->name}}</p>
                                 {{-- <p><span class="info-type">Date:</span>April 16, 2019</p> --}}
@@ -867,7 +867,7 @@
                                 <div id="full_calendar_events"></div>
                             </div>
                             <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
-                                <div class="row g-3">
+                                <div class="row g-3 mt-2">
                                     @forelse ($user->followers as $followers)
                                         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                                             <div class="model-box-wrap followrs-box">
@@ -893,7 +893,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
-                                <div class="row g-3">
+                                <div class="row g-3 mt-2">
                                     @forelse ($user->followings as $followings )
                                         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                                             <div class="model-box-wrap followrs-box">
@@ -1346,6 +1346,7 @@
     function favourite(user_id){
         var check_login = '{{Auth::check()}}';
         if(check_login == ''){
+            {{Session::put('url_back', url()->current())}}
             window.location.href = '{{route('login')}}';
         }else{
             var token = '{{csrf_token()}}';
@@ -1375,6 +1376,7 @@
         //console.log(followers_count);
         var check_login = '{{Auth::check()}}';
         if(check_login == ''){
+            {{Session::put('url_back', url()->current())}}
             window.location.href = '{{route('login')}}';
         }else{
             $("#loading_container").attr("style", "display:block");
@@ -1408,6 +1410,7 @@
         //console.log(photo_id);
         var check_login = '{{Auth::check()}}';
         if(check_login == ''){
+            {{Session::put('url_back', url()->current())}}
             window.location.href = '{{route('login')}}';
         }else{
             $("#loading_container").attr("style", "display:block");
@@ -1524,6 +1527,7 @@ $(document).on('submit','.photo_comment',function(e){
     }else{
         var check_login = '{{Auth::check()}}';
         if(check_login == ''){
+            {{Session::put('url_back', url()->current())}}
             window.location.href = '{{route('login')}}';
         }else{
             //alert('sdfsdf');

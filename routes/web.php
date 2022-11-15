@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\Gallery\GalleryAlbumController;
 use App\Http\Controllers\Admin\Gallery\GalleryController;
 use App\Http\Controllers\Admin\Weight\WeightController;
 use App\Http\Controllers\Admin\Poll\PollController;
+use App\Http\Controllers\Admin\ImageCategory\ImageCategoryController;
 
 
 /*
@@ -91,9 +92,12 @@ Route::get('/job/details/{slug}',[JobController::class, 'jobDetails']);
 Route::post('/store-newsletter',[HomeController::class,'storeNewsletter']);
 
 //gallery images
-Route::get('/gallery',[GalleryImageController::class,'index'])->name('gallery.album.list');
-Route::get('/gallery/showcase/{id}',[GalleryImageController::class,'getImageByAlbum'])->name('gallery.image.list');
-
+Route::get('/gallery/showcase',[GalleryImageController::class,'index'])->name('gallery.album.list');
+Route::get('/gallery/showcase/{id}',[GalleryImageController::class,'getImageByImageCatId'])->name('gallery.showcase.image.list');
+Route::get('/gallery/new-images',[GalleryImageController::class,'getNewImages'])->name('gallery.new_image.list');
+Route::get('/gallery/featured-models',[GalleryImageController::class,'getFeaturedModelImages'])->name('gallery.featured_models.image.list');
+Route::get('/gallery/featured-photographers',[GalleryImageController::class,'getFeaturedPhotographersImages'])->name('gallery.featured_photographers.image.list');
+Route::post('/fetch-image-category-autocomplete', [GalleryImageController::class, 'autoCompleteImageCategory']);
 Route::middleware(['auth', 'is_verify_email'])->group(function(){
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard')->middleware('has_profile');
     Route::get('/user/register-basicinfo',[ProfileController::class,'createBasicInformation'])->name('user.basic.information.create');
@@ -315,6 +319,14 @@ Route::group(['middleware'=>'is_admin','prefix'=>'admin'],function(){
         });
     });
 
+    Route::group(['prefix'=>'image-category'], function(){
+        Route::get('/',[ImageCategoryController::class,'index'])->name('admin.image_category.index');
+        //Route::get('/add',[CategoryCOntroller::class,'create'])->name('admin.category.create');
+        Route::post('/add',[ImageCategoryController::class,'store'])->name('admin.image_category.store');
+        Route::get('/edit/{slug}',[ImageCategoryController::class,'edit'])->name('admin.image_category.edit');
+        Route::post('/edit',[ImageCategoryController::class,'update'])->name('admin.image_category.update');
+        Route::get('/delete/{id}',[ImageCategoryController::class,'delete'])->name('admin.image_category.delete');
+    });
 
     //End Master secton
 });

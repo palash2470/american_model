@@ -228,7 +228,7 @@
                                                 </div>
                                             </span>
                                             <div class="featured-model same_height1">
-                                                <h4><a href="model.html">{{$feature_model->name}}</a></h4>
+                                                <h4><a href="{{route('user.view.profile',[$feature_model->category->slug,$feature_model->name_slug])}}">{{$feature_model->name}}</a></h4>
                                                 <p class="same_height-smtext">
                                                     
                                                     {{@Str::of($feature_model->userDetails->biography)->limit(80);}}

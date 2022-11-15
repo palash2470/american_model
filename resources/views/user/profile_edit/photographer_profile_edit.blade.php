@@ -53,13 +53,13 @@
                     <div class="model-user-info-lft">
                         <div class="model-name">
                             <h3>{{@$user->name}}</h3>
-                            <ul class="ratting-star d-flex">
+                            {{-- <ul class="ratting-star d-flex">
                                 <li><i class="fas fa-star"></i></li>
                                 <li><i class="fas fa-star"></i></li>
                                 <li><i class="fas fa-star"></i></li>
                                 <li><i class="fas fa-star"></i></li>
                                 <li><i class="fas fa-star-half-alt"></i></li>
-                            </ul>
+                            </ul> --}}
                             <div class="model-user">
                                 <p><span class="info-type">Category:</span>{{$user->category->name}}</p>
                                 {{-- <p><span class="info-type">Date:</span>April 16, 2019</p> --}}
@@ -516,7 +516,7 @@
                                 <div class="tab-content" id="portflTabContent">
                                     <div class="tab-pane fade show active" id="photos" role="tabpanel" aria-labelledby="photos-tab">
                                         <div class="model-photos-wrap">
-                                            <div class="row">
+                                            <div class="row g-3">
                                                 @if(count($user->images) > 0)
                                                     @foreach ($user->images->sortByDesc('id') as $image)
                                                     <div class="col-lg-4 col-md-6 col-ms-6 col-12">
@@ -644,8 +644,29 @@
                             </div> --}}
                             <div class="tab-pane fade" id="calender" role="tabpanel" aria-labelledby="calender-tab">...</div>
                             <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                <div class="row g-3 mt-2">
+                                    @forelse ($user->followers as $followers)
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                                            <div class="model-box-wrap followrs-box">
+                                                <div class="model-box-design">
+                                                    <span class="model-box-img">
+                                                        <img class="img-block" src="{{url('/img/user/profile-image/'.$followers->followersUser->userDetails->profile_image)}}" alt="">
+                                                    </span>
+                                                    <div class="model-box-text">
+                                                        <h4><a href="{{url('/profile/'.$followers->followersUser->category->slug.'/'.$followers->followersUser->name_slug)}}">{{$followers->followersUser->name}}</a></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @empty
+                                    <div class="col-12">
+                                        <div class="not-found-text">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                            <p>no follower found</p>
+                                        </div>
+                                    </div>
+                                    @endforelse
+                                    {{-- <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                         <div class="model-box-wrap followrs-box">
                                             <div class="model-box-design">
                                                 <span class="model-box-img">
@@ -696,12 +717,33 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                <div class="row g-3 mt-2">
+                                    @forelse ($user->followings as $followings )
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                                            <div class="model-box-wrap followrs-box">
+                                                <div class="model-box-design">
+                                                    <span class="model-box-img">
+                                                        <img class="img-block" src="{{url('/img/user/profile-image/'.$followings->followingsUser->userDetails->profile_image)}}">
+                                                    </span>
+                                                    <div class="model-box-text">
+                                                        <h4><a href="{{url('/profile/'.$followings->followingsUser->category->slug.'/'.$followings->followingsUser->name_slug)}}">{{$followings->followingsUser->name}}</a></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @empty
+                                    <div class="col-12">
+                                        <div class="not-found-text">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                            <p>no following found</p>
+                                        </div>
+                                    </div>
+                                    @endforelse
+                                    {{-- <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                         <div class="model-box-wrap followrs-box">
                                             <div class="model-box-design">
                                                 <span class="model-box-img">
@@ -752,7 +794,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -789,21 +831,24 @@
                         <input class="form-control input-underline" placeholder="Enter image title" name="title">
                     </div>
                 </div>
-               {{--  <div class="col-12 mb-2">
+                <div class="col-12 mb-2">
                     <div class="select-wrap">
-                        <select class="form-control select-underline selectOption" name="category">
-                            <option value="">Select Catagory</option>
+                        <select class="form-control select-underline selectOption" name="image_category">
+                            <option value="">Select Photo Catagory</option>
+                            @foreach ($image_categories as $image_cat)
+                                <option value="{{$image_cat->id}}">{{$image_cat->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
-                <div class="col-12 mb-2">
+               {{-- <div class="col-12 mb-2">
                     <div class="txtare-wrap">
                         <textarea class="form-control txtare-style" name="" id="" rows="3" placeholder="Write Copyright" name="copyright"></textarea>
                     </div>
                 </div> --}}
                 <div class="col-12 mb-2">
                     <div class="txtare-wrap">
-                        <textarea class="form-control txtare-style" name="" id="" rows="3" placeholder="Write Description" name="description"></textarea>
+                        <textarea class="form-control txtare-style" id="" rows="3" placeholder="Write Description" name="description"></textarea>
                     </div>
                 </div>
                 
@@ -1355,7 +1400,10 @@
         rules: {
             title: {
                 required: true,
-            }
+            },
+            image_category: {
+                required: true,
+            },
         },
         submitHandler: function(form) {
             $("#loading_container_modal").attr("style", "display:block");
@@ -1556,5 +1604,101 @@ $(document).on('submit','.photo_comment',function(e){
         });    
 
     })()
+
+    //end photo popup
+    $(document).on('submit','#contact_frm',function(e){
+        $("#loading_container").attr("style", "display:block");
+    });
+
+    //Calender section
+    $(document).ready(function () {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var calendar = $('#full_calendar_events').fullCalendar({
+            editable: true,
+            editable: true,
+            events: "{{route('user.calendar.book')}}",
+            displayEventTime: true,
+            eventRender: function (event, element, view) {
+                if (event.allDay === 'true') {
+                    event.allDay = true;
+                } else {
+                    event.allDay = false;
+                }
+            },
+            selectable: true,
+            selectHelper: true,
+            select: function (event_start, event_end, allDay) {
+                /* var event_name = prompt('Event Name:');
+                if (event_name) {
+                    var event_start = $.fullCalendar.formatDate(event_start, "Y-MM-DD HH:mm:ss");
+                    var event_end = $.fullCalendar.formatDate(event_end, "Y-MM-DD HH:mm:ss");
+                    $.ajax({
+                        url: SITEURL + "/calendar-crud-ajax",
+                        data: {
+                            event_name: event_name,
+                            event_start: event_start,
+                            event_end: event_end,
+                            type: 'create'
+                        },
+                        type: "POST",
+                        success: function (data) {
+                            displayMessage("Event created.");
+                            calendar.fullCalendar('renderEvent', {
+                                id: data.id,
+                                title: event_name,
+                                start: event_start,
+                                end: event_end,
+                                allDay: allDay
+                            }, true);
+                            calendar.fullCalendar('unselect');
+                        }
+                    });
+                } */
+            },
+            eventDrop: function (event, delta) {
+                /* var event_start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
+                var event_end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
+                $.ajax({
+                    url: SITEURL + '/calendar-crud-ajax',
+                    data: {
+                        title: event.event_name,
+                        start: event_start,
+                        end: event_end,
+                        id: event.id,
+                        type: 'edit'
+                    },
+                    type: "POST",
+                    success: function (response) {
+                        displayMessage("Event updated");
+                    }
+                }); */
+            },
+            eventClick: function (event) {
+                /* var eventDelete = confirm("Are you sure?");
+                if (eventDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: SITEURL + '/calendar-crud-ajax',
+                        data: {
+                            id: event.id,
+                            type: 'delete'
+                        },
+                        success: function (response) {
+                            calendar.fullCalendar('removeEvents', event.id);
+                            displayMessage("Event removed");
+                        }
+                    });
+                } */
+            }
+        });
+    });
+    function displayMessage(message) {
+        toastr.success(message, 'Event');
+    }
 </script>
 @endpush

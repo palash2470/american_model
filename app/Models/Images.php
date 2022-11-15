@@ -11,7 +11,7 @@ class Images extends Model
 
     protected $table = 'images';
 
-    protected $fillable = ['title','user_id','image'];
+    protected $fillable = ['title','user_id','image','category','description'];
 
     public function comments(){
         return $this->hasMany(PhotoComment::class,'photo_id','id');
@@ -21,5 +21,9 @@ class Images extends Model
     }
     public function likes(){
         return $this->hasMany(PhotoLike::class,'photo_id','id');
+    }
+
+    public function checkUserLike(){
+        return $this->hasOne(PhotoLike::class,'photo_id','id')->where('user_id', auth()->user()->id);
     }
 }

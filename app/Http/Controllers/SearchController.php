@@ -90,9 +90,13 @@ class SearchController extends Controller
                 if($request->has('language') && !empty($request->language)){
                     $query->whereRaw('FIND_IN_SET("'.$request->language.'", language)');
                 }
-            })->paginate(10);
+            })
+            //->with('userPlan')
+
+            ->paginate(10);
 
         if(in_array($category_slug, $modelArr)){
+            dd($users);
             return view('search.model',compact('users','category','request','weights','ethnicities'));
         }else{
             //dd($users);

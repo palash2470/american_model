@@ -36,9 +36,10 @@
                                 <table class="table table-bordered data-table">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>Title</th>
                                             <th>Image</th>
                                             <th>Sl No</th>
+                                            <th>Status</th>
                                             <th width="100px">Action</th>
                                         </tr>
                                     </thead>
@@ -75,8 +76,8 @@
                     @csrf
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="brand">Banner Name</label>
-                                <input type="text" name="name" class="form-control" id="brand" value="{{isset($banner)?$banner->name:''}}" placeholder="Banner Name">
+                                <label for="brand">Banner Title</label>
+                                <input type="text" name="name" class="form-control" id="brand" value="{{isset($banner)?$banner->name:''}}" placeholder="Banner Title">
                                 @if($errors->has('name'))
                                     <div class="error">{{ $errors->first('name') }}</div>
                                 @endif
@@ -114,6 +115,16 @@
                                     <div class="error">{{ $errors->first('sl_no') }}</div>
                                 @endif
                             </div>
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select class="form-control" id="status" name="status">
+                                    <option value="1" {{(isset($banner) && $banner->status ==1 ) ? 'selected' :''}}>Active</option>
+                                    <option value="0" {{(isset($banner) && $banner->status ==0 ) ? 'selected' :''}}>Inactive</option>
+                                </select>
+                                @if($errors->has('status'))
+                                    <div class="error">{{ $errors->first('status') }}</div>
+                                @endif
+                            </div>
                             
                         </div>
                         <!-- /.card-body -->
@@ -145,6 +156,7 @@ $(document).ready(function(){
                 {data: 'name', name: 'name'},
                 {data: 'image_name', name: 'image_name'},
                 {data: 'sl_no', name: 'sl_no'},
+                {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });

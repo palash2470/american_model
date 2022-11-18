@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <section class="user-dashboard">
-    <form action="{{route('job.post.store')}}" method="post" enctype="multipart/form-data">
+    <form id="job_post_frm" action="{{route('job.post.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="container-fluid left-right-40">
             <div class="jobs-post-wrap d-flex flex-wrap">
@@ -19,7 +19,7 @@
                         <ul class="d-flex">
                             <li class="create-list-lft input-title">seeking:</li>
                             <li class="create-list-rgt book-input-wrap">
-                                <input type="text" name="seeking" class="form-control book-input-style" placeholder="model, photographer, mua">
+                                <input type="text" name="seeking" class="form-control book-input-style" placeholder="model, photographer, mua" value="{{old('seeking')}}">
                             </li>
                         </ul>
                         <ul class="d-flex">
@@ -28,7 +28,7 @@
                                 <select class="form-control book-select-style selectOption2" name="jobCategory">
                                     <option value="">Select Job Category</option>
                                     @foreach ($category as $categoryKey => $categoryValue )
-                                        <option value="{{$categoryValue->id}} {{old('jobCategory') === $categoryValue->id ? 'selected':''}}" >{{$categoryValue->name}}</option>
+                                        <option value="{{$categoryValue->id}} {{old('jobCategory') == $categoryValue->id ? 'selected':''}}">{{$categoryValue->name}}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('jobCategory'))
@@ -73,8 +73,8 @@
                             <li class="create-list-lft input-title">location:</li>
                             <li class="create-list-rgt book-input-wrap">
                                 <div class="ui-widget">
-                                    <input type="text" class="form-control book-input-style ui-autocomplete-input" placeholder="Search Your Location " value="{{old('location')}}" id="city_autocomplete">
-                                    <input type="hidden" name="location" id="location_id" value="">
+                                    <input type="text" class="form-control book-input-style ui-autocomplete-input" placeholder="Search Your Location" name="job_location_name" value="{{old('job_location_name')}}" id="city_autocomplete">
+                                    <input type="hidden" name="location" id="location_id" value="{{old('location')}}">
                                 </div>
                                 @if ($errors->has('location'))
                                     <span class="text-danger">{{ $errors->first('location') }}</span>
@@ -139,7 +139,7 @@
                 <ul class="d-flex">
                     <li class="create-list-lft input-title">Details:</li>
                     <li class="create-list-rgt book-txtare-wrap">
-                        <textarea rows="4" class="form-control book-txtare-style resize" placeholder="Type Details" name="jobDescription" value="{{old('jobDescription')}}"></textarea>
+                        <textarea rows="4" class="form-control book-txtare-style resize" placeholder="Type Details" name="jobDescription" value="{{old('jobDescription')}}">{{old('jobDescription')}}</textarea>
                         @if ($errors->has('jobDescription'))
                             <span class="text-danger">{{ $errors->first('jobDescription') }}</span>
                         @endif
@@ -148,7 +148,7 @@
                 <ul class="d-flex">
                     <li class="create-list-lft input-title">Preferences:</li>
                     <li class="create-list-rgt book-txtare-wrap">
-                        <textarea rows="4" class="form-control book-txtare-style resize" placeholder="Type Preferences" name="jobPreference" value="{{old('jobPreference')}}"></textarea>
+                        <textarea rows="4" class="form-control book-txtare-style resize" placeholder="Type Preferences" name="jobPreference" value="{{old('jobPreference')}}">{{old('jobPreference')}}</textarea>
                         @if ($errors->has('jobPreference'))
                             <span class="text-danger">{{ $errors->first('jobPreference') }}</span>
                         @endif
@@ -157,7 +157,7 @@
                 <ul class="d-flex">
                     <li class="create-list-lft input-title">Requirements:</li>
                     <li class="create-list-rgt book-txtare-wrap">
-                        <textarea rows="4" class="form-control book-txtare-style resize" placeholder="Type Requirements" name="jobRequirement" value="{{old('jobRequirement')}}"></textarea>
+                        <textarea rows="4" class="form-control book-txtare-style resize" placeholder="Type Requirements" name="jobRequirement" value="{{old('jobRequirement')}}">{{old('jobRequirement')}}</textarea>
                         @if ($errors->has('jobRequirement'))
                             <span class="text-danger">{{ $errors->first('jobRequirement') }}</span>
                         @endif
@@ -413,6 +413,9 @@
 
 @push('scripts')
 <script>
+$(document).on('submit','#job_post_frm',function(e){
+    $("#loading_container").attr("style", "display:block");
+});
 $(document).ready(function(){
     $('.js-example-basic-multiple').select2({
         placeholder: 'Select an job location',

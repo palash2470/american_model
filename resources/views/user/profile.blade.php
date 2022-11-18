@@ -2,851 +2,513 @@
 {{-- {!! RecaptchaV3::initJs() !!} --}}
 @section('content')
 <section class="model-details-page-sec">
-    <div class="model-details-banner">
-        <img class="img-block" src="{{url('images/model-banner2.jpg')}}" alt="">
+    <div class="model-details-banner new-add-bnr">
+        <img class="img-block" src="{{$user->userDetails->cover_img ? url('/img/user/cover-image/'.$user->userDetails->cover_img) : url('images/model-banner3.jpg')}}" alt="">
+        <div class="bannar-social">
+            <ul class="model-social-icon d-flex justify-content-end">
+                <li><a href="{{@$user->userDetails->facebook_link}}" class="fcbk"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="{{@$user->userDetails->youtube_link}}" class="ytbe"><i class="fab fa-youtube"></i></a></li>
+                <li><a href="{{@$user->userDetails->twitter_link}}" class="twtr"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="{{@$user->userDetails->linkedin_link}}" class="lkdn"><i class="fab fa-linkedin"></i></a></li>
+            </ul>
+        </div>
     </div>
-    <div class="topuser">
+    <div class="new-topuser">
         <div class="container-fluid left-right-40">
-            <div class="model-user-details d-flex flex-wrap">
-                <div class="model-user-img">
-                    <div class="mobile-box">
-                        <span class="model-user-box position-relative bdr">
-                            <img class="img-block" src="{{url('/img/user/profile-image/'.$user->userDetails->profile_image)}}" alt="">
-                            <!-- <span class="model-views"><i class="fas fa-eye"></i>158 Views</span> -->
-                        </span>
-                        <ul class="model-follower d-flex justify-content-between">
-                            <li><a href="javascript:" class="add-fev" onclick="favourite({{$user->id}})"><i class="{{($count_favourite > 0 ? 'fas' : 'far')}} fa-heart" id="favourite"></i>{{count($user->favourites)}}</a></li>
-                            <li><a href="javascript:void(0)"><i class="far fa-envelope" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>0</a></li>
+            <div class="new-profile-user d-flex">
+                <div class="new-profile-user-lft">
+                    <div class="new-profile-user-details">
+                        <div class="new-profile-user1">
+                            <span class="new-profile-user-img-box">
+                                <img class="img-block" src="{{url('/img/user/profile-image/'.$user->userDetails->profile_image)}}" alt="">
+                            </span>
+                        </div>
+                        <div class="new-profile-user2">
+                            <h4>{{@$user->name}}</h4>
+                            <ul class="new-model-follower d-flex justify-content-center">
+                                <li><a href="javascript:void(0)" onclick="favourite({{$user->id}})"><i class="{{($count_favourite > 0 ? 'fas' : 'far')}} fa-heart" id="favourite"></i>{{count($user->favourites)}}</a></li>
+                                <li><a href="javascript:void(0)"><i class="far fa-envelope" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>0</a></li>
+                            </ul>
+                            <p class="new-info-type"><strong>Category:</strong> {{$user->category->name}}</p>
+                            <p class="new-info-type"><strong>Tags:</strong> Artist, Cosmetics, Make up</p>
+                            <p class="new-info-type"><a class="copy-link-btn" href="javascript:void(0)" onclick="copyLink('{{url('/profile/'.$user->category->slug.'/'.$user->name_slug)}}')">copy link</a></p>
+                            <p class="new-info-type"><strong>Last Activity:</strong> {{ Carbon\Carbon::parse($user->last_active)->format('F d Y') }}</p>
+                            <p class="new-info-type"><strong>Join Date:</strong> {{ Carbon\Carbon::parse($user->created_at)->format('F d Y') }}</p>
+                            <p class="new-info-type"><a class="new-book-btn" href="javascript:void(0)" data-id="{{Crypt::encrypt($user->id)}}" data-bs-toggle="modal" data-bs-target="#book_now_modal">book now</a></p>
+                            <p class="new-info-type"><a class="new-follow-btn {{$count_follow > 0 ? 'followed' : ''}}" href="javascript:" onclick="follow({{$user->id}})" id="followlink">{{$count_follow > 0 ? 'following' : 'follow'}} @if($count_follow > 0) @else <span class="flw-img"><img src="{{url('images/hand.png')}}" alt=""></span>@endif</a></p>
+                            <ul class="new-model-follower-list d-flex flex-wrap justify-content-center">
+                                <li><a data-count="{{count($user->followers)}}" href="javascript:;" onclick="followers();">Followers <strong>{{count($user->followers)}}</strong></a></li>
+                                <li><a href="javascript:;" onclick="following()">Following <strong>{{count($user->followings)}}</strong></a></li>
+                            </ul>
+                            <div class="user-small-head mb-2">
+                                <h5>Biography</h5>
+                            </div>
+                            <div class="biography">
+                                <p>{{$user->userDetails->biography}}</p>
+                            </div>
+                            <div class="accordion list-accordion" id="accordionExample">
+                                <!-- <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Personal Information
+                                    </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Interested In
+                                    </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <ul class="d-flex flex-wrap one-line-list">
+                                                <li>
+                                                    {{-- Acting, Fitness --}}
+                                                    @if($user->category->slug == 'models')
+                                                        @php
+                                                            $interestArr = [];
+                                                            if($user->userDetails->interested != '' || $user->userDetails->interested != 'null'){
+                                                                $interestArr = explode(',',$user->userDetails->interested);
+                                                            }
+                                                        @endphp
+                                                        @if(count($interestArr) > 0)
+                                                            @php
+                                                                $interestArrName = []
+                                                            @endphp
+                                                            @foreach ($interestArr as $interest)
+                                                                @php
+                                                                    $interestArrName[]= @Helper::interestedArr()[$interest];
+                                                                @endphp
+                                                                
+                                                                {{-- <p>{{@Helper::interestedArr()[$interest]}}</p> --}}
+                                                            @endforeach
+                                                            {{implode( ',',  $interestArrName)}}
+                                                        @endif
+                                                    @elseif($user->category->slug == 'photographer') 
+                                                    @elseif($user->category->slug == 'child-model-and-actor')
+                                                        @php
+                                                            $interestArr = [];
+                                                            if($user->userDetails->interested != '' || $user->userDetails->interested != 'null'){
+                                                                $interestArr = explode(',',$user->userDetails->interested);
+                                                            }
+                                                        @endphp
+                                                        @if(count($interestArr) > 0)
+                                                            @php
+                                                                $interestArrName = []
+                                                            @endphp
+                                                            @foreach ($interestArr as $interest)
+                                                                @php
+                                                                    $interestArrName[]= @Helper::interestedArr()[$interest];
+                                                                @endphp
+                                                                
+                                                                {{-- <p>{{@Helper::interestedArr()[$interest]}}</p> --}}
+                                                            @endforeach
+                                                            {{implode( ',',  $interestArrName)}}
+                                                        @endif
+                                                    @else
+
+                                                    @endif   
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Rates
+                                    </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <ul class="one-line-list">
+                                                @if($user->category->slug == 'models')
+                                                    @if ($user->userDetails->booking_amount_hour != '')
+                                                    <li><strong>Per Hours :</strong> $ {{$user->userDetails->booking_amount_hour}}</li>
+                                                    @endif
+                                                    @if ($user->userDetails->booking_amount_day != '')
+                                                    <li><strong>Per Day :</strong> $ {{$user->userDetails->booking_amount_day}}</li>
+                                                    @endif
+                                                    @if ($user->userDetails->booking_amount_week != '')
+                                                    <li><strong>Per Week :</strong> $ {{$user->userDetails->booking_amount_week}}</li>
+                                                    @endif
+                                                @elseif($user->category->slug == 'photographer')
+                                                    @if ($user->userDetails->booking_amount_hour != '')
+                                                    <li><strong>Per Hours :</strong> $ {{$user->userDetails->booking_amount_hour}}</li>
+                                                    @endif
+                                                    @if ($user->userDetails->booking_amount_day != '')
+                                                    <li><strong>Per Day :</strong> $ {{$user->userDetails->booking_amount_day}}</li>
+                                                    @endif
+                                                    @if ($user->userDetails->booking_amount_week != '')
+                                                    <li><strong>Per Week :</strong> $ {{$user->userDetails->booking_amount_week}}</li>
+                                                    @endif 
+                                                @elseif($user->category->slug == 'child-model-and-actor')
+                                                    @if ($user->userDetails->booking_amount_hour != '')
+                                                    <li><strong>Per Hours :</strong> $ {{$user->userDetails->booking_amount_hour}}</li>
+                                                    @endif
+                                                    @if ($user->userDetails->booking_amount_day != '')
+                                                    <li><strong>Per Day :</strong> $ {{$user->userDetails->booking_amount_day}}</li>
+                                                    @endif
+                                                    @if ($user->userDetails->booking_amount_week != '')
+                                                    <li><strong>Per Week :</strong> $ {{$user->userDetails->booking_amount_week}}</li>
+                                                    @endif
+                                                @else
+
+                                                @endif   
+                                                {{-- <li><strong>Per Hours :</strong> 96</li>
+                                                <li><strong>Per Day :</strong> 52</li>
+                                                <li><strong>Per Week :</strong> 12</li> --}}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="new-profile-user-rgt">
+                    <div class="new-user-tabs">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item color-1" role="presentation">
+                                <button class="nav-link active" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="true">stats</button>
+                            </li>
+                            <li class="nav-item color-2" role="presentation">
+                                <button class="nav-link" id="portfolio-tab" data-bs-toggle="tab" data-bs-target="#portfolio" type="button" role="tab" aria-controls="portfolio" aria-selected="false">portfolio</button>
+                            </li>
+                            <li class="nav-item color-3" role="presentation">
+                                <button class="nav-link" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos" type="button" role="tab" aria-controls="videos" aria-selected="false">videos</button>
+                            </li>
+                            <li class="nav-item color-4" role="presentation">
+                                <button class="nav-link" id="comments-tab" data-bs-toggle="tab" data-bs-target="#comments" type="button" role="tab" aria-controls="comments" aria-selected="false">comments</button>
+                            </li>
                         </ul>
-                    </div>
-                    <!-- Send E-mail Modal -->
-                    <div class="modal fade user-book-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Send E-mail</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form action="{{route('profile.send.mail')}}" method="post" class="send_email">
-                                    @csrf
-                                    <input type="hidden" name="modelId" value="{{$user->id}}" />
-                                    <div class="modal-body">
-                                        <div class="book-input-wrap">
-                                            <label for="subject">Subject:</label>
-                                            <input type="text" class="form-control book-input-style" id="subject" name="subject" value="" required>
-                                            @if ($errors->has('subject'))
-                                                <span class="text-danger">{{ $errors->first('subject') }}</span>
-                                            @endif
-                                        </div>
-                                        <div class="book-txtare-wrap">
-                                            <label for="description">Message:</label>
-                                            <textarea rows="3" class="form-control book-txtare-style" id="message" name="message" required></textarea>
-                                            @if ($errors->has('message'))
-                                                <span class="text-danger">{{ $errors->first('message') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <div class="booked-now-wrap text-end">
-                                            <button type="submit" class="booked-now" id="send_now">Send Mail</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="model-user-info d-flex flex-wrap align-items-end justify-content-between">
-                    <div class="model-user-info-lft">
-                        <div class="model-name">
-                            <h3>{{@$user->name}}</h3>
-                            <!-- <ul class="ratting-star d-flex">
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star"></i></li>
-                                <li><i class="fas fa-star-half-alt"></i></li>
-                            </ul> -->
-                            <div class="model-user">
-                                <p><span class="info-type">Category:</span>{{$user->category->name}}</p>
-                                {{-- <p><span class="info-type">Date:</span>April 16, 2019</p> --}}
-                                <p><span class="info-type">Tags:</span>Artist, Cosmetics, Make up</p>
-                            </div>
-                        </div>
-                        <div class="model-user">
-                            <p>{{@$user->userDetails->city_name}}, {{@$user->userDetails->getState->name}}</p>
-                            {{-- <p>{{url('/profile/'.$user->category->slug.'/'.$user->name_slug)}}</p> --}}
-                            <ul class="d-flex copy-url">
-                                <li class="crnt-url">{{url('/profile/'.$user->category->slug.'/'.$user->name_slug)}}</li>
-                                <li><a href="javascript:void(0)" onclick="copyLink('{{url('/profile/'.$user->category->slug.'/'.$user->name_slug)}}')">copy link</a></li>
-                            </ul>
-                            <p><span class="info-type">Last Activity:</span>{{ Carbon\Carbon::parse($user->last_active)->format('F d Y') }}</p>
-                            <p><span class="info-type">Join Date:</span>{{ Carbon\Carbon::parse($user->created_at)->format('F d Y') }}</p>
-                        </div>
-                        <div class="book-now-wrap">
-                            <a href="javascript:void(0)" data-id="{{Crypt::encrypt($user->id)}}" data-bs-toggle="modal" data-bs-target="#book_now_modal" class="book-now">book now</a>
-
-                        </div>
-                    </div>
-                    <div class="model-user-info-rgt add-wrap">
-                        <div class="add-wrap-sec">
-                            <ul class="model-social d-flex justify-content-end">
-                                <li><a href="#" class="fcbk"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#" class="ytbe"><i class="fab fa-youtube"></i></a></li>
-                                <li><a href="#" class="twtr"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#" class="lkdn"><i class="fab fa-linkedin"></i></a></li>
-                            </ul>
-                            @if($user->category->slug == 'models')
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+                                @if($user->category->slug == 'models')
                                 {{-- For Model Section --}}
-                                <div class="model-info-wrap">
-                                    <div class="user-small-head mb-2">
-                                        <h6>Stats</h6>
-                                        {{-- <h6>Personal Information</h6> --}}
-                                    </div>
-                                    <ul class="d-flex flex-wrap justify-content-between">
-                                        <li>
-                                            <h5>Age</h5>
-                                            <p>{{Carbon\Carbon::parse($user->userDetails->dob)->age}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>Height</h5>
-                                            <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->height)->size)}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>Weight</h5>
-                                            <p>{{@Helper::kgToLb($user->userDetails->weight)}} lbs</p>
-                                        </li>
-                                        <li>
-                                            <h5>Bust</h5>
-                                            <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->chest)->size)}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>waist</h5>
-                                            <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->waist)->size)}}</p>
-                                        </li>
-                                    </ul>
-                                    <ul class="d-flex flex-wrap justify-content-between">
-                                        <li>
-                                            <h5>hips</h5>
-                                            <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->hip)->size)}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>shoe size</h5>
-                                            <p>{{$user->userDetails->shoe_size}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>dress size</h5>
-                                            <p>{{$user->userDetails->dress_size}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>hair</h5>
-                                            <p>{{@Helper::getColoursById($user->userDetails->hair_color)->name}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>eyes</h5>
-                                            <p>{{@Helper::getColoursById(@$user->userDetails->eye_color)->name}}</p>
-                                        </li>
-                                    </ul>
-                                    <ul class="d-flex flex-wrap text-design single-list three-list">
-                                        <li>
-                                            <h5>ETHNICITY</h5>
-                                            <p>{{@$user->userDetails->getEthnicity->name}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>language</h5>
-                                            <p>Very Experienced</p>
-                                        </li>
-                                        <li>
-                                            <h5>COMPENSATION</h5>
-                                            <p>{{@Helper::compensationArr()[@$user->userDetails->compensation]}}</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                {{-- End Model section --}}
-                                
-                            @elseif($user->category->slug == 'photographer')
-                                {{-- For Photographer --}}
-                                <div class="model-info-wrap">
-                                    <div class="user-small-head mb-2">
-                                        <h6>Stats</h6>
-                                        {{-- <h6>Personal Information</h6> --}}
-                                    </div>
-                                    <ul class="d-flex flex-wrap justify-content-between">
-                                        <li>
-                                            <h5>Age</h5>
-                                            <p>{{Carbon\Carbon::parse($user->userDetails->dob)->age}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>exprience</h5>
-                                            <p>{{@$user->userDetails->exprience}} years</p>
-                                        </li>
-                                        <li>
-                                            <h5>Accepted job type</h5>
-                                            @php
-                                                $acceptedJobArr = [];
-                                                if($user->userDetails->accepted_job != '' || $user->userDetails->accepted_job != 'null'){
-                                                    $acceptedJobIdArr = explode(',',@$user->userDetails->accepted_job);
-                                                    foreach (@$acceptedJobIdArr as $acceptesJob) {
-                                                        @$acceptedJobArr[] = @Helper::acceptedJobTypeArr()[@$acceptesJob];
-                                                    }
-                                                }
-                                            @endphp
-                                            @if(count($acceptedJobArr) > 0)
-                                            <p>{{@implode(',',$acceptedJobArr)}}</p>
-                                            @endif
-                                        </li>
-                                        
-                                    </ul>
-                                  
-                                    <ul class="d-flex flex-wrap text-design single-list three-list">
-                                        
-                                        <li>
-                                            <h5>language</h5>
-                                            @php
-                                                $languageArr = [];
-                                                if($user->userDetails->language != '' || @$user->userDetails->language != 'null'){
-                                                    $languageIdArr = explode(',',@$user->userDetails->language);
-                                                    foreach ($languageIdArr as $language) {
-                                                        $languageArr[] = @Helper::languageArr()[$language];
-                                                    }
-                                                }
-                                            @endphp
-                                            @if(count($languageArr) > 0)
-                                                <p>{{@implode(',',$languageArr)}}</p>
-                                            @endif
-                                        </li>
-                                        <li>
-                                            <h5>COMPENSATION</h5>
-                                            @php
-                                                $compensationArr = [];
-                                                if($user->userDetails->compensation != '' || $user->userDetails->compensation != 'null'){
-                                                    $compensationIdArr = explode(',',@$user->userDetails->compensation);
-                                                    foreach ($compensationIdArr as $compensation) {
-                                                        $compensationArr[] = @Helper::compensationArr()[$compensation];
-                                                    }
-                                                }
-                                            @endphp
-                                            @if(count($compensationArr) > 0)
-                                                <p>{{@implode(',',$compensationArr)}}</p>
-                                            @endif
-                                        </li>
-                                    </ul>
-                                </div>
-                                {{-- End photographer --}}
-                            @elseif($user->category->slug == 'child-model-and-actor')
-                                {{-- start child-model-and-actor --}}
-                                <div class="model-info-wrap">
-                                    <div class="user-small-head mb-2">
-                                        <h6>Stats</h6>
-                                        {{-- <h6>Personal Information</h6> --}}
-                                    </div>
-                                    <ul class="d-flex flex-wrap justify-content-between">
-                                        <li>
-                                            <h5>Age</h5>
-                                            <p>{{Carbon\Carbon::parse($user->userDetails->dob)->age}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>Height</h5>
-                                            <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->height)->size)}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>Weight</h5>
-                                            <p>{{@Helper::kgToLb($user->userDetails->weight)}} lbs</p>
-                                        </li>
-                                        <li>
-                                            <h5>shoe size</h5>
-                                            <p>{{$user->userDetails->shoe_size}}</p>
-                                        </li>
-                                    </ul>
-                                    <ul class="d-flex flex-wrap justify-content-between">
-                                        <li>
-                                            <h5>dress size</h5>
-                                            <p>{{$user->userDetails->dress_size}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>hair</h5>
-                                            <p>{{@Helper::getColoursById($user->userDetails->hair_color)->name}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>eyes</h5>
-                                            <p>{{@Helper::getColoursById(@$user->userDetails->eye_color)->name}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>EXPERIENCE</h5>
-                                            <p>{{@$user->userDetails->exprience}} jobs</p>
-                                        </li>
-                                    </ul>
-                                    <ul class="d-flex flex-wrap text-design single-list three-list">
-                                        <li>
-                                            <h5>ETHNICITY</h5>
-                                            <p>{{@$user->userDetails->getEthnicity->name}}</p>
-                                        </li>
-                                        <li>
-                                            <h5>language</h5>
-                                            @php
-                                                $languageArr = [];
-                                                if($user->userDetails->language != '' || $user->userDetails->language != 'null'){
-                                                    $languageIdArr = explode(',',$user->userDetails->language);
-                                                    foreach ($languageIdArr as $language) {
-                                                        $languageArr[] = Helper::languageArr()[$language];
-                                                    }
-                                                }
-                                            @endphp
-                                            @if(count($languageArr) > 0)
-                                                <p>{{@implode(',',$languageArr)}}</p>
-                                            @endif
-                                        </li>
-                                        <li>
-                                            <h5>COMPENSATION</h5>
-                                            @php
-                                                $compensationArr = [];
-                                                if($user->userDetails->compensation != '' || $user->userDetails->compensation != 'null'){
-                                                    $compensationIdArr = explode(',',$user->userDetails->compensation);
-                                                    foreach ($compensationIdArr as $compensation) {
-                                                        $compensationArr[] = Helper::compensationArr()[$compensation];
-                                                    }
-                                                }
-                                            @endphp
-                                            @if(count($compensationArr) > 0)
-                                                <p>{{@implode(',',$compensationArr)}}</p>
-                                            @endif
-                                        </li>
-                                    </ul>
-                                </div>
-                                {{-- end child-model-and-actor --}}
-                            @else
-                            @endif
-                        </div>
-
-
-                        <!-- <ul class="add-to-favorite d-flex">
-                            <li><a href="#"><i class="far fa-heart"></i></a></li>
-                            <li>Add to Favorite</li>
-                        </ul> -->
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                    <div class="follow-slider-wrap">
-                        <div class="user-small-head d-flex justify-content-between mb-2">
-                            <h5 class=""><a data-count="{{count($user->followers)}}" href="javascript:;" onclick="followers();">Followers <span class="followers-num" id="followers_count">{{count($user->followers)}}</span></a></h5>
-                            <a href="javascript:" onclick="follow({{$user->id}})" class="flow-btn {{$count_follow > 0 ? 'followed' : ''}}" id="followlink">{{$count_follow > 0 ? 'following' : 'follow'}}</a>
-
-                        </div>
-                        <div class="followers-list">
-                            <ul class="d-flex flex-wrap">
-                                @if (count($user->followers) > 0)
-                                    @foreach ($user->followers as $key=>$followers)
-                                    <li>
-                                        <a href="{{url('/profile/'.$followers->followersUser->category->slug.'/'.$followers->followersUser->name_slug)}}">
-                                            <span class="follower-img">
-                                                <img class="img-block" src="{{url('/img/user/profile-image/'.$followers->followersUser->userDetails->profile_image)}}" alt="">
-                                            </span>
-                                        </a>
-                                    </li>
-                                    @if ($key == 4)
-                                        @break
-                                    @endif
-                                    @endforeach
-                                @endif
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="follow-slider-wrap mt-3">
-                        <div class="user-small-head">
-                            <h5 class="mb-2"><a href="javascript:;" onclick="following()">Following <span class="followers-num">{{count($user->followings)}}</span></a></h5>
-                        </div>
-                        <div class="followers-list">
-                            <ul class="d-flex flex-wrap">
-                                @if (count($user->followings) > 0)
-                                    @foreach ($user->followings as $key=>$followings)
-                                        <li>
-                                            <a href="{{url('/profile/'.$followings->followingsUser->category->slug.'/'.$followings->followingsUser->name_slug)}}">
-                                                <span class="follower-img">
-                                                    <img class="img-block" src="{{url('/img/user/profile-image/'.$followings->followingsUser->userDetails->profile_image)}}" alt="">
-                                                </span>
-                                            </a>
-                                        </li>
-                                        @if ($key == 4)
-                                            @break
-                                        @endif
-                                    @endforeach
-                                @endif
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="user-details-info-box">
-                        <div class="user-small-head">
-                            <h5>Biography</h5>
-                        </div>
-                        <div class="user-biography">
-                            <p>{{$user->userDetails->biography}}</p>
-                        </div>
-                        @if($user->category->slug == 'models')
-                            {{-- For Model Section --}}
-                            <div class="model-info-wrap">
-                                <div class="user-small-head mb-2">
-                                    <h6>Personal Information</h6>
-                                </div>
-                                {{-- <ul class="d-flex flex-wrap justify-content-between">
-                                    <li>
-                                        <h5>Age</h5>
-                                        <p>{{Carbon\Carbon::parse($user->userDetails->dob)->age}}</p>
-                                    </li>
-                                    <li>
-                                        <h5>Height</h5>
-                                        <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->height)->size)}}</p>
-                                    </li>
-                                    <li>
-                                        <h5>Weight</h5>
-                                        <p>{{@Helper::kgToLb($user->userDetails->weight)}} lbs</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap justify-content-between">
-                                    <li>
-                                        <h5>Bust</h5>
-                                        <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->chest)->size)}}</p>
-                                    </li>
-                                    <li>
-                                        <h5>waist</h5>
-                                        <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->waist)->size)}}</p>
-                                    </li>
-                                    <li>
-                                        <h5>hips</h5>
-                                        <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->hip)->size)}}</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap">
-                                    <li>
-                                        <h5>shoe size</h5>
-                                        <p>{{$user->userDetails->shoe_size}}</p>
-                                    </li>
-                                    <li>
-                                        <h5>dress size</h5>
-                                        <p>{{$user->userDetails->dress_size}}</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap">
-                                    <li>
-                                        <h5>hair</h5>
-                                        <p>{{@Helper::getColoursById($user->userDetails->hair_color)->name}}</p>
-                                    </li>
-                                    <li>
-                                        <h5>eyes</h5>
-                                        <p>{{@Helper::getColoursById(@$user->userDetails->eye_color)->name}}</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>ETHNICITY</h5>
-                                        <p>{{@$user->userDetails->getEthnicity->name}}</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>EXPERIENCE</h5>
-                                        <p>{{@Helper::experienceArr()[@$user->userDetails->exprience]}}</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>COMPENSATION</h5>
-                                        <p>{{@Helper::compensationArr()[@$user->userDetails->compensation]}}</p>
-                                    </li>
-                                </ul> --}}
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>INTERESTED IN</h5>
-                                        @php
-                                            $interestArr = [];
-                                            if($user->userDetails->interested != '' || $user->userDetails->interested != 'null'){
-                                                $interestArr = explode(',',$user->userDetails->interested);
-                                            }
-                                        @endphp
-                                        @if(count($interestArr) > 0)
-                                            @foreach ($interestArr as $interest)
-                                                <p>{{@Helper::interestedArr()[$interest]}}</p>
-                                            @endforeach
-                                        @endif
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>Rates</h5>
-                                        @if ($user->userDetails->booking_amount_hour != '')
-                                            <p>$ {{$user->userDetails->booking_amount_hour}} per hour</p>
-                                        @endif
-                                        @if ($user->userDetails->booking_amount_day != '')
-                                            <p>$ {{$user->userDetails->booking_amount_day}} per day</p>
-                                        @endif
-                                        @if ($user->userDetails->booking_amount_week != '')
-                                            <p>$ {{$user->userDetails->booking_amount_week}} per week</p>
-                                        @endif
-                                    </li>
-                                </ul>
-                            </div>
-                            {{-- End Model section --}}
-                        @elseif($user->category->slug == 'photographer')
-                            {{-- For Photographer --}}
-                            <div class="model-info-wrap">
-                                <div class="user-small-head mb-2">
-                                    <h6>Personal Information</h6>
-                                </div>
-                                {{-- <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>accepted job type</h5>
-                                        @php
-                                            $acceptedJobArr = [];
-                                            if($user->userDetails->accepted_job != '' || $user->userDetails->accepted_job != 'null'){
-                                                $acceptedJobIdArr = explode(',',@$user->userDetails->accepted_job);
-                                                foreach (@$acceptedJobIdArr as $acceptesJob) {
-                                                    @$acceptedJobArr[] = @Helper::acceptedJobTypeArr()[@$acceptesJob];
-                                                }
-                                            }
-                                        @endphp
-                                        @if(count($acceptedJobArr) > 0)
-                                           <p>{{@implode(',',$acceptedJobArr)}}</p>
-                                        @endif
-
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>language</h5>
-                                        @php
-                                            $languageArr = [];
-                                            if($user->userDetails->language != '' || @$user->userDetails->language != 'null'){
-                                                $languageIdArr = explode(',',@$user->userDetails->language);
-                                                foreach ($languageIdArr as $language) {
-                                                    $languageArr[] = @Helper::languageArr()[$language];
-                                                }
-                                            }
-                                        @endphp
-                                        @if(count($languageArr) > 0)
-                                            <p>{{@implode(',',$languageArr)}}</p>
-                                        @endif
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>exprience</h5>
-                                        <p>{{@$user->userDetails->exprience}} years</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>compensation</h5>
-                                        @php
-                                            $compensationArr = [];
-                                            if($user->userDetails->compensation != '' || $user->userDetails->compensation != 'null'){
-                                                $compensationIdArr = explode(',',@$user->userDetails->compensation);
-                                                foreach ($compensationIdArr as $compensation) {
-                                                    $compensationArr[] = @Helper::compensationArr()[$compensation];
-                                                }
-                                            }
-                                        @endphp
-                                        @if(count($compensationArr) > 0)
-                                            <p>{{@implode(',',$compensationArr)}}</p>
-                                        @endif
-                                    </li>
-                                </ul> --}}
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>Rates</h5>
-                                        @if ($user->userDetails->booking_amount_hour != '')
-                                            <p>$ {{$user->userDetails->booking_amount_hour}} per hour</p>
-                                        @endif
-                                        @if ($user->userDetails->booking_amount_day != '')
-                                            <p>$ {{$user->userDetails->booking_amount_day}} per day</p>
-                                        @endif
-                                        @if ($user->userDetails->booking_amount_week != '')
-                                            <p>$ {{$user->userDetails->booking_amount_week}} per week</p>
-                                        @endif
-                                    </li>
-                                </ul>
-                            </div>
-                            {{-- End photographer --}}
-                        @elseif($user->category->slug == 'child-model-and-actor')
-                            <div class="model-info-wrap">
-                                <div class="user-small-head mb-2">
-                                    <h6>Personal Information</h6>
-                                </div>
-                                {{-- <ul class="d-flex flex-wrap justify-content-between">
-                                    <li>
-                                        <h5>Age</h5>
-                                        <p>{{Carbon\Carbon::parse($user->userDetails->dob)->age}}</p>
-                                    </li>
-                                    <li>
-                                        <h5>height</h5>
-                                        <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->height)->size)}}</p>
-                                    </li>
-                                    <li>
-                                        <h5>hair</h5>
-                                        <p>{{@Helper::getColoursById($user->userDetails->hair_color)->name}}</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap justify-content-between">
-                                    <li>
-                                        <h5>eyes</h5>
-                                        <p>{{@Helper::getColoursById(@$user->userDetails->eye_color)->name}}</p>
-                                    </li>
-                                    <li>
-                                        <h5>dress size</h5>
-                                        <p>{{@$user->userDetails->dress_size}}</p>
-                                    </li>
-                                    <li>
-                                        <h5>shoe</h5>
-                                        <p>{{@$user->userDetails->shoe_size}}</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>EXPERIENCE</h5>
-                                        <p>{{@$user->userDetails->exprience}} jobs</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>ETHNICITY</h5>
-                                        <p>{{@$user->userDetails->getEthnicity->name}}</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>languages</h5>
-                                    @php
-                                        $languageArr = [];
-                                        if($user->userDetails->language != '' || $user->userDetails->language != 'null'){
-                                            $languageIdArr = explode(',',$user->userDetails->language);
-                                            foreach ($languageIdArr as $language) {
-                                                $languageArr[] = Helper::languageArr()[$language];
-                                            }
-                                        }
-                                    @endphp
-                                    @if(count($languageArr) > 0)
-                                        <p>{{@implode(',',$languageArr)}}</p>
-                                    @endif
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>training</h5>
-                                        <p>{{$user->userDetails->training}}</p>
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>COMPENSATION</h5>
-                                        @php
-                                            $compensationArr = [];
-                                            if($user->userDetails->compensation != '' || $user->userDetails->compensation != 'null'){
-                                                $compensationIdArr = explode(',',$user->userDetails->compensation);
-                                                foreach ($compensationIdArr as $compensation) {
-                                                    $compensationArr[] = Helper::compensationArr()[$compensation];
-                                                }
-                                            }
-                                        @endphp
-                                        @if(count($compensationArr) > 0)
-                                            <p>{{@implode(',',$compensationArr)}}</p>
-                                        @endif
-                                    </li>
-                                </ul> --}}
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>INTERESTED IN</h5>
-                                        @php
-                                            $interestArr = [];
-                                            if($user->userDetails->interested != '' || $user->userDetails->interested != 'null'){
-                                                $interestArr = explode(',',$user->userDetails->interested);
-                                            }
-                                        @endphp
-                                        @if(count($interestArr) > 0)
-                                            @foreach ($interestArr as $interest)
-                                                <p>{{@Helper::interestedArr()[$interest]}}</p>
-                                            @endforeach
-                                        @endif
-                                    </li>
-                                </ul>
-                                <ul class="d-flex flex-wrap text-design single-list">
-                                    <li>
-                                        <h5>Rates</h5>
-                                        @if ($user->userDetails->booking_amount_hour != '')
-                                            <p>$ {{$user->userDetails->booking_amount_hour}} per hour</p>
-                                        @endif
-                                        @if ($user->userDetails->booking_amount_day != '')
-                                            <p>$ {{$user->userDetails->booking_amount_day}} per day</p>
-                                        @endif
-                                        @if ($user->userDetails->booking_amount_week != '')
-                                            <p>$ {{$user->userDetails->booking_amount_week}} per week</p>
-                                        @endif
-                                    </li>
-                                </ul>
-                            </div>
-                        @else
-
-                        @endif
-
-                    </div>
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-6 col-12">
-                    <div class="models-tab-information">
-                        <ul class="nav nav-tabs first-tab-list" id="modelsTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                              <button class="nav-link active" id="portfolio-tab" data-bs-toggle="tab" data-bs-target="#portfolio" type="button" role="tab" aria-controls="portfolio" aria-selected="true">portfolio<i class="fas fa-user"></i></button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                              <button class="nav-link" id="comments-tab" data-bs-toggle="tab" data-bs-target="#comments" type="button" role="tab" aria-controls="comments" aria-selected="false">comments<i class="far fa-comment-alt"></i></button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                              <button class="nav-link" id="calender-tab" data-bs-toggle="tab" data-bs-target="#calender_tab_section" type="button" role="tab" aria-controls="calender_tab_section" aria-selected="false">calendar<i class="fas fa-calendar-alt"></i></button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="followers-tab" data-bs-toggle="tab" data-bs-target="#followers" type="button" role="tab" aria-controls="followers" aria-selected="false">followers<i class="fas fa-user-friends"></i></button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="following-tab" data-bs-toggle="tab" data-bs-target="#following" type="button" role="tab" aria-controls="following" aria-selected="false">following<i class="fas fa-user-friends"></i></button>
-                            </li>
-                          </ul>
-                        <div class="tab-content" id="modelsTabContent">
-                            <div class="tab-pane fade show active" id="portfolio" role="tabpanel" aria-labelledby="portfolio-tab">
-                                <div class="row justify-content-between mt-3 mb-3">
-                                    <div class="col-auto">
-                                        <ul class="nav nav-tabs second-tab-list" id="portflTab" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link active" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos" type="button" role="tab" aria-controls="photos" aria-selected="true">photos</button>
+                                    <div class="model-info-wrap">
+                                        <div class="user-small-head mb-2">
+                                            <h6>Stats</h6>
+                                            {{-- <h6>Personal Information</h6> --}}
+                                        </div>
+                                        <ul class="d-flex flex-wrap justify-content-between">
+                                            <li>
+                                                <h5>Age</h5>
+                                                <p>{{Carbon\Carbon::parse($user->userDetails->dob)->age}}</p>
                                             </li>
-                                            {{-- <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos" type="button" role="tab" aria-controls="videos" aria-selected="false">videos</button>
-                                            </li> --}}
+                                            <li>
+                                                <h5>Height</h5>
+                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->height)->size)}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>Weight</h5>
+                                                <p>{{@Helper::kgToLb($user->userDetails->weight)}} lbs</p>
+                                            </li>
+                                            <li>
+                                                <h5>Bust</h5>
+                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->chest)->size)}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>waist</h5>
+                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->waist)->size)}}</p>
+                                            </li>
+                                        </ul>
+                                        <ul class="d-flex flex-wrap justify-content-between">
+                                            <li>
+                                                <h5>hips</h5>
+                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->hip)->size)}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>shoe size</h5>
+                                                <p>{{$user->userDetails->shoe_size}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>dress size</h5>
+                                                <p>{{$user->userDetails->dress_size}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>hair</h5>
+                                                <p>{{@Helper::getColoursById($user->userDetails->hair_color)->name}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>eyes</h5>
+                                                <p>{{@Helper::getColoursById(@$user->userDetails->eye_color)->name}}</p>
+                                            </li>
+                                        </ul>
+                                        <ul class="d-flex flex-wrap text-design single-list three-list">
+                                            <li>
+                                                <h5>ETHNICITY</h5>
+                                                <p>{{@$user->userDetails->getEthnicity->name}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>language</h5>
+                                                <p>Very Experienced</p>
+                                            </li>
+                                            <li>
+                                                <h5>COMPENSATION</h5>
+                                                <p>{{@Helper::compensationArr()[@$user->userDetails->compensation]}}</p>
+                                            </li>
                                         </ul>
                                     </div>
-                                    <div class="col-auto">
-                                        <div class="src-select-wrap">
-                                            <select class="form-control src-select-style selectOption2">
-                                                <option>Recent</option>
-                                                <option>Popular</option>
-                                                <option>Most like</option>
-                                            </select>
+                                    {{-- End Model section --}}
+                                    
+                                @elseif($user->category->slug == 'photographer')
+                                    {{-- For Photographer --}}
+                                    <div class="model-info-wrap">
+                                        <div class="user-small-head mb-2">
+                                            <h6>Stats</h6>
+                                            {{-- <h6>Personal Information</h6> --}}
                                         </div>
+                                        <ul class="d-flex flex-wrap justify-content-between">
+                                            <li>
+                                                <h5>Age</h5>
+                                                <p>{{Carbon\Carbon::parse($user->userDetails->dob)->age}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>exprience</h5>
+                                                <p>{{@$user->userDetails->exprience}} years</p>
+                                            </li>
+                                            <li>
+                                                <h5>Accepted job type</h5>
+                                                @php
+                                                    $acceptedJobArr = [];
+                                                    if($user->userDetails->accepted_job != '' || $user->userDetails->accepted_job != 'null'){
+                                                        $acceptedJobIdArr = explode(',',@$user->userDetails->accepted_job);
+                                                        foreach (@$acceptedJobIdArr as $acceptesJob) {
+                                                            @$acceptedJobArr[] = @Helper::acceptedJobTypeArr()[@$acceptesJob];
+                                                        }
+                                                    }
+                                                @endphp
+                                                @if(count($acceptedJobArr) > 0)
+                                                <p>{{@implode(',',$acceptedJobArr)}}</p>
+                                                @endif
+                                            </li>
+                                            
+                                        </ul>
+                                    
+                                        <ul class="d-flex flex-wrap text-design single-list three-list">
+                                            
+                                            <li>
+                                                <h5>language</h5>
+                                                @php
+                                                    $languageArr = [];
+                                                    if($user->userDetails->language != '' || @$user->userDetails->language != 'null'){
+                                                        $languageIdArr = explode(',',@$user->userDetails->language);
+                                                        foreach ($languageIdArr as $language) {
+                                                            $languageArr[] = @Helper::languageArr()[$language];
+                                                        }
+                                                    }
+                                                @endphp
+                                                @if(count($languageArr) > 0)
+                                                    <p>{{@implode(',',$languageArr)}}</p>
+                                                @endif
+                                            </li>
+                                            <li>
+                                                <h5>COMPENSATION</h5>
+                                                @php
+                                                    $compensationArr = [];
+                                                    if($user->userDetails->compensation != '' || $user->userDetails->compensation != 'null'){
+                                                        $compensationIdArr = explode(',',@$user->userDetails->compensation);
+                                                        foreach ($compensationIdArr as $compensation) {
+                                                            $compensationArr[] = @Helper::compensationArr()[$compensation];
+                                                        }
+                                                    }
+                                                @endphp
+                                                @if(count($compensationArr) > 0)
+                                                    <p>{{@implode(',',$compensationArr)}}</p>
+                                                @endif
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    {{-- End photographer --}}
+                                @elseif($user->category->slug == 'child-model-and-actor')
+                                    {{-- start child-model-and-actor --}}
+                                    <div class="model-info-wrap">
+                                        <div class="user-small-head mb-2">
+                                            <h6>Stats</h6>
+                                            {{-- <h6>Personal Information</h6> --}}
+                                        </div>
+                                        <ul class="d-flex flex-wrap justify-content-between">
+                                            <li>
+                                                <h5>Age</h5>
+                                                <p>{{Carbon\Carbon::parse($user->userDetails->dob)->age}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>Height</h5>
+                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->height)->size)}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>Weight</h5>
+                                                <p>{{@Helper::kgToLb($user->userDetails->weight)}} lbs</p>
+                                            </li>
+                                            <li>
+                                                <h5>shoe size</h5>
+                                                <p>{{$user->userDetails->shoe_size}}</p>
+                                            </li>
+                                        </ul>
+                                        <ul class="d-flex flex-wrap justify-content-between">
+                                            <li>
+                                                <h5>dress size</h5>
+                                                <p>{{$user->userDetails->dress_size}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>hair</h5>
+                                                <p>{{@Helper::getColoursById($user->userDetails->hair_color)->name}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>eyes</h5>
+                                                <p>{{@Helper::getColoursById(@$user->userDetails->eye_color)->name}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>EXPERIENCE</h5>
+                                                <p>{{@$user->userDetails->exprience}} jobs</p>
+                                            </li>
+                                        </ul>
+                                        <ul class="d-flex flex-wrap text-design single-list three-list">
+                                            <li>
+                                                <h5>ETHNICITY</h5>
+                                                <p>{{@$user->userDetails->getEthnicity->name}}</p>
+                                            </li>
+                                            <li>
+                                                <h5>language</h5>
+                                                @php
+                                                    $languageArr = [];
+                                                    if($user->userDetails->language != '' || $user->userDetails->language != 'null'){
+                                                        $languageIdArr = explode(',',$user->userDetails->language);
+                                                        foreach ($languageIdArr as $language) {
+                                                            $languageArr[] = Helper::languageArr()[$language];
+                                                        }
+                                                    }
+                                                @endphp
+                                                @if(count($languageArr) > 0)
+                                                    <p>{{@implode(',',$languageArr)}}</p>
+                                                @endif
+                                            </li>
+                                            <li>
+                                                <h5>COMPENSATION</h5>
+                                                @php
+                                                    $compensationArr = [];
+                                                    if($user->userDetails->compensation != '' || $user->userDetails->compensation != 'null'){
+                                                        $compensationIdArr = explode(',',$user->userDetails->compensation);
+                                                        foreach ($compensationIdArr as $compensation) {
+                                                            $compensationArr[] = Helper::compensationArr()[$compensation];
+                                                        }
+                                                    }
+                                                @endphp
+                                                @if(count($compensationArr) > 0)
+                                                    <p>{{@implode(',',$compensationArr)}}</p>
+                                                @endif
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    {{-- end child-model-and-actor --}}
+                                @else
+                                @endif
+                            </div>
+                            <div class="tab-pane fade" id="portfolio" role="tabpanel" aria-labelledby="portfolio-tab">
+                                <div class="model-photos-wrap">
+                                    <div class="row g-4" id="user_image_load">
+                                        <div class="col-12">
+                                            <div class="row justify-content-between align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="head-pan-title">
+                                                        <h4>photos</h4>
+                                                    </div>
+                                                </div>
+                                                {{-- <div class="col-auto">
+                                                    <div class="src-select-wrap">
+                                                        <select class="form-control src-select-style selectOption2">
+                                                            <option>Recent</option>
+                                                            <option>Popular</option>
+                                                            <option>Most like</option>
+                                                        </select>
+                                                    </div>
+                                                </div> --}}
+                                            </div>
+                                        </div>
+                                        @if(count($user_images) > 0)
+                                            @include('user.profile_image')
+                                        @else
+                                            <div class="col-12">
+                                                <div class="not-found-text">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                    <p>no photo found</p>
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
-                                <div class="tab-content" id="portflTabContent">
-                                    <div class="tab-pane fade show active" id="photos" role="tabpanel" aria-labelledby="photos-tab">
-                                        <div class="model-photos-wrap">
-                                            <div class="row g-3">
-                                                @if(count($user->images) > 0)
-                                                    @foreach ($user->images->sortByDesc('id') as $image)
-                                                    <div class="col-lg-4 col-md-6 col-ms-6 col-12">
-                                                        <div class="model-photos-gallery">
-                                                            <span class="gal-img photo_view" data-photo="photo_{{$image->id}}">
-                                                                <img class="img-block" src="{{url('img/user/images/'.$image->image)}}" alt="">
-                                                            </span>
-                                                            {{-- <a class="gal-img add-dlt" data-fancybox="img-gallery" href="{{url('img/user/images/'.$image->image)}}"><img class="img-block" src="{{url('img/user/images/'.$image->image)}}">
-                                                            </a> --}}
-                                                            <div class="model-photos-like-cmnt">
-                                                                <ul class="d-flex justify-content-between">
-                                                                    <li><a href="javascript:void(0)" onclick="photoLike({{$image->id}})"><i class="far fa-thumbs-up"></i></a><span id="image_like_{{$image->id}}">{{count($image->likes)}}</span></li>
-                                                                    <li class="photo_view" data-photo="photo_{{$image->id}}"><a href="javascript:void(0)"><i class="far fa-comment-alt"></i></a>{{count($image->comments)}}</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    @endforeach
-                                                @else
-                                                <div class="col-12">
-                                                    <div class="not-found-text">
-                                                        <i class="fas fa-exclamation-triangle"></i>
-                                                        <p>no photo found</p>
-                                                    </div>
-                                                </div>
-                                                @endif
-
-                                            </div>
-                                        </div>
+                                <div class="d-flex justify-content-center " >
+                                    <div class="meso-loader ajax-load" style="display:none">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
                                     </div>
-                                    <div class="tab-pane fade " id="videos" role="tabpanel" aria-labelledby="videos-tab">
-                                        <div class="model-video-wrap">
-                                            <div class="row g-3">
-                                                <div class="col-lg-4 col-md-6 col-ms-6 col-12">
-                                                    <div class="model-video-gallery">
-                                                        <a class="gal-video" data-fancybox="video-gallery" data-fancybox-type="iframe" href="https://youtu.be/UzHHNVtiRMc">
-                                                            <img class="img-block" src="{{url('images/feutered-model/model1.jpg')}}" alt="">
-                                                            <span class="video-play-btn"><i class="fab fa-youtube"></i></span>
-                                                        </a>
-                                                        <div class="model-photos-like-cmnt">
-                                                            <ul class="d-flex justify-content-between">
-                                                                <li><a href="#"><i class="far fa-thumbs-up"></i></a>5</li>
-                                                                <li><a href="#"><i class="far fa-comment-alt"></i></a>5</li>
-                                                            </ul>
-                                                        </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="videos" role="tabpanel" aria-labelledby="videos-tab">
+                                <div class="model-video-wrap">
+                                    <div class="row g-4">
+                                        <div class="col-12">
+                                            <div class="row justify-content-between align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="head-pan-title">
+                                                        <h4>videos</h4>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4 col-md-6 col-ms-6 col-12">
-                                                    <div class="model-video-gallery">
-                                                        <a class="gal-video" data-fancybox="video-gallery" data-fancybox-type="iframe" href="https://youtu.be/UzHHNVtiRMc">
-                                                            <img class="img-block" src="{{url('images/feutered-model/model1.jpg')}}" alt="">
-                                                            <span class="video-play-btn"><i class="fab fa-youtube"></i></span>
-                                                        </a>
-                                                        <div class="model-photos-like-cmnt">
-                                                            <ul class="d-flex justify-content-between">
-                                                                <li><a href="#"><i class="far fa-thumbs-up"></i></a>5</li>
-                                                                <li><a href="#"><i class="far fa-comment-alt"></i></a>5</li>
-                                                            </ul>
-                                                        </div>
+                                                {{-- <div class="col-auto">
+                                                    <div class="src-select-wrap">
+                                                        <select class="form-control src-select-style selectOption2">
+                                                            <option>Recent</option>
+                                                            <option>Popular</option>
+                                                            <option>Most like</option>
+                                                        </select>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-ms-6 col-12">
-                                                    <div class="model-video-gallery">
-                                                        <a class="gal-video" data-fancybox="video-gallery" data-fancybox-type="iframe" href="https://youtu.be/UzHHNVtiRMc">
-                                                            <img class="img-block" src="{{url('images/feutered-model/model1.jpg')}}" alt="">
-                                                            <span class="video-play-btn"><i class="fab fa-youtube"></i></span>
-                                                        </a>
-                                                        <div class="model-photos-like-cmnt">
-                                                            <ul class="d-flex justify-content-between">
-                                                                <li><a href="#"><i class="far fa-thumbs-up"></i></a>5</li>
-                                                                <li><a href="#"><i class="far fa-comment-alt"></i></a>5</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
+                                        @if (count($user->videos) > 0)
+                                            @forelse ($user->videos as $video)
+                                                <div class="col-lg-4 col-md-6 col-ms-6 col-12">
+                                                    <div class="model-video-gallery add-dlt">
+                                                        <a class="gal-video " data-fancybox="video-gallery" data-fancybox-type="iframe" href="{{$video->youtube_video_link}}">
+                                                            <img class="img-block" src="{{url('/img/user/youtube_thumbnail_image/'.$video->thumbnail_image.'')}}" alt="">
+                                                            <span class="video-play-btn"><i class="fab fa-youtube"></i></span>
+                                                            
+                                                        </a>
+                                                        <div class="model-photos-like-cmnt">
+                                                            <ul class="d-flex justify-content-between">
+                                                                <li><a href="javascript:void(0)" onclick="videoLike({{$video->id}})"><i class="far fa-thumbs-up"></i></a> <span id="video_like_{{$video->id}}">{{count($video->likes)}}</li>
+                                                            {{--  <li><a href="#"><i class="far fa-comment-alt"></i></a>5</li> --}}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @empty
+                                                
+                                            @endforelse
+                                        @else
+                                            <div class="col-12">
+                                                <div class="not-found-text">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                    <p>no video found</p>
+                                                </div>
+                                            </div>    
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
-                                {{-- <div class="comments-contact-from">
-                                    <form id="contact_frm" action="{{route('profile.contact_form.save')}}" class="needs-validation" novalidate method="POST">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                <div class="input-box">
-                                                    <input type="text" class="input-box-style form-control" placeholder="Name" name="name" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                                <div class="input-box">
-                                                    <input type="email" class="input-box-style form-control" placeholder="Email" name="email" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="textare-box">
-                                                    <textarea rows="4" class="textare-box-style form-control" placeholder="Massage" name="note" required></textarea>
-                                                </div>
-                                            </div>
-                                            <input type="hidden" name="user_id" value="{{Crypt::encrypt($user->id)}}">
-                                            <div class="col-12">
-                                                <div class="">
-                                                    <button class="style-button" type="submit">submit</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div> --}}
-
-
                                 <div class="msg-cmnt">
                                     <form action="{{route('profile.comment.store')}}" method="post" class="profile_comment">
                                         @csrf
@@ -863,273 +525,58 @@
                                     @include('comments.profile.commentsDisplay', ['comments' => $user->usersComments, 'profile_id' => $user->id])
                                 @endif
                             </div>
-                            <div class="tab-pane fade calendar-wrap" id="calender_tab_section" role="tabpanel" aria-labelledby="calender-tab">
-                                <div id="full_calendar_events"></div>
-                            </div>
-                            <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
-                                <div class="row g-3 mt-2">
-                                    @forelse ($user->followers as $followers)
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                            <div class="model-box-wrap followrs-box">
-                                                <div class="model-box-design">
-                                                    <span class="model-box-img">
-                                                        <img class="img-block" src="{{url('/img/user/profile-image/'.$followers->followersUser->userDetails->profile_image)}}" alt="">
-                                                    </span>
-                                                    <div class="model-box-text">
-                                                        <h4><a href="{{url('/profile/'.$followers->followersUser->category->slug.'/'.$followers->followersUser->name_slug)}}">{{$followers->followersUser->name}}</a></h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @empty
-                                    <div class="col-12">
-                                        <div class="not-found-text">
-                                            <i class="fas fa-exclamation-triangle"></i>
-                                            <p>no follower found</p>
-                                        </div>
-                                    </div>
-                                    @endforelse
-
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
-                                <div class="row g-3 mt-2">
-                                    @forelse ($user->followings as $followings )
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                                            <div class="model-box-wrap followrs-box">
-                                                <div class="model-box-design">
-                                                    <span class="model-box-img">
-                                                        <img class="img-block" src="{{url('/img/user/profile-image/'.$followings->followingsUser->userDetails->profile_image)}}">
-                                                    </span>
-                                                    <div class="model-box-text">
-                                                        <h4><a href="{{url('/profile/'.$followings->followingsUser->category->slug.'/'.$followings->followingsUser->name_slug)}}">{{$followings->followingsUser->name}}</a></h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @empty
-                                    <div class="col-12">
-                                        <div class="not-found-text">
-                                            <i class="fas fa-exclamation-triangle"></i>
-                                            <p>no following found</p>
-                                        </div>
-                                    </div>
-                                    @endforelse
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
 </section>
-
+<!-- Send E-mail Modal -->
+<div class="modal fade user-book-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Send E-mail</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{route('profile.send.mail')}}" method="post" class="send_email">
+                @csrf
+                <input type="hidden" name="modelId" value="{{$user->id}}" />
+                <div class="modal-body">
+                    <div class="book-input-wrap">
+                        <label for="subject">Subject:</label>
+                        <input type="text" class="form-control book-input-style" id="subject" name="subject" value="" required>
+                        @if ($errors->has('subject'))
+                            <span class="text-danger">{{ $errors->first('subject') }}</span>
+                        @endif
+                    </div>
+                    <div class="book-txtare-wrap">
+                        <label for="description">Message:</label>
+                        <textarea rows="3" class="form-control book-txtare-style" id="message" name="message" required></textarea>
+                        @if ($errors->has('message'))
+                            <span class="text-danger">{{ $errors->first('message') }}</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="booked-now-wrap text-end">
+                        <button type="submit" class="booked-now" id="send_now">Send Mail</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- Photo View Modal -->
 <div class="popup-wrap popup_open">
     <div class="popup-body-main">
         <div class="popup-body">
             <button class="popup-wrap-btn close_popup"><i class="far fa-times-circle"></i></button>
-            <div class="photo-list-wrap">
-                @if(count($user->images) > 0)
-                    @foreach ($user->images->sortByDesc('id') as $image)
-                        <div id="photo_{{$image->id}}" class="photo-list">
-                            <div class="row">
-                                <div class="col-lg-5 col-md-6 col-sm-12 col-12">
-                                    <div class="popup-img">
-                                        <img class="img-block photo_Height" src="{{url('img/user/images/'.$image->image)}}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-7 col-md-6 col-sm-12 col-12">
-                                    <div class="ftr-cmnt photo_Height">
-                                        <div class="photo-comments-main">
-                                            <div class="photo-comments" id="photo_cmt_{{$image->id}}">
-                                                @if (count($image->comments) > 0)
-                                                    @foreach ($image->comments as $comment)
-                                                        <div class="photo-comments-wrap d-flex">
-                                                            <div class="photo-comments-wrap-lft">
-                                                                <a href="{{url('/profile/'.$comment->user->category->slug.'/'.$comment->user->name_slug)}}" class="photo-comments-img">
-                                                                    <img class="img-block" src="{{url('/img/user/profile-image/'.$comment->user->userDetails->profile_image)}}" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="photo-comments-wrap-rgt">
-                                                                <div class="d-flex flex-wrap justify-content-between align-items-center">
-                                                                    <h4><a href="{{url('/profile/'.$comment->user->category->slug.'/'.$comment->user->name_slug)}}">{{$comment->user->name}}</a> <span>{{$comment->user->category->name}}</span></h4>
-                                                                    <div class="cmnts-rply-date">
-                                                                        <ul class="d-flex">
-                                                                            <li>{{\Carbon\Carbon::parse(now())->diffInDays(\Carbon\Carbon::parse($comment->created_at))}} days ago</li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <p>{{$comment->comment}}</p>
-                                                                {{-- <div class="cmnts-rply-date">
-                                                                    <ul class="d-flex">
-                                                                        <li><a href="#"><i class="far fa-thumbs-up"></i></a></li>
-                                                                        <li><a href="#"><i class="fas fa-reply"></i></a></li>
-                                                                        <li><a href="#"><i class="fas fa-trash-alt"></i></a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="photo-input-wrap">
-                                                                    <input type="text" class="form-control photo-input-style" placeholder="Type your comment">
-                                                                    <span class="photo-input-btn-wrap">
-                                                                        <button class="photo-input-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
-                                                                    </span>
-                                                                </div> --}}
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                @else
-                                                    <div class="row h-100 align-items-center" id="no_comment_msg_{{$image->id}}">
-                                                        <div class="col-12">
-                                                            <div class="not-found-text no-msg-area">
-                                                                <i class="far fa-comments"></i>
-                                                                <p>no Comments yet</p>
-                                                                <p><small>Be the first comment</small></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                            <div class="msg-cmnt when-fixed">
-                                                <form  action="{{route('photo.comment.store')}}" method="post" class="photo_comment">
-                                                    @csrf
-                                                    <div class="profile-input-wrap">
-                                                        <input type="text" class="form-control profile-input-style" name="comment" placeholder="Type your comment" id="comment">
-                                                        <input type="hidden" name="photo_id" value="{{Crypt::encrypt($image->id)}}">
-                                                        <span class="profile-input-btn-wrap">
-                                                            <button class="profile-input-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-                {{-- <div id="" class="photo-list">
-                    <div class="row">
-                        <div class="col-lg-5 col-md-6 col-sm-12 col-12">
-                            <div class="popup-img">
-                                <img class="img-block" src="images/feutered-model/model5.jpg">
-                            </div>
-                        </div>
-                        <div class="col-lg-7 col-md-6 col-sm-12 col-12">
-                            <div class="ftr-cmnt">
-                                <div class="photo-comments-main">
-                                    <div class="photo-comments">
-                                        <div class="photo-comments-wrap d-flex">
-                                            <div class="photo-comments-wrap-lft">
-                                                <a href="#" class="photo-comments-img">
-                                                    <img class="img-block" src="images/feutered-model/model5.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="photo-comments-wrap-rgt">
-                                                <div class="d-flex flex-wrap justify-content-between align-items-center">
-                                                    <h4><a href="#">Palash Bhunia</a> <span>modal</span></h4>
-                                                    <div class="cmnts-rply-date">
-                                                        <ul class="d-flex">
-                                                            <li>3 days ago</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <p>hi</p>
-                                                <div class="cmnts-rply-date">
-                                                    <ul class="d-flex">
-                                                        <li><a href="#"><i class="far fa-thumbs-up"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-reply"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-trash-alt"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="photo-input-wrap">
-                                                    <input type="text" class="form-control photo-input-style" placeholder="Type your comment">
-                                                    <span class="photo-input-btn-wrap">
-                                                        <button class="photo-input-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="photo-comments-wrap photo-with-reply d-flex">
-                                            <div class="photo-comments-wrap-lft">
-                                                <a href="#" class="photo-comments-img">
-                                                    <img class="img-block" src="images/feutered-model/model5.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="photo-comments-wrap-rgt">
-                                                <div class="d-flex flex-wrap justify-content-between align-items-center">
-                                                    <h4><a href="#">Palash Bhunia</a> <span>modal</span></h4>
-                                                    <div class="cmnts-rply-date">
-                                                        <ul class="d-flex">
-                                                            <li>3 days ago</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <p>hi</p>
-                                                <div class="cmnts-rply-date">
-                                                    <ul class="d-flex">
-                                                        <li><a href="#"><i class="far fa-thumbs-up"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-reply"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-trash-alt"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="photo-input-wrap">
-                                                    <input type="text" class="form-control photo-input-style" placeholder="Type your comment">
-                                                    <span class="photo-input-btn-wrap">
-                                                        <button class="photo-input-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="msg-cmnt when-fixed">
-                                        <div class="profile-input-wrap">
-                                            <input type="text" class="form-control profile-input-style" placeholder="Type your comment">
-                                            <span class="profile-input-btn-wrap">
-                                                <button class="profile-input-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="" class="photo-list">
-                    <div class="row">
-                        <div class="col-lg-5 col-md-6 col-sm-12 col-12">
-                            <div class="popup-img">
-                                <img class="img-block" src="images/feutered-model/model5.jpg">
-                            </div>
-                        </div>
-                        <div class="col-lg-7 col-md-6 col-sm-12 col-12">
-                            <div class="ftr-cmnt">
-                                <div class="photo-comments-main">
-                                    <div class="row h-100 align-items-center">
-                                        <div class="col-12">
-                                            <div class="not-found-text no-msg-area">
-                                                <i class="far fa-comments"></i>
-                                                <p>no Comments yet</p>
-                                                <p><small>Be the first comment</small></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="msg-cmnt when-fixed">
-                                                <div class="profile-input-wrap">
-                                                    <input type="text" class="form-control profile-input-style" placeholder="Type your comment">
-                                                    <span class="profile-input-btn-wrap">
-                                                        <button class="profile-input-btn" type="submit"><i class="fas fa-paper-plane"></i></button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
+            <div class="photo-list-wrap" id="image_popup_view">
+                @include('user.profile_image_popup')
             </div>
             <div class="popup-nav-wrap">
                 <div class="popup-next" id="next"><i class="fas fa-chevron-right"></i></div>
@@ -1394,7 +841,8 @@
                         var count = (parseInt(followers_count) +1);
                         $('#followers_count').text(count)
                     }else if(data.type == 'remove'){
-                        $('#followlink').text('follow');
+                        $('#followlink').text('follow ');
+                        $('#followlink').append('<span class="flw-img"><img src="{{url('images/hand.png')}}" alt="">');
                         $('#followlink').removeClass('followed');
                         var count = (parseInt(followers_count) -1);
                         $('#followers_count').text(count)
@@ -1712,6 +1160,119 @@ $(document).ready(function () {
 function displayMessage(message) {
     toastr.success(message, 'Event');
 }
+
+$(document).ready(function(){
+
+
+    //User image pagination
+    var page = 1;
+    var no_data = 0;
+    $(window).scroll(function() {
+        //console.log($('footer').height());
+        //console.log(no_data);
+        scrollDistance = $(window).scrollTop() + $(window).height();
+        footerDistance = $('#footer').offset().top;
+        if (scrollDistance >= footerDistance) {
+            console.log('load');
+            page++;
+            if(no_data == 0){
+                loadMoreData(page);
+            }
+        } /* else {
+            console.log("Keep going...");
+        } */
+        /* if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            page++;
+            loadMoreData(page);
+        } */
+    });
+    function loadMoreData(page){
+        //console.log(page);
+        $.ajax(
+            {
+                //url: '?page=' + page,
+                url : "{{route('user.profile.image',[$user->id])}}?page="+page,
+                type: "get",
+                beforeSend: function()
+                {
+                    $('.ajax-load').show();
+                }
+            })
+            .done(function(data)
+            {
+                if(data.data_count == 0){
+                    no_data = 1;
+                }
+                //console.log(data);
+                if(data.html == ""){
+                    no_data = 1;
+                    $('.ajax-load').hide();
+                    //console.log('dsfsfsdf');
+                    //$('.ajax-load').html("No more records found");
+                    return;
+                }
+                $('.ajax-load').hide();
+                $("#user_image_load").append(data.user_images);
+                $("#image_popup_view").append(data.image_popup_view);
+
+                $(".photo-list-wrap .photo-list").each(function(e) {
+                    
+                        $(this).hide();
+                });
+            })
+            .fail(function(jqXHR, ajaxOptions, thrownError)
+            {
+                //alert('server not responding...');
+            });
+    }
+
+    /* function user_image_pagination(page)
+    {
+        $.ajax({
+            url:"{{route('user.profile.image',[$user->id])}}?page="+page,
+            success:function(data)
+            {
+                console.log(data);
+                //$('#table_data').html(data);
+            }
+        });
+    } */
+});
+
+function videoLike(video_id){
+        //console.log(photo_id);
+        var check_login = '{{Auth::check()}}';
+        if(check_login == ''){
+            {{Session::put('url_back', url()->current())}}
+            window.location.href = '{{route('login')}}';
+        }else{
+            $("#loading_container").attr("style", "display:block");
+            var token = '{{csrf_token()}}';
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "{{route('user.like.video')}}",
+                data: {'_token': token,'video_id':video_id},
+                success: function(data){
+                    $("#loading_container").attr("style", "display:none");
+                    if(data.type == 'add'){
+                        //console.log(data);
+                        var like_count = $('#video_like_'+data.video_like.video_id).text();
+                        var count = (parseInt(like_count) + 1);
+                        $('#video_like_'+data.video_like.video_id).text(count);
+                        toastr.success(data.massage);
+                    }else if(data.type == 'remove'){
+                        var like_count = $('#video_like_'+data.video_like.video_id).text();
+                        var count = (parseInt(like_count) -1);
+                        $('#video_like_'+data.video_like.video_id).text(count)
+                    }
+
+                    //location.reload();
+                }
+            });
+
+        }
+    }
 </script>
 
 @endpush

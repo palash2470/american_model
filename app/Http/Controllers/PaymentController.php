@@ -171,6 +171,7 @@ class PaymentController extends Controller
 
     //Stripe palyment
     public function stripePost(Request $request){
+        //dd($request->all());
         $user_plan_id =  decrypt($request->plan);
         $payment_id =  decrypt($request->payment);
         //$payment = Payment::where('id',$payment_id)->first();

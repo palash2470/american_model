@@ -90,7 +90,8 @@ class SettingController extends Controller
         
                             $btn = '<a class="edtBtn" href="'.route('admin.home_banner.edit',$row['id']).'"><i class="fas fa-edit"></i></a>';
                             $btn  .='&nbsp;&nbsp;&nbsp;&nbsp;';
-                            $btn .= '<a class="delBtn" href="'.route('admin.home_banner.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
+                            //$btn .= '<a class="delBtn" href="'.route('admin.home_banner.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
+                            $btn .= '<a class="delBtn delete-btn delete-item" href="#" data-url="'.route('admin.home_banner.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
         
                                 return $btn;
                         })
@@ -98,7 +99,10 @@ class SettingController extends Controller
                             return $img = '<img src="'.url('/img/home_banner/'.$row->image_name.'').'" alt="Girl in a jacket" width="100px">
                             ';
                         })
-                        ->rawColumns(['action','image_name'])
+                        ->addColumn('status',function($row){
+                            return $row->status == 1 ? 'Active' : 'Inactive';
+                        })
+                        ->rawColumns(['action','image_name','status'])
                         ->make(true);
         }
         return view('admin.setting.home_banner.banner'); 
@@ -106,7 +110,7 @@ class SettingController extends Controller
     public function bannerStore(Request $request){
         $this->validate($request, [
             'name'  => 'required|unique:home_banners,name',
-            'desc'  => 'required',
+            //'desc'  => 'required',
             'image_name'  => 'required',
         ]);
         $image_name='';
@@ -121,6 +125,7 @@ class SettingController extends Controller
             'desc' => $request['desc'],
             'sl_no' => $request['sl_no'],
             'image_name' => $image_name,
+            'status' => $request['status'],
         ]);
         return redirect()->route('admin.home_banner.index')->with('success','Add Home banner successfully !');  
     }
@@ -133,11 +138,15 @@ class SettingController extends Controller
      
                            $btn = '<a class="edtBtn" href="'.route('admin.home_banner.edit',$row['id']).'"><i class="fas fa-edit"></i></a>';
                            $btn  .='&nbsp;&nbsp;&nbsp;&nbsp;';
-                           $btn .= '<a class="delBtn" href="'.route('admin.home_banner.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
+                           //$btn .= '<a class="delBtn" href="'.route('admin.home_banner.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
+                           $btn .= '<a class="delBtn delete-btn delete-item" href="#" data-url="'.route('admin.home_banner.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a>';
        
                             return $btn;
                     })
-                    ->rawColumns(['action'])
+                    ->addColumn('status',function($row){
+                        return $row->status == 1 ? 'Active' : 'Inactive';
+                    })
+                    ->rawColumns(['action','status'])
                     ->make(true);
         }
         $banner = HomeBanner::where('id',$id)->first();
@@ -158,10 +167,18 @@ class SettingController extends Controller
             'name' => $request['name'],
             'desc' => $request['desc'],
             'sl_no' => $request['sl_no'],
+            'status' => $request['status'],
         ]);
         return redirect()->route('admin.home_banner.index')->with('success','Home Banner updated successfully !');
     }
-    public function bannerDelete(){
-        
+    public function bannerDelete($id){
+        $home_banner = HomeBanner::where('id',$id)->first();
+        if($home_banner){
+            unlink(public_path('/img/home_banner/'.$home_banner->image_name));
+            HomeBanner::find($id)->delete();
+            return redirect()->route('admin.home_banner.index')->with('success','Home Banner deleted successfully !');
+        }else{
+            return back()->with('error','something went wrong!');
+        }
     }
 }

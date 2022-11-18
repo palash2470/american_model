@@ -28,6 +28,8 @@ use App\Models\ProfileView;
 use App\Models\UserDisplayOption;
 use App\Models\UserPlan;
 use App\Models\UserPlanDetails;
+use App\Models\Video;
+use App\Models\VideoLike;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -56,7 +58,8 @@ class ProfileController extends Controller
     public function createBasicInformation()
     {
         $user = User::where('id',Auth::user()->id)->where('is_register_basic',1)->first();
-        $countres = Country::all();
+        //$countres = Country::all();
+        $countres = Country::where('id',231)->get();
         if($user){
             $categories = Category::where('plan_group_id',$user->userDetails->getCategory->plan_group_id)->get();
             //dd($categories);
@@ -486,6 +489,7 @@ class ProfileController extends Controller
     public function viewProfile($category,$slug){
         $getCategory = Category::where('slug',$category)->first();
         $user = User::where('name_slug',$slug)->where('membership_id',$getCategory->id)->first();
+        $user_images = Images::where('user_id',$user->id)->latest('created_at')->paginate(12);
         $count_favourite = 0;
         $count_follow = 0;
         //update profile view count
@@ -505,8 +509,16 @@ class ProfileController extends Controller
                 }
             }
         }
-        $countres = Country::all();
-        return view('user.profile',compact('user','count_favourite','count_follow','countres'));
+        //$countres = Country::all();
+        $countres = Country::where('id',231)->get();
+        return view('user.profile',compact('user','count_favourite','count_follow','countres','user_images'));
+    }
+
+    public function profileImageByUser(Request $request,$user_id){
+        $user_images = Images::where('user_id',$user_id)->latest('created_at')->paginate(12);
+        $image_view = view('user.profile_image',compact('user_images'))->render();
+        $image_popup_view = view('user.profile_image_popup',compact('user_images'))->render();
+        return response()->json(['data_count'=>$user_images->count(),'user_images'=>$image_view,'image_popup_view'=>$image_popup_view]);
     }
 
     public function myProfileEdit(){
@@ -516,7 +528,8 @@ class ProfileController extends Controller
         $weights = Weight::all();
         $hairLenths = HairLenth::all();
         $categories = Category::all();
-        $countres = Country::all();
+        //$countres = Country::all();
+        $countres = Country::where('id',231)->get();
         $image_categories = ImageCategory::where('status',1)->orderBy('name')->get();
         if($user->category->slug == 'models'){
             return view('user.profile_edit.my_profile_edit',compact('user','colours','ethnicities','weights','hairLenths','image_categories'));
@@ -617,33 +630,53 @@ class ProfileController extends Controller
             'title' => 'required',
             'image_category' => 'required',
         ]);
-        $image_name = 'NULL';
-        if($request->has('image')) {
-            $folderPath = public_path('/img/user/images/');
-            $base64Image = explode(";base64,", $request->image);
-            $explodeImage = explode("image/", $base64Image[0]);
-            $imageType = $explodeImage[1];
-            $image_base64 = base64_decode($base64Image[1]);
-            $imageName = uniqid() . '.'.$imageType;
-            $file = $folderPath . $imageName;
-            $image_name = $imageName;
-            file_put_contents($file, $image_base64);
-            /* try {
-                $s3Url = $folderPath . $imageName;
-                Storage::disk('s3.bucket')->put($s3Url, $base64String, 'public');
-            } catch (Exception $e) {
-                Log::error($e);
-            } */
-        }
 
-        Images::create([
-            'user_id' => Auth::user()->id,
-            'image' => $image_name,
-            'title' => $request->title,
-            'category' => $request->image_category,
-            'description' => $request->description,
-        ]);
-        return back()->with('success', 'Image upload Successfully');
+        $image_count = Images::where('user_id',Auth::user()->id)->count();
+        $user_paln = UserPlan::where('user_id',Auth::user()->id)->where('status',1)->first();
+        $image_portfolio_limit = 0;
+        if($user_paln){
+            $user_plan_details = UserPlanDetails::where('user_id',Auth::user()->id)
+                ->where('user_plan_id',$user_paln->id)
+                ->where('attribute_slug','no-of-images-in-portfolio')
+                ->first();
+            $image_portfolio_limit = 0;
+            if($user_plan_details){
+                $image_portfolio_limit = $user_plan_details->value;
+            }
+        }
+       
+        if($image_count >= $image_portfolio_limit && $image_portfolio_limit !='Unlimited'){
+            return back()->with('error', 'No. of images in portfolio Limit over. Please upgrade your plan');
+        }else{
+            $image_name = 'NULL';
+            if($request->has('image')) {
+                $folderPath = public_path('/img/user/images/');
+                $base64Image = explode(";base64,", $request->image);
+                $explodeImage = explode("image/", $base64Image[0]);
+                $imageType = $explodeImage[1];
+                $image_base64 = base64_decode($base64Image[1]);
+                $imageName = uniqid() . '.'.$imageType;
+                $file = $folderPath . $imageName;
+                $image_name = $imageName;
+                file_put_contents($file, $image_base64);
+                /* try {
+                    $s3Url = $folderPath . $imageName;
+                    Storage::disk('s3.bucket')->put($s3Url, $base64String, 'public');
+                } catch (Exception $e) {
+                    Log::error($e);
+                } */
+            }
+
+            Images::create([
+                'user_id' => Auth::user()->id,
+                'image' => $image_name,
+                'title' => $request->title,
+                'category' => $request->image_category,
+                'description' => $request->description,
+            ]);
+            return back()->with('success', 'Image upload Successfully');
+        }
+        
         //return response()->json(['status'=>true,'massage'=>'Image upload Successfully']);
     }
 
@@ -764,4 +797,69 @@ class ProfileController extends Controller
             return back()->with('error','something went wrong!'.$e);
         }
     }
+
+    public function ajaxVideoUpload(Request $request){
+        //dd($request->all());
+        try {
+            $validator = Validator::make($request->all(), [
+                'youtube_video_link'=>'required',
+                'image'=>'required|image|mimes:jpeg,png,jpg,gif',
+            ]);
+             //Send failed response if request is not valid
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+            $image='';
+            if($request->file('image')){
+                $file= $request->file('image');
+                $filename= date('YmdHi').$file->getClientOriginalName();
+                $file-> move(public_path('img/user/youtube_thumbnail_image'), $filename);
+                $image = $filename;
+            }
+            Video::create([
+                'user_id' => Auth::user()->id,
+                'youtube_video_link' => $request->youtube_video_link,
+                'thumbnail_image' => $image,
+            ]);
+            return back()->with('success', 'Video upload Successfully');
+        } catch (Exception $e) {
+            return back()->with('error','something went wrong!'.$e);
+        }
+    }
+
+    public function ajaxDeleteVideo(Request $request){
+        //dd($request->all());
+        $video = Video::where('id',$request->video_id)->where('user_id',Auth::user()->id)->first();
+        if($video){
+            unlink(public_path('/img/user/youtube_thumbnail_image/'.$video->thumbnail_image)); 
+            Video::where("id", $video->id)->delete();
+            return response()->json(['status'=>true,'massage'=>'Video delete Successfully']);
+        }else{
+            return response()->json(['status'=>true,'massage'=>'something went wrong!']);
+        }
+    }
+    
+    public function ajaxVideoLike(Request $request){
+        //dd($request->all());
+        $this->validate($request,[
+            'video_id' => 'required'
+        ]);
+        $video_like = VideoLike::where('user_id',Auth::user()->id)->where('video_id',$request->video_id)->first();
+        //dd($photo_like);
+        if($video_like){
+            VideoLike::where('user_id',Auth::user()->id)->where('video_id',$request->video_id)->delete();
+            return response()->json(['status'=>true,'type'=>'remove','video_like'=>$video_like,'massage'=>'Remove Like']);
+        }else{
+            $like = VideoLike::create([
+                'video_id' => $request->video_id,
+                'user_id' => Auth::user()->id,
+            ]);
+            Mail::send('emails.video_like', ['like' => $like], function($message) use($like){
+                $message->to($like->video->user->email);
+                $message->subject('Like Your Video');
+            });
+            return response()->json(['status'=>true,'type'=>'add','video_like'=>$like,'massage'=>'Successfully like video']);
+        }
+    }
+
 }

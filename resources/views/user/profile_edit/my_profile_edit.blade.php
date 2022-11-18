@@ -698,9 +698,9 @@
                             {{-- <li class="nav-item" role="presentation">
                               <button class="nav-link" id="comments-tab" data-bs-toggle="tab" data-bs-target="#comments" type="button" role="tab" aria-controls="comments" aria-selected="false">comments<i class="far fa-comment-alt"></i></button>
                             </li> --}}
-                            <li class="nav-item" role="presentation">
+                            {{-- <li class="nav-item" role="presentation">
                               <button class="nav-link" id="calender-tab" data-bs-toggle="tab" data-bs-target="#calender" type="button" role="tab" aria-controls="calender" aria-selected="false">calendar<i class="fas fa-calendar-alt"></i></button>
-                            </li>
+                            </li> --}}
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="followers-tab" data-bs-toggle="tab" data-bs-target="#followers" type="button" role="tab" aria-controls="followers" aria-selected="false">followers<i class="fas fa-user-friends"></i></button>
                             </li>
@@ -716,9 +716,9 @@
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link active" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos" type="button" role="tab" aria-controls="photos" aria-selected="true">photos</button>
                                             </li>
-                                            {{-- <li class="nav-item" role="presentation">
+                                            <li class="nav-item" role="presentation">
                                                 <button class="nav-link " id="videos-tab" data-bs-toggle="tab" data-bs-target="#videos" type="button" role="tab" aria-controls="videos" aria-selected="false">videos</button>
-                                            </li> --}}
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="col-auto">
@@ -728,18 +728,19 @@
                                                     <input type="file" id="img_upload">
                                                     <label for="img_upload" class="img-video-btn" {{-- data-bs-toggle="modal" data-bs-target="#imgUp" --}}><i class="fas fa-image"></i>image upload</label>
                                                 </li>
-                                                {{-- <li>
-                                                    <input type="file" id="vid-up">
-                                                    <label for="vid-up" class="img-video-btn"><i class="fas fa-video"></i>video upload</label>
-                                                </li> --}}
+                                                <li>
+                                                    <button class="video-upload-btn" type="button" data-bs-toggle="modal" data-bs-target="#upload_video_modal"><i class="fas fa-video" ></i> video upload</button>
+                                                    {{-- <input type="file" id="vid-up"> --}}
+                                                   {{--  <label for="vid-up" class="img-video-btn"><i class="fas fa-video" ></i>video upload</label> --}}
+                                                </li>
                                             </ul>
-                                            <div class="src-select-wrap">
+                                            {{-- <div class="src-select-wrap">
                                                 <select class="form-control src-select-style selectOption2">
                                                     <option>Recent</option>
                                                     <option>Popular</option>
                                                     <option>Most like</option>
                                                 </select>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -774,83 +775,41 @@
                                                     </div>
                                                 </div>
                                                 @endif
-                                               {{--  <div class="col-lg-4 col-md-6 col-ms-6 col-12">
-                                                    <div class="model-photos-gallery">
-                                                        <a class="gal-img add-dlt" data-fancybox="img-gallery" href="{{url('images/feutered-model/model2.jpg')}}"><img class="img-block" src="{{url('images/feutered-model/model2.jpg')}}">
-                                                            <span class="delete-btn"><i class="fas fa-trash-alt"></i></span>
-                                                        </a>
-                                                        <div class="model-photos-like-cmnt">
-                                                            <ul class="d-flex justify-content-between">
-                                                                <li><a href="#"><i class="far fa-thumbs-up"></i></a>5</li>
-                                                                <li><a href="#"><i class="far fa-comment-alt"></i></a>5</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-ms-6 col-12">
-                                                    <div class="model-photos-gallery">
-                                                        <a class="gal-img add-dlt" data-fancybox="img-gallery" href="{{url('images/feutered-model/model6.jpg')}}"><img class="img-block" src="{{url('images/feutered-model/model6.jpg')}}">
-                                                            <span class="delete-btn"><i class="fas fa-trash-alt"></i></span>
-                                                        </a>
-                                                        <div class="model-photos-like-cmnt">
-                                                            <ul class="d-flex justify-content-between">
-                                                                <li><a href="#"><i class="far fa-thumbs-up"></i></a>5</li>
-                                                                <li><a href="#"><i class="far fa-comment-alt"></i></a>5</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade " id="videos" role="tabpanel" aria-labelledby="videos-tab">
                                         <div class="model-video-wrap">
                                             <div class="row">
-                                                <div class="col-lg-4 col-md-6 col-ms-6 col-12">
-                                                    <div class="model-video-gallery">
-                                                        <a class="gal-video add-dlt" data-fancybox="video-gallery" data-fancybox-type="iframe" href="https://youtu.be/UzHHNVtiRMc">
-                                                            <img class="img-block" src="{{url('images/feutered-model/model1.jpg')}}" alt="">
-                                                            <span class="video-play-btn"><i class="fab fa-youtube"></i></span>
-                                                            <span class="delete-btn"><i class="fas fa-trash-alt"></i></span>
-                                                        </a>
-                                                        <div class="model-photos-like-cmnt">
-                                                            <ul class="d-flex justify-content-between">
-                                                                <li><p><i class="far fa-thumbs-up"></i>5</p></li>
-                                                                <li><a href="#"><i class="far fa-comment-alt"></i></a>5</li>
-                                                            </ul>
+                                                @if (count($user->videos) > 0)
+                                                    @forelse ($user->videos as $video)
+                                                        <div class="col-lg-4 col-md-6 col-ms-6 col-12">
+                                                            <div class="model-video-gallery add-dlt">
+                                                                <span class="delete-btn" onclick="deleteVideo({{$video->id}})"><i class="fas fa-trash-alt"></i></span>
+                                                                <a class="gal-video " data-fancybox="video-gallery" data-fancybox-type="iframe" href="{{$video->youtube_video_link}}">
+                                                                    <img class="img-block" src="{{url('/img/user/youtube_thumbnail_image/'.$video->thumbnail_image.'')}}" alt="">
+                                                                    <span class="video-play-btn"><i class="fab fa-youtube"></i></span>
+                                                                    
+                                                                </a>
+                                                                <div class="model-photos-like-cmnt">
+                                                                    <ul class="d-flex justify-content-between">
+                                                                        <li><p><i class="far fa-thumbs-up"></i>{{count($video->likes)}}</p></li>
+                                                                    {{--  <li><a href="#"><i class="far fa-comment-alt"></i></a>5</li> --}}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-ms-6 col-12">
-                                                    <div class="model-video-gallery">
-                                                        <a class="gal-video add-dlt" data-fancybox="video-gallery" data-fancybox-type="iframe" href="https://youtu.be/UzHHNVtiRMc">
-                                                            <img class="img-block" src="{{url('images/feutered-model/model1.jpg')}}" alt="">
-                                                            <span class="video-play-btn"><i class="fab fa-youtube"></i></span>
-                                                            <span class="delete-btn"><i class="fas fa-trash-alt"></i></span>
-                                                        </a>
-                                                        <div class="model-photos-like-cmnt">
-                                                            <ul class="d-flex justify-content-between">
-                                                                <li><a href="#"><i class="far fa-thumbs-up"></i></a>5</li>
-                                                                <li><a href="#"><i class="far fa-comment-alt"></i></a>5</li>
-                                                            </ul>
+                                                    @empty
+                                                       
+                                                    @endforelse
+                                                @else
+                                                    <div class="col-12">
+                                                        <div class="not-found-text">
+                                                            <i class="fas fa-exclamation-triangle"></i>
+                                                            <p>no video found</p>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-ms-6 col-12">
-                                                    <div class="model-video-gallery">
-                                                        <a class="gal-video add-dlt" data-fancybox="video-gallery" data-fancybox-type="iframe" href="https://youtu.be/UzHHNVtiRMc">
-                                                            <img class="img-block" src="{{url('images/feutered-model/model1.jpg')}}" alt="">
-                                                            <span class="video-play-btn"><i class="fab fa-youtube"></i></span>
-                                                            <span class="delete-btn"><i class="fas fa-trash-alt"></i></span>
-                                                        </a>
-                                                        <div class="model-photos-like-cmnt">
-                                                            <ul class="d-flex justify-content-between">
-                                                                <li><a href="#"><i class="far fa-thumbs-up"></i></a>5</li>
-                                                                <li><a href="#"><i class="far fa-comment-alt"></i></a>5</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                    </div>    
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -1271,6 +1230,58 @@
     </div>
 </div>
 {{-- end model photo popup --}}
+{{-- Upload Video modal--}}
+<div class="modal fade user-book-modal" id="upload_video_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Upload Video</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="upload_video_frm" action="{{route('user.video.upload')}}" method="post" class="send_email needs-validation" novalidate enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="modelId" value="{{$user->id}}" />
+                <div class="modal-body">
+                    <div class="book-input-wrap">
+                        <label for="video_link">Youtube Video Link :</label>
+                        <input type="text" class="form-control book-input-style" id="video_link" name="youtube_video_link" value="" placeholder="Enter Youtube Video Link" required>
+                        @if ($errors->has('youtube_video_link'))
+                            <span class="text-danger">{{ $errors->first('youtube_video_link') }}</span>
+                        @endif
+                    </div>
+                    <div class="cmn-file-wrap">
+                        <label for="">Upload Thumbnail Image :</label>
+                        <input type="file" class="form-control" aria-label="file example"   name="image" required>
+                        @if ($errors->has('image'))
+                            <span class="text-danger">{{ $errors->first('image') }}</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> --}}
+                    <div class="booked-now-wrap text-end">
+                        <button type="submit" class="booked-now" id="">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="loader-wrap" id="loading_container_video_upload_modal" style="display: none">
+        <div class="mesh-loader-wrap">
+            <div class="mesh-loader">
+            <div class="set-one">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <div class="set-two">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- end upload video modal --}}
 @endsection
 @push('scripts')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -1789,5 +1800,48 @@ $(document).on('submit','#contact_frm',function(e){
     function displayMessage(message) {
         toastr.success(message, 'Event');
     }
+
+    $(document).on('submit','#upload_video_frm',function(){
+        $("#loading_container_video_upload_modal").attr("style", "display:block");
+    });
+
+     //delete Video
+    function deleteVideo(video){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                $("#loading_container").attr("style", "display:block");
+                var token = '{{csrf_token()}}';
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "{{route('user.delete_video')}}",
+                    data: {'_token': token,'video_id':video},
+                    success: function(data){
+                        toastr.success(data.massage);
+                        location.reload();
+                    }
+                });
+            }
+        });
+
+    }
+
+   /*  $('#thumbnail_image').bind('change', function () {
+        var filename = $("#thumbnail_image").val();
+        if (/^\s*$/.test(filename)) {
+            $("#noFile").text("No file chosen..."); 
+        }
+        else {
+            $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+        }
+    }); */
 </script>
 @endpush

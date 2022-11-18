@@ -166,6 +166,39 @@
 }
 
 @media only screen and (max-width: 1204px) {
+    .new-profile-user {
+        .new-profile-user-lft {
+            flex: 0 0 280px;
+            max-width: 280px;
+            .new-profile-user-details{
+                .new-profile-user1{
+                    .new-profile-user-img-box{
+                        width: 180px;
+                        height: 180px;
+                        img{
+                            padding: 6px;
+                        }
+                    }
+                }
+            }
+        }
+        .new-profile-user-rgt{
+            padding-left: 20px;
+        }
+        .model-info-wrap {
+            ul {
+                li {
+                    h5 {
+                        font-size: 10px;
+                    }
+                    p{
+                        font-size: 12px;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
     .register-wrap {
         .banner-new-lft {
             margin-top: 11rem;
@@ -651,8 +684,8 @@
     }
     .bannar-text-wrap {
         img {
-            height: auto;
-            min-height: auto;
+            height: 400px;
+            min-height: 400px;
             object-fit: inherit;
         }
         .bannar-text-box {
@@ -843,6 +876,61 @@
             .jobs-img-post-wrap{
                 height: 200px;
             }
+        }
+    }
+    .new-topuser {
+        position: relative;
+    }
+    // .new-add-bnr {
+    //     &::after{
+    //         content: "";
+    //         position: absolute;
+    //         height: 100%;
+    //         width: 100%;
+    //         left: 0;
+    //         bottom: 0;
+    //         background: rgb(255,255,255);
+    //         background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.5438550420168067) 19%, rgba(193,8,22,0) 100%);
+    //     }
+    // }
+    .new-add-bnr {
+        img {
+            max-height: inherit;
+            min-height: inherit;
+        }
+    }
+    .new-profile-user {
+        flex-wrap: wrap;
+        .new-profile-user-lft {
+            flex: 0 0 100%;
+            max-width: 100%;
+            .new-profile-user-details{
+                // display: flex;
+                margin-top: -150px;
+                .new-profile-user2{
+                    padding-left: 15px;
+                    h4{
+                        text-align: left;
+                        font-size: 25px;
+                        margin: 8px 0;
+                    }
+                    .new-model-follower,
+                    .new-model-follower-list{
+                        justify-content: start !important;
+                    }
+                    p{
+                        &.new-info-type{
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+        .new-profile-user-rgt{
+            flex: 0 0 100%;
+            max-width: 100%;
+            padding-left: 0;
+            margin-top: 20px !important;
         }
     }
 }
@@ -1335,6 +1423,17 @@
         }
         p {
             font-size: 16px;
+        }
+    }
+    .new-profile-user {
+        .new-profile-user-lft {
+            .new-profile-user-details {
+                .new-profile-user1 {
+                    .new-profile-user-img-box {
+                        margin: 0;
+                    }
+                }
+            }
         }
     }
 }
@@ -1930,6 +2029,53 @@
             }
         }
     }
+    .new-profile-user {
+        .new-profile-user-lft {
+            .new-profile-user-details {
+                .new-profile-user1 {
+                    .new-profile-user-img-box {
+                        width: 150px;
+                        height: 150px;
+                    }
+                }
+                .new-model-follower{
+                    li{
+                        a{
+                            font-size: 14px;
+                        }
+                    }
+                }
+                p{
+                    &.new-info-type{
+                        font-size: 14px;
+                        .new-book-btn{
+                            margin: 4px 0;
+                            font-size: 14px;
+                            padding: 0 15px;
+                        }
+                    }
+                }
+                .new-profile-user2{
+                    h4{
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+        .new-profile-user-rgt{
+            .new-user-tabs{
+                .nav-tabs{
+                    .nav-item{
+                        margin: 0;
+                        .nav-link{
+                            font-size: 14px;
+                            padding: 8px 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media only screen and (max-width: 480px) {
@@ -2040,8 +2186,8 @@
     } 
     .bannar-text-wrap {
         img {
-            height: 200px;
-            min-height: 200px;
+            height: 300px;
+            min-height: 300px;
             object-fit: cover;
         }
     }

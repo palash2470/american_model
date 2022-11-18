@@ -131,7 +131,7 @@ class AuthenticationController extends Controller
                 $message = "Your e-mail is verified. You can now login.";
                 Mail::send('emails.wellcome',['user'=>$verifyUser], function($message) use($verifyUser){
                     $message->to($verifyUser->email);
-                    $message->subject('Wellcome Mail');
+                    $message->subject('Welcome Mail');
                 });
                 Mail::send('emails.admin_new_registration',['user'=>$verifyUser], function($message) use($verifyUser){
                     $message->to('admin@gmail.com');
@@ -234,7 +234,7 @@ class AuthenticationController extends Controller
     public function logout(){
         Session::flush();
         Auth::logout();
-        return Redirect()->route('login')->with('success','You have Successfully logout');
+        return Redirect()->route('login')->with('success','You have Successfully Logged Out');
     }
 
     

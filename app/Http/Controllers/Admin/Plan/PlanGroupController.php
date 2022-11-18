@@ -137,8 +137,8 @@ class PlanGroupController extends Controller
         //dd($request->all());
         $this->validate($request, [
             'name'  => 'required',
-            "plan_attributes.*"  => "required",
-            "plan_attributes"  => "required",
+            //"plan_attributes.*"  => "required",
+            //"plan_attributes"  => "required",
             //"plan_types.*"  => "required",
             //"plan_types"  => "required",
         ]);

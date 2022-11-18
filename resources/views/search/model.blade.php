@@ -281,6 +281,11 @@
                                 <div class="model-box-design hover-efects">
                                     <span class="model-box-img position-relative hover-ly">
                                         <img class="img-block" src="{{url('img/user/profile-image/'.$user->userDetails->profile_image)}}" alt="">
+                                        @if(isset($user->userPlan->userPremiumMemberPlanDetails) && $user->userPlan->userPremiumMemberPlanDetails->value == 'yes')
+                                            <div class="add-membership-tag">
+                                                <p>Premium Member</p>
+                                            </div>
+                                        @endif
                                         <div class="hover-efects-size">
                                             <ul class="d-flex flex-wrap justify-content-center">
                                                 <li><h5>Height</h5><p>{{@$user->userDetails->getHeight->size}}</p></li>

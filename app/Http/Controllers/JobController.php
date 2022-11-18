@@ -10,6 +10,9 @@ use App\Models\JobLocation;
 use App\Models\JobsApply;
 use App\Models\User;
 use App\Models\UserDetails;
+use App\Models\UserPlan;
+use App\Models\UserPlanDetails;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -63,8 +66,12 @@ class JobController extends Controller
     public function jobDetails ($id)
     {
         $job = Job::where('id',$id)->first();
-        $relatedJobs = Job::where('id','!=',$job->id)->where('jobCategory',$job->jobCategory)->whereDate('toJobDate', '>=', now())->get();
-        return view('job.jobDetail',compact('job','relatedJobs'));
+        if($job){
+            $relatedJobs = Job::where('id','!=',$job->id)->where('jobCategory',$job->jobCategory)->whereDate('toJobDate', '>=', now())->get();
+            return view('job.jobDetail',compact('job','relatedJobs'));
+        }else{
+            return abort(404);
+        }
     }
 
     public function postJob ()
@@ -211,26 +218,45 @@ class JobController extends Controller
                 'message'          => 'required',
             ]);
 
-            $getApplyJob = JobsApply::where(['jobId' => $request->jobId, 'userId' => auth()->user()->id])->first();
-
-            if (isset($getApplyJob)) {
-                return redirect()->to('job/details'.'/'.$request->jobId)->with('error','You already applied for this job !');
+            $applied_job_count = JobsApply::where('userId',Auth::user()->id)->whereMonth('created_at', Carbon::now()->month)->count();
+            $user_paln = UserPlan::where('user_id',Auth::user()->id)->where('status',1)->first();
+            $job_application_limit = 0;
+            if($user_paln){
+                $user_plan_details = UserPlanDetails::where('user_id',Auth::user()->id)
+                    ->where('user_plan_id',$user_paln->id)
+                    ->where('attribute_slug','no-of-applications-to-casting-calls-per-month')
+                    ->first();
+                $job_application_limit = 0;
+                if($user_plan_details){
+                    $job_application_limit = $user_plan_details->value;
+                }
             }
+            //dd($job_application_limit);
+            if($applied_job_count >= $job_application_limit && $job_application_limit !='Unlimited'){
+                return redirect()->to('job/details'.'/'.$request->jobId)->with('error','No. of Applications to Casting Calls (Per Month) over.Please upgrade your plan !');
+            }else{
+                $getApplyJob = JobsApply::where(['jobId' => $request->jobId, 'userId' => auth()->user()->id])->first();
 
-            $attachment = '';
-            if($request->hasFile('image'))
-            {
-                $attachment = time().uniqid(). '.'.$request->image->extension();
-                $request->image->move(public_path('images/jopApply'), $attachment);
+                if (isset($getApplyJob)) {
+                    return redirect()->to('job/details'.'/'.$request->jobId)->with('error','You already applied for this job !');
+                }
+
+                $attachment = '';
+                if($request->hasFile('image'))
+                {
+                    $attachment = time().uniqid(). '.'.$request->image->extension();
+                    $request->image->move(public_path('images/jopApply'), $attachment);
+                }
+                JobsApply::create([
+                    'jobId'         => $request->jobId,
+                    'userId'        => auth()->user()->id,
+                    'message'       => $request->message,
+                    'attachment'    => $attachment,
+                ]);
+
+                return redirect()->to('job/details'.'/'.$request->jobId)->with('success', 'Apply job successfully');
             }
-            JobsApply::create([
-                'jobId'         => $request->jobId,
-                'userId'        => auth()->user()->id,
-                'message'       => $request->message,
-                'attachment'    => $attachment,
-            ]);
-
-            return redirect()->to('job/details'.'/'.$request->jobId)->with('success', 'Apply job successfully');
+            
         } catch (Exception $e) {
             return back()->with('error','something went wrong!'.$e);
         }

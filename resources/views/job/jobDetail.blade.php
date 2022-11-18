@@ -169,7 +169,7 @@
                                                 <div class="col-lg-5 col-md-5 col-sm-5 col-12">
                                                     <div class="job-thumb relative">
                                                         <a href="{{url('job/details').'/'.$jobValue->id}}">
-                                                            <img class="img-block" src="{{url('images/job').'/'.$jobValue->image}}" alt="">
+                                                            <img class="img-block" src="{{isset($jobValue->images[0]) ? url('images/job').'/'.$jobValue->images[0]->image : url('images/no-image.jpg')}}" alt="">
                                                         </a>
                                                         <div class="job-post-date">
                                                             <span class="job-post-clock"><img class="img-block" src="{{ url('images/icon-time.png') }}"></span>

@@ -3,12 +3,12 @@
 <section class="slider-wrap index-z">
     <div class="home-slider">
         <div class="owl-carousel owl-theme home_slider">
-            <div class="item">
+            {{-- <div class="item">
                 <div class="bannar-text-wrap">
                     <img src="{{url('https://palash.aqualeafitsol.com/american-model/img/home_banner/202210071247BannerPageSlider-Find%20Models%20In%20Your%20Area-Final-BG.jpg')}}" alt="">
                     <div class="bannar-text-box">
                         <h2>FIND TALENT NEAR YOU</h2>
-                        {{-- <p>Find models near you</p> --}}
+                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque somos notros corrupti quos et quas molestias sint occaecati summ. </p>
                         <div class="src-model-wrap">
                             <h4>Where Do You Need Talent?</h4>
                             <form action="{{route('search.talent')}}" method="get" >
@@ -28,25 +28,37 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        {{-- @if(count($banners) > 0)
-        @foreach ($banners as $banner)
-        <div class="item">
-            <div class="bannar-text-wrap">
-                <img src="{{url('img/home_banner/'.$banner->image_name)}}" alt="">
-                <div class="bannar-text-box">
-                    <h2>{{$banner->name}}</h2>
-                    <p>{{$banner->desc}}</p>
-                    <ul class="bannar-btn d-flex justify-content-center">
-                        <li><a href="#">get noticed</a></li>
-                        <li><a href="#">Find Talent</a></li>
-                    </ul>
+            </div> --}}
+        @if(count($banners) > 0)
+            @foreach ($banners as $banner)
+                <div class="item">
+                    <div class="bannar-text-wrap">
+                        <img src="{{url('img/home_banner/'.$banner->image_name)}}" alt="">
+                        <div class="bannar-text-box">
+                            <h2>{{@$banner->name}}</h2>
+                            <p>{{@$banner->desc}}</p>
+                            <div class="src-model-wrap">
+                                <h4>Where Do You Need Talent?</h4>
+                                <form action="{{route('search.talent')}}" method="get" >
+                                    <div class="d-flex">
+                                        <div class="bnr-input col">
+                                            <input type="text" name="search" class="form-control bnr-input-style" placeholder="Search for talent by city, state">
+                                        </div>
+                                        <div class="bnr-src-btn-wrap col-auto">
+                                            <button type="submit" class="bnr-src-btn"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <ul class="text-list-wrap d-flex justify-content-center mt-2">
+                                    <li>Commercial, Print, Runway</li>
+                                    <li>Conventions & Trade Shows</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-          </div>
-        @endforeach
-          
-          @endif --}}
+            @endforeach
+        @endif
           {{-- <div class="item">
             <div class="bannar-text-wrap">
                 <img src="{{url('images/slider2.jpg')}}" alt="">

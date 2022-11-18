@@ -33,5 +33,7 @@ class UserPlan extends Model
         return $this->hasOne(PlanGroup::class,'id','plan_group_id');
     }
 
-    //public function 
+    public function userPremiumMemberPlanDetails() {
+        return $this->hasOne(UserPlanDetails::class,'user_plan_id','id')->where('attribute_slug','premium-member-placement');
+    }
 }

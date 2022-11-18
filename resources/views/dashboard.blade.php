@@ -96,7 +96,7 @@
                     <div class="btm-button-wrap">
                         <ul>
                             <li><a href="{{route('user.profile_edit')}}" class="user-update-pic">Upload Pictures</a></li>
-                            <li><a href="#" class="user-update-cal">Manage Calendar</a></li>
+                            {{-- <li><a href="#" class="user-update-cal">Manage Calendar</a></li> --}}
                             @php
                                 if(isset(auth()->user()->userDetails) && auth()->user()->userDetails->membership_type_id === 5)
                                 {

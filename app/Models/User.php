@@ -86,4 +86,8 @@ class User extends Authenticatable
     public function usersComments(){
         return $this->hasMany(ProfileComment::class,'comment_to_user_id','id')->orderBy('id','desc');
     }
+
+    public function videos(){
+        return $this->hasMany(Video::class,'user_id','id');
+    }
 }

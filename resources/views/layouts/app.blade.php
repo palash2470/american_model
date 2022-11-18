@@ -45,6 +45,7 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script src="{{url('js/jquery-ui.min.js')}}"></script>
+        <script src="{{url('js/jquery.ui.touch-punch.min.js')}}"></script>
         <!-- Custom Js -->
         <script src="{{url('js/custom.js')}}"></script>
         <script src="{{url('js/developer.js')}}"></script>

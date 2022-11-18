@@ -71,6 +71,7 @@ Route::get('/subscription-plan',[UserPlanController::class,'showSubscriptionPlan
 Route::get('/filter/{category}',[SearchController::class,'search'])->name('user.search');
 Route::get('/search-by-talent',[SearchController::class,'searchByTalent'])->name('search.talent');
 Route::get('/profile/{category}/{slug}',[ProfileController::class,'viewProfile'])->name('user.view.profile');
+Route::get('/profile/image/pagination/{slug}',[ProfileController::class,'profileImageByUser'])->name('user.profile.image');
 //Blog
 Route::get('/blog',[BlogController::class,'index'])->name('blog');
 Route::get('/blog/details',[BlogController::class,'details'])->name('blog.details');
@@ -126,6 +127,8 @@ Route::middleware(['auth', 'is_verify_email'])->group(function(){
     Route::post('/image-upload',[ProfileController::class,'imageUpload'])->name('user.image.upload');
     Route::post('/ajax/image-change',[ProfileController::class,'ajaxImageChange'])->name('ajax.image_change');
     Route::post('/delete-img',[ProfileController::class,'ajaxDeleteImg'])->name('user.delete_img');
+    Route::post('/video-upload',[ProfileController::class,'ajaxVideoUpload'])->name('user.video.upload');
+    Route::post('/delete-video',[ProfileController::class,'ajaxDeleteVideo'])->name('user.delete_video');
 
     //favourite
     Route::post('/favourite',[ProfileController::class,'ajaxFavourite'])->name('user.favourite');
@@ -153,7 +156,8 @@ Route::middleware(['auth', 'is_verify_email'])->group(function(){
     //user photo like
     Route::post('/photo/like',[ProfileController::class,'ajaxLikePhoto'])->name('user.like.photo');
     Route::post('/profile/send-mail',[ProfileController::class,'sendMailToModels'])->name('profile.send.mail');
-
+    //user video like 
+    Route::post('/video/like',[ProfileController::class,'ajaxVideoLike'])->name('user.like.video');
     // Job
     Route::get('job-apply/{slug}', [JobController::class, 'jobApply']);
     Route::post('job-apply/', [JobController::class, 'jobApplyStore'])->name('job.apply.store');
@@ -272,7 +276,7 @@ Route::group(['middleware'=>'is_admin','prefix'=>'admin'],function(){
         Route::post('/add',[SettingController::class,'bannerStore'])->name('admin.home_banner.store');
         Route::get('/edit/{slug}',[SettingController::class,'bannerEdit'])->name('admin.home_banner.edit');
         Route::post('/edit',[SettingController::class,'bannerUpdate'])->name('admin.home_banner.update');
-        Route::get('/delete',[SettingController::class,'bannerDelete'])->name('admin.home_banner.delete');
+        Route::get('/delete/{id}',[SettingController::class,'bannerDelete'])->name('admin.home_banner.delete');
     });
 
     //Settings

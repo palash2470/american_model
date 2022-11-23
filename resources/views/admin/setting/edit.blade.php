@@ -36,6 +36,40 @@
                         <input type="hidden" name="id" value="{{$settings->id}}">
                         <div class="card-body">
                             <div class="settings-wrap">
+                                <h4 class="settings-wrap-heading">Top Header Section</h4>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="top_header_address">Address</label>
+                                            <input type="text" name="top_header_address" class="form-control" id="top_header_address" placeholder="Address" value="{{@$settings->top_header_address}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="top_header_phone_no">Phone No</label>
+                                            <input type="text" name="top_header_phone_no" class="form-control" id="top_header_phone_no" placeholder="Phone No" value="{{@$settings->top_header_phone_no}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-wrap">
+                                <h4 class="settings-wrap-heading">Membership Plans Faq & How do I upgrade my membership</h4>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="">Faq</label>
+                                            <textarea  class="summernote" name="plan_faq" style="display: none;">{{@$settings->plan_faq}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="">How do I upgrade my membership</label>
+                                            <textarea  class="summernote" name="plan_hw_do_upgrade" style="display: none;">{{@$settings->plan_hw_do_upgrade}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-wrap">
                                 <h4 class="settings-wrap-heading">Home Poll Section</h4>
                                 <div class="form-group">
                                     <label for="home_poll_image">Background Image</label>
@@ -253,6 +287,11 @@
 @endsection
 
 @push('scripts')
-  
-
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.summernote').summernote();
+});
+</script>
 @endpush

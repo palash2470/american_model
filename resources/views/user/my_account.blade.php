@@ -66,8 +66,20 @@
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                                     <div class="edit-input edit-gap">
-                                        <label>Name</label>
-                                        <input type="text" class="form-control edit-input-style @if($errors->has('name')) error @endif" placeholder="kart" name="name" value="{{$user->userDetails->name}}">
+                                        <label>First Name</label>
+                                        <input type="text" class="form-control edit-input-style @if($errors->has('first_name')) error @endif" placeholder="First Name" name="first_name" value="{{@$user->userDetails->first_name}}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <div class="edit-input edit-gap">
+                                        <label>Middle Name</label>
+                                        <input type="text" class="form-control edit-input-style @if($errors->has('middle_name')) error @endif" placeholder="Middle Name" name="middle_name" value="{{@$user->userDetails->middle_name}}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <div class="edit-input edit-gap">
+                                        <label>Last Name</label>
+                                        <input type="text" class="form-control edit-input-style @if($errors->has('last_name')) error @endif" placeholder="Last Name" name="last_name" value="{{@$user->userDetails->last_name}}">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">

@@ -77,8 +77,8 @@
     // $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
-    {{-- <script src="{{url('/Admin/js/bootstrap.bundle.min.js')}}"></script> --}}
-    <script src="{{url('/Admin/js/bootstrap.js')}}"></script>
+    <script src="{{url('/Admin/js/bootstrap.bundle.min.js')}}"></script>
+    {{-- <script src="{{url('/Admin/js/bootstrap.js')}}"></script> --}}
     <!-- ChartJS -->
     <!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
     <!-- Sparkline -->

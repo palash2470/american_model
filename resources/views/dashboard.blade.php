@@ -131,21 +131,21 @@
               <div class="row">
                 @if (count($user->viewes) > 0)
                     @foreach ($user->viewes as $view)
-
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="views-modal-list d-flex align-items-center">
+                            <div class="views-modal-list-lft">
+                                <a href="{{url('/profile/'.@$view->viewerUser->category->slug.'/'.$view->viewerUser->name_slug)}}" class="profile-comments-img">
+                                    <img class="img-block" src="{{url('img/user/profile-image/'.@$view->viewerUser->userDetails->profile_image)}}" alt="">
+                                </a>
+                            </div>
+                            <div class="views-modal-list-rgt">
+                                <h4>{{$view->viewerUser->name}}</h4>
+                                <p>{{@$view->viewerUser->category->name}}, {{@$view->viewerUser->userDetails->city_name}}</p>
+                            </div>
+                            </div>
+                        </div>
                     @endforeach
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="views-modal-list d-flex align-items-center">
-                        <div class="views-modal-list-lft">
-                            <a href="{{url('/profile/'.@$view->viewerUser->category->slug.'/'.$view->viewerUser->name_slug)}}" class="profile-comments-img">
-                                <img class="img-block" src="{{url('img/user/profile-image/'.@$view->viewerUser->userDetails->profile_image)}}" alt="">
-                            </a>
-                        </div>
-                        <div class="views-modal-list-rgt">
-                            <h4>{{$view->viewerUser->name}}</h4>
-                            <p>{{@$view->viewerUser->category->name}}, {{@$view->viewerUser->userDetails->city_name}}</p>
-                        </div>
-                        </div>
-                    </div>
+                    
                 @endif
               </div>
             </div>

@@ -40,7 +40,7 @@ class CommentController extends Controller
                     });
             }
 
-        return back()->with('success', 'You massage send successfully');
+        return back()->with('success', 'Your message has been sent successfully');
         }catch(Exception $e){
             //DB::rollBack();
             return back()->with('error','something went wrong!');

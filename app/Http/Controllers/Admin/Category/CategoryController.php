@@ -25,7 +25,8 @@ class CategoryController extends Controller
                         ->addColumn('action', function($row){
                             $btn = '<ul class="datatable-action-btn">';
                             $btn .= '<li><a class="edtBtn edit-btn" href="'.route('admin.category.edit',$row['id']).'"><i class="fas fa-edit"></i></a></li>';
-                            $btn .= '<li><a class="delBtn delete-btn" href="'.route('admin.category.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a></li>';
+                            //$btn .= '<li><a class="delBtn delete-btn delete-item" href="'.route('admin.category.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a></li>';
+                            $btn .= '<li><a class="delBtn delete-btn delete-item" href="#" data-url="'.route('admin.category.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a></li>';
                             $btn .= '</ul>' ;  
                                 return $btn;
                         })
@@ -93,7 +94,7 @@ class CategoryController extends Controller
      
                             $btn = '<ul class="datatable-action-btn">';
                             $btn .= '<li><a class="edtBtn edit-btn" href="'.route('admin.category.edit',$row['id']).'"><i class="fas fa-edit"></i></a></li>';
-                            $btn .= '<li><a class="delBtn delete-btn" href="'.route('admin.category.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a></li>';
+                            $btn .= '<li><a class="delBtn delete-btn delete-item" href="#" data-url="'.route('admin.category.delete',$row['id']).'"><i class="fas fa-trash-alt"></i></a></li>';
                             $btn .= '</ul>' ; 
        
                             return $btn;
@@ -128,8 +129,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        Category::find($id)->delete();
+        return redirect()->route('admin.category.index')->with('success','Category deleted successfully !');
     }
 }

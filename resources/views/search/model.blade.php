@@ -281,7 +281,7 @@
                                 <div class="model-box-design hover-efects">
                                     <span class="model-box-img position-relative hover-ly">
                                         <img class="img-block" src="{{url('img/user/profile-image/'.$user->userDetails->profile_image)}}" alt="">
-                                        @if(isset($user->userPlan->userPremiumMemberPlanDetails) && $user->userPlan->userPremiumMemberPlanDetails->value == 'yes')
+                                        @if(isset($user->userPlan->userPremiumMemberPlanDetails) && $user->premium_member_placement == 'yes')
                                             <div class="add-membership-tag">
                                                 <p>Premium Member</p>
                                             </div>

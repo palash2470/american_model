@@ -10,6 +10,7 @@
                 </div>
             </div>
         </div>
+        @include('flashmessage.flash-message')
     </div>
 </section>
 

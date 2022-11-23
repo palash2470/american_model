@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use App\Models\PlanGroup;
 use App\Models\User;
 use App\Models\UserPlan;
+use App\Models\UserPlanDetails;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -79,7 +80,7 @@ class PaymentController extends Controller
                 ]
             ]
         ]);
-        //dd($response['id']);
+        //dd($response);
         if (isset($response['id']) && $response['id'] != null) {
 
             //Payment table update trns id    
@@ -93,12 +94,12 @@ class PaymentController extends Controller
             }
 
             return redirect()
-                ->route('user.payment')
+                ->back()
                 ->with('error', 'Something went wrong.');
 
         } else {
             return redirect()
-                ->route('user.payment')
+                ->back()
                 ->with('error', $response['message'] ?? 'Something went wrong.');
         }
         //return 'success';
@@ -116,34 +117,23 @@ class PaymentController extends Controller
         $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($request['token']);
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
-            /* Transaction::create([
-                'user_id' => auth()->user()->id,
-                'payment_type' => 'Paypal',
-                'amount' => $response['purchase_units'][0]['payments']['captures'][0]['amount']['value'],
-                'currency' => $response['purchase_units'][0]['payments']['captures'][0]['amount']['currency_code'],
-                'transation_id' => $response['id'],
-                'status' => $response['status'],
-            ]); */
-
             //update responce status
             Payment::where('transaction_id', $response['id'])
             ->update(['payment_status'=> $response['status']]);
-            User::where('id',Auth::user()->id)->update(['is_subscribe'=>1,'is_payment'=>1]);
-            //Get order details
-            /* $order = order::with('orderDetails')
-            ->where('transaction_id',$response['id'])
-            ->first(); */
-
-            //update user plan
-            //User::where('id', Auth()->user()->id)->update(['active_plan_id' => $order->orderDetails[0]->item_id]); //
-
-            //Send mail to user
-            /* Mail::send('emails.order.receipt', ['order' => $order], function($message) use($request){
-                $message->to(Auth()->user()->email);
-                $message->subject('Order receipt');
-            }); */
+            
             $payment = Payment::where('transaction_id', $response['id'])->first();
             $user_plan = UserPlan::where('id',$payment->user_plan_id)->first();
+            //update user premium-member-placement
+            $premium_member_placement = 'no';
+            $user_plan_details = UserPlanDetails::where('user_id',Auth::user()->id)
+                ->where('user_plan_id',$user_plan->id)
+                ->where('attribute_slug','premium-member-placement')
+                ->first(); 
+            //dd($user_plan_details);
+            if(isset($user_plan_details) && $user_plan_details->value == 'yes'){
+                $premium_member_placement = 'yes';
+            }
+            User::where('id',Auth::user()->id)->update(['is_subscribe'=>1,'is_payment'=>1,'premium_member_placement'=>$premium_member_placement]);
             //return view('finishPayment');
             Mail::send('emails.subscription', ['user_plan' => $user_plan], function($message) use($user_plan){
                 $message->to($user_plan->user->email);
@@ -202,7 +192,18 @@ class PaymentController extends Controller
                 if($payment['status'] == 'succeeded') {
                     Payment::where('id', $payment_id)
                     ->update(['payment_status'=> 'COMPLETED','transaction_id'=>$payment['id']]);
-                    User::where('id',Auth::user()->id)->update(['is_subscribe'=>1,'is_payment'=>1]);
+                    //update user plan detais
+                    $premium_member_placement = 'no';
+                    $user_plan_details = UserPlanDetails::where('user_id',Auth::user()->id)
+                        ->where('user_plan_id',$user_plan->id)
+                        ->where('attribute_slug','premium-member-placement')
+                        ->first(); 
+                    //dd($user_plan_details);
+                    if(isset($user_plan_details) && $user_plan_details->value == 'yes'){
+                        $premium_member_placement = 'yes';
+                    }
+                    User::where('id',Auth::user()->id)->update(['is_subscribe'=>1,'is_payment'=>1,'premium_member_placement'=>$premium_member_placement]);
+                    
                     
                     Mail::send('emails.subscription', ['user_plan' => $user_plan], function($message) use($user_plan){
                         $message->to($user_plan->user->email);

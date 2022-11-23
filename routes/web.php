@@ -45,7 +45,16 @@ use App\Http\Controllers\Admin\ImageCategory\ImageCategoryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/clear', function() {
 
+    Artisan::call('optimize:clear');
+    //Artisan::call('config:clear');
+    //Artisan::call('config:cache');
+    //Artisan::call('view:clear');
+    Artisan::call('migrate');
+    return "Cleared!";
+ 
+});
 
 //Start frontend
 Route::get('/',[HomeController::class,'index'])->name('home');
@@ -130,6 +139,8 @@ Route::middleware(['auth', 'is_verify_email'])->group(function(){
     Route::post('/video-upload',[ProfileController::class,'ajaxVideoUpload'])->name('user.video.upload');
     Route::post('/delete-video',[ProfileController::class,'ajaxDeleteVideo'])->name('user.delete_video');
 
+    Route::get('/profile-edit/image/pagination',[ProfileController::class,'profileEditImageByUser'])->name('user.profile_edit.image');
+
     //favourite
     Route::post('/favourite',[ProfileController::class,'ajaxFavourite'])->name('user.favourite');
     //follow
@@ -196,7 +207,7 @@ Route::group(['middleware'=>'is_admin','prefix'=>'admin'],function(){
         Route::post('/add',[CategoryController::class,'store'])->name('admin.category.store');
         Route::get('/edit/{slug}',[CategoryController::class,'edit'])->name('admin.category.edit');
         Route::post('/edit',[CategoryController::class,'update'])->name('admin.category.update');
-        Route::get('/delete',[CategoryController::class,'delete'])->name('admin.category.delete');
+        Route::get('/delete/{id}',[CategoryController::class,'delete'])->name('admin.category.delete');
     });
 
     //Colour

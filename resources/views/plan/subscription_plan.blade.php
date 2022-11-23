@@ -332,21 +332,23 @@
                     <div class="col-lg-6">
                         <div class="plan-page-btm sdw-box rds-box">
                             <h3>FAQs</h3>
-                            <p>How do I cancel my paid subscription?</p>
+                            {!! $settings->plan_faq !!}
+                            {{-- <p>How do I cancel my paid subscription?</p>
                             <p>For security purposes, please write us on admin@americanmodel.net to cancel your membership.</p>
-                            <p>NOTE: The scheduled payment MUST be canceled at least three (3) days prior to the scheduled date of the next payment. Canceling a Subscription on the day of a scheduled payment will not guarantee that the payment will not be sent.</p>
+                            <p>NOTE: The scheduled payment MUST be canceled at least three (3) days prior to the scheduled date of the next payment. Canceling a Subscription on the day of a scheduled payment will not guarantee that the payment will not be sent.</p> --}}
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="plan-page-btm rds-box">
                             <h3>How do I upgrade my membership?</h3>
-                            <ul class="upgrade-plan">
+                            {!! $settings->plan_hw_do_upgrade !!}
+                            {{-- <ul class="upgrade-plan">
                                 <li>1. Log in to your “American Model” account.</li>
                                 <li>2. Click the gear icon at the top right of the screen and then click 'Settings.'</li>
                                 <li>3. Click the 'My Membership' link on the menu on the left.</li>
                                 <li>4. Click the blue 'Change' button.</li>
                             </ul>
-                            <p>You will be able to select whichever plan you want and then the system will guide you through the payment process.</p>
+                            <p>You will be able to select whichever plan you want and then the system will guide you through the payment process.</p> --}}
                         </div>
                     </div>
                 </div>

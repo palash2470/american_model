@@ -391,7 +391,7 @@ class ProfileController extends Controller
     public function updateMyAccount(Request $request){
 
         $this->validate($request, [
-            "name"    => "required",
+            "first_name"    => "required",
             "gender"    => "required",
             "dob"    => "required",
             "email"    => "required",
@@ -401,11 +401,15 @@ class ProfileController extends Controller
         $checkUser = Hash::check( $request->password, Auth::user()->password );
         if($checkUser){
             UserDetails::where('user_id',Auth::user()->id)->update([
-                'name' =>$request->name,
+                'first_name' =>$request->first_name,
+                'middle_name' =>$request->middle_name,
+                'last_name' =>$request->last_name,
                 'gender' =>$request->gender,
                 'dob' =>$request->dob,
             ]);
-            User::where('id',Auth::user()->id)->update(['name'=>$request->name]);
+            $full_name = $request->first_name.' '.$request->middle_name.' '.$request->last_name;
+            $slug = $this->createSlug($request->first_name);
+            User::where('id',Auth::user()->id)->update(['name'=>$full_name,'name_slug'=>$slug]);
             return back()->with('success', 'Your account has been successfully updated');
         }else{
             return back()->with('error', 'Wrong password enter');
@@ -520,9 +524,19 @@ class ProfileController extends Controller
         $image_popup_view = view('user.profile_image_popup',compact('user_images'))->render();
         return response()->json(['data_count'=>$user_images->count(),'user_images'=>$image_view,'image_popup_view'=>$image_popup_view]);
     }
+    public function profileEditImageByUser(Request $request){
+        $user_id = Auth::user()->id;
+        $user_images = Images::where('user_id',$user_id)->latest('created_at')->paginate(12);
+        $image_view = view('user.profile_edit.edit_profile_image',compact('user_images'))->render();
+        $image_popup_view = view('user.profile_image_popup',compact('user_images'))->render();
+        return response()->json(['data_count'=>$user_images->count(),'user_images'=>$image_view,'image_popup_view'=>$image_popup_view]);
+    }
 
     public function myProfileEdit(){
         $user = User::where('id',Auth::user()->id)->first();
+        $user_images = Images::where('user_id',$user->id)->latest('created_at')->paginate(12);
+        $count_favourite = Favourite::where('user_id',$user->id)->where('favour_by',Auth::user()->id)->count();
+        $count_follow = Follow::where('follower_id',$user->id)->where('following_id',Auth::user()->id)->count();
         $colours = Colour::all();
         $ethnicities = Ethnicity::all();
         $weights = Weight::all();
@@ -532,11 +546,11 @@ class ProfileController extends Controller
         $countres = Country::where('id',231)->get();
         $image_categories = ImageCategory::where('status',1)->orderBy('name')->get();
         if($user->category->slug == 'models'){
-            return view('user.profile_edit.my_profile_edit',compact('user','colours','ethnicities','weights','hairLenths','image_categories'));
+            return view('user.profile_edit.my_profile_edit',compact('user','colours','ethnicities','weights','hairLenths','image_categories','user_images','count_favourite','count_follow'));
         }elseif($user->category->slug == 'photographer' || $user->category->slug == 'casting-director'){
-            return view('user.profile_edit.photographer_profile_edit',compact('user','categories','countres','image_categories'));
+            return view('user.profile_edit.photographer_profile_edit',compact('user','categories','countres','image_categories','user_images','count_favourite','count_follow'));
         }elseif($user->category->slug == 'child-model-and-actor'){
-            return view('user.profile_edit.child-model_profile_edit',compact('user','colours','ethnicities','weights','hairLenths','image_categories'));
+            return view('user.profile_edit.child-model_profile_edit',compact('user','colours','ethnicities','weights','hairLenths','image_categories','user_images','count_favourite','count_follow'));
         }else{
             abort(404);
         }
@@ -558,8 +572,8 @@ class ProfileController extends Controller
             'dress_size' =>$request->dress_size,
             'hip' =>$request->hip,
             'exprience' =>$request->exprience,
-            //'compensation' =>$request->has('compensation') ? implode(',',$request->compensation) : '',
-            'compensation' =>$request->has('compensation') ? $request->compensation : '',
+            'compensation' =>$request->has('compensation') ? implode(',',$request->compensation) : '',
+            //'compensation' =>$request->has('compensation') ? $request->compensation : '',
             'biography' =>$request->biography,
             'interested' => $request->has('interested') ? implode(',',$request->interested) : '',
             'accepted_job' => $request->has('accepted_job') ? implode(',',$request->accepted_job) : '',
@@ -701,13 +715,13 @@ class ProfileController extends Controller
         $favourite = Favourite::where('user_id',$request->user_id)->where('favour_by',Auth::user()->id)->get();
         if(count($favourite) > 0){
             Favourite::where('user_id',$request->user_id)->where('favour_by',Auth::user()->id)->delete();
-            return response()->json(['status'=>true,'type'=>'remove','massage'=>'Favourite user remove Successfully']);
+            return response()->json(['status'=>true,'type'=>'remove','massage'=>'Favorite user remove Successfully']);
         }else{
             Favourite::create([
                 'user_id' => $request->user_id,
                 'favour_by' => Auth::user()->id,
             ]);
-            return response()->json(['status'=>true,'type'=>'add','massage'=>'Favourite user added Successfully']);
+            return response()->json(['status'=>true,'type'=>'add','massage'=>'You have added this user as Favorite']);
         }
         //return back()->with('success', 'Favourite user added Successfully');
     }
@@ -754,7 +768,7 @@ class ProfileController extends Controller
                 $message->to($like->photo->user->email);
                 $message->subject('Like Your Photo');
             });
-            return response()->json(['status'=>true,'type'=>'add','photo_like'=>$like,'massage'=>'Successfully like photo']);
+            return response()->json(['status'=>true,'type'=>'add','photo_like'=>$like,'massage'=>'You have successfully liked this photo']);
         }
     }
 

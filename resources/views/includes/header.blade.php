@@ -10,8 +10,8 @@
                     <div class="col-auto">
                         <div class="top-phone">
                             <ul class="d-flex">
-                                <li class="mob-none"><i class="fas fa-map-marker-alt"></i>Phoenix, AZ 85069</li>
-                                <li><a href="tel:(480) 265-0187"><i class="fas fa-phone-alt"></i><span class="">(480) 265-0187</span></a></li>
+                                <li class="mob-none"><i class="fas fa-map-marker-alt"></i>{{$settings->top_header_address}}</li>
+                                <li><a href="tel:{{$settings->top_header_phone_no}}"><i class="fas fa-phone-alt"></i><span class="">{{$settings->top_header_phone_no}}</span></a></li>
                             </ul>
                         </div>
                     </div>

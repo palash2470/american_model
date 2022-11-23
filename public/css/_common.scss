@@ -40,6 +40,7 @@
             line-height: 1;
             text-align: center;
             text-shadow: 0 0 7px #000;
+            padding: 0;
         }
         p{
             text-align: center;
@@ -116,9 +117,9 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            height: 70px;
-            width: 70px;
-            line-height: 66px;
+            height: 50px;
+            width: 50px;
+            line-height: 46px;
             border-radius: 50%;
             border: 2px solid #fff;
             color: #fff;
@@ -5538,6 +5539,18 @@ label{
         max-width: 350px;
         .new-profile-user-details{            
             .new-profile-user1{
+                .new-pf-edit{
+                    .edip-dp{
+                        right: 15px;
+                        top: 15px;
+                        .edip-dp-btn{
+                            height: 40px;
+                            width: 40px;
+                            line-height: 40px;
+                            border-radius: 50%;
+                        }
+                    }
+                }
                 .new-profile-user-img-box{
                     display: block;
                     width: 230px;
@@ -5553,15 +5566,18 @@ label{
                     }
                 }
             }
-            h4{
-                text-transform: capitalize;
-                padding-bottom: 0;
-                line-height: 1;
-                text-align: center;
-                font-size: 30px;
-                margin: 15px 0;
-                color: #c20816;
+            .new-profile-user2{
+                h4{
+                    text-transform: capitalize;
+                    padding-bottom: 0;
+                    line-height: 1;
+                    text-align: center;
+                    font-size: 30px;
+                    margin: 15px 0;
+                    color: #c20816;
+                }
             }
+            
             .new-model-follower{
                 margin-bottom: 5px;
                 li{

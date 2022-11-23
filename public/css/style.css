@@ -18727,6 +18727,7 @@ div#captcha_error {
   line-height: 1;
   text-align: center;
   text-shadow: 0 0 7px #000;
+  padding: 0;
 }
 .bannar-text-wrap .bannar-text-box p {
   text-align: center;
@@ -18795,9 +18796,9 @@ div#captcha_error {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  height: 70px;
-  width: 70px;
-  line-height: 66px;
+  height: 50px;
+  width: 50px;
+  line-height: 46px;
   border-radius: 50%;
   border: 2px solid #fff;
   color: #fff;
@@ -23702,6 +23703,16 @@ label#email-error {
   flex: 0 0 350px;
   max-width: 350px;
 }
+.new-profile-user .new-profile-user-lft .new-profile-user-details .new-profile-user1 .new-pf-edit .edip-dp {
+  right: 15px;
+  top: 15px;
+}
+.new-profile-user .new-profile-user-lft .new-profile-user-details .new-profile-user1 .new-pf-edit .edip-dp .edip-dp-btn {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+}
 .new-profile-user .new-profile-user-lft .new-profile-user-details .new-profile-user1 .new-profile-user-img-box {
   display: block;
   width: 230px;
@@ -23717,7 +23728,7 @@ label#email-error {
      object-fit: cover;
   box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.09);
 }
-.new-profile-user .new-profile-user-lft .new-profile-user-details h4 {
+.new-profile-user .new-profile-user-lft .new-profile-user-details .new-profile-user2 h4 {
   text-transform: capitalize;
   padding-bottom: 0;
   line-height: 1;
@@ -24247,7 +24258,7 @@ input:checked + .slider:before {
   .all-plans .all-plans-responsive .tab-content .card .card-header h5 a {
     display: block;
     background: #fff;
-    padding: 20px;
+    padding: 12px;
     font-family: "TrajanPro";
     font-size: 15px;
     text-transform: uppercase;
@@ -24265,7 +24276,7 @@ input:checked + .slider:before {
     transition: all 0.3s ease-in-out;
   }
   .all-plans .all-plans-responsive .tab-content .card + .card {
-    margin-top: 15px;
+    margin-top: 8px;
   }
 }
 
@@ -24367,6 +24378,10 @@ input:checked + .slider:before {
     flex: 0 0 280px;
     max-width: 280px;
   }
+  .new-profile-user .new-profile-user-lft .new-profile-user-details .new-profile-user1 .new-pf-edit .edip-dp {
+    right: 10px;
+    top: 10px;
+  }
   .new-profile-user .new-profile-user-lft .new-profile-user-details .new-profile-user1 .new-profile-user-img-box {
     width: 180px;
     height: 180px;
@@ -24449,7 +24464,7 @@ input:checked + .slider:before {
   }
   .menu-responsive.menu_responsiveTo {
     background: #007cc2;
-    left: 200px;
+    left: -39px;
     top: 5px;
   }
   .menu-responsive span,
@@ -24458,7 +24473,7 @@ input:checked + .slider:before {
     display: block;
     height: 3px;
     margin-bottom: 3px;
-    width: 37px;
+    width: 27px;
   }
   .navigation {
     margin: 0;
@@ -24728,6 +24743,10 @@ input:checked + .slider:before {
   .user-small-head h5 {
     font-size: 16px;
   }
+  .new-topuser .info-edit-wrap .info-edit-lft {
+    flex: 0 0 160px;
+    max-width: 160px;
+  }
   .info-edit-wrap .info-edit-lft {
     flex: 0 0 100%;
     max-width: 100%;
@@ -24749,12 +24768,6 @@ input:checked + .slider:before {
   }
   .bannar-text-wrap .bannar-text-box .bannar-btn li a {
     line-height: 2.5;
-  }
-  .home-slider .owl-nav .owl-prev,
-.home-slider .owl-nav .owl-next {
-    height: 50px;
-    width: 50px;
-    line-height: 46px;
   }
   .home-model-sec {
     padding: 30px 0;
@@ -25058,7 +25071,7 @@ input:checked + .slider:before {
     min-height: 250px;
   }
   .gelleries-page-head h3 {
-    font-size: 25px;
+    font-size: 20px;
   }
   .search-head {
     margin-bottom: 10px;
@@ -25579,6 +25592,10 @@ input:checked + .slider:before {
     width: 150px;
     height: 150px;
   }
+  .new-profile-user .new-profile-user-lft .new-profile-user-details .new-profile-user1 .new-pf-edit .edip-dp {
+    right: 5px;
+    top: 5px;
+  }
   .new-profile-user .new-profile-user-lft .new-profile-user-details .new-model-follower li a {
     font-size: 14px;
   }
@@ -25635,11 +25652,26 @@ input:checked + .slider:before {
   }
   .plan-select-mob .selectOptionBdr {
     font-size: 14px;
-    line-height: 26px;
+    line-height: 18px;
   }
   .plan-select-mob {
-    flex: 0 0 140px;
-    max-width: 140px;
+    flex: 0 0 115px;
+    max-width: 115px;
+  }
+  .allplan-choose .switch {
+    width: 60px;
+    height: 28px;
+    margin: 0 4px;
+  }
+  .allplan-choose .switch .slider::before {
+    height: 20px;
+    width: 20px;
+  }
+  input:checked + .slider:before {
+    transform: translateX(28px);
+  }
+  .all-plan-tab .all-plan-wrap .allplan-toggle-wrap {
+    bottom: -52px;
   }
   .popup-wrap .popup-body-main {
     max-width: 300px;

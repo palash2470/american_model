@@ -91,12 +91,12 @@ class SearchController extends Controller
                     $query->whereRaw('FIND_IN_SET("'.$request->language.'", language)');
                 }
             })
-            //->with('userPlan')
-
+            ->orderBy('premium_member_placement','DESC')
+            ->orderBy('created_at')
             ->paginate(10);
 
         if(in_array($category_slug, $modelArr)){
-            dd($users);
+            //dd($users);
             return view('search.model',compact('users','category','request','weights','ethnicities'));
         }else{
             //dd($users);

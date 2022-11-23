@@ -172,6 +172,12 @@
             max-width: 280px;
             .new-profile-user-details{
                 .new-profile-user1{
+                    .new-pf-edit{
+                        .edip-dp{
+                            right: 10px;
+                            top: 10px;
+                        }
+                    }
                     .new-profile-user-img-box{
                         width: 180px;
                         height: 180px;
@@ -299,7 +305,7 @@
     }
     .menu-responsive.menu_responsiveTo {
         background: #007cc2;
-        left: 200px;
+        left: -39px;
         top: 5px;
     }
     .menu-responsive span,
@@ -308,7 +314,7 @@
         display: block;
         height: 3px;
         margin-bottom: 3px;
-        width: 37px;
+        width: 27px;
     }
     .navigation {
         margin: 0;
@@ -676,6 +682,14 @@
             font-size: 16px;
         }
     }
+    .new-topuser{
+        .info-edit-wrap {
+            .info-edit-lft {
+                flex: 0 0 160px;
+                max-width: 160px;
+            }
+        }
+    }
     .info-edit-wrap {
         .info-edit-lft {
             flex: 0 0 100%;
@@ -705,16 +719,16 @@
             }
         }
     }
-    .home-slider{
-        .owl-nav{
-            .owl-prev,
-            .owl-next{
-                height: 50px;
-                width: 50px;
-                line-height: 46px;
-            }
-        }
-    }
+    // .home-slider{
+    //     .owl-nav{
+    //         .owl-prev,
+    //         .owl-next{
+    //             height: 50px;
+    //             width: 50px;
+    //             line-height: 46px;
+    //         }
+    //     }
+    // }
     .home-model-sec {
         padding: 30px 0;
     }
@@ -1228,8 +1242,10 @@
     //         }
     //     }
     // }
-    .gelleries-page-head h3 {
-        font-size: 25px;
+    .gelleries-page-head {
+        h3 {
+            font-size: 20px;
+        }
     }
     .search-head {
         margin-bottom: 10px;
@@ -2037,6 +2053,12 @@
                         width: 150px;
                         height: 150px;
                     }
+                    .new-pf-edit{
+                        .edip-dp{
+                            right: 5px;
+                            top: 5px;
+                        }
+                    }
                 }
                 .new-model-follower{
                     li{
@@ -2153,12 +2175,41 @@
     .plan-select-mob {
         .selectOptionBdr {
             font-size: 14px;
-            line-height: 26px;
+            line-height: 18px;
         }
     }
     .plan-select-mob {
-        flex: 0 0 140px;
-        max-width: 140px;
+        flex: 0 0 115px;
+        max-width: 115px;
+    }
+    .allplan-choose {
+        .switch {
+            width: 60px;
+            height: 28px;
+            margin: 0 4px;
+            .slider{
+                &::before{
+                    height: 20px;
+                    width: 20px;
+                }
+            }
+        }
+    }
+    input:checked {
+        + {
+            .slider{
+                &:before {
+                    transform: translateX(28px);
+                }
+            }
+        }
+    }
+    .all-plan-tab {
+        .all-plan-wrap {
+            .allplan-toggle-wrap {
+                bottom: -52px;
+            }
+        }
     }
     // Plan on Mobile End
     .popup-wrap{

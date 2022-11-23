@@ -37,7 +37,7 @@
                         <div class="bannar-text-box">
                             <h2>{{@$banner->name}}</h2>
                             <p>{{@$banner->desc}}</p>
-                            <div class="src-model-wrap">
+                            {{-- <div class="src-model-wrap">
                                 <h4>Where Do You Need Talent?</h4>
                                 <form action="{{route('search.talent')}}" method="get" >
                                     <div class="d-flex">
@@ -53,7 +53,7 @@
                                     <li>Commercial, Print, Runway</li>
                                     <li>Conventions & Trade Shows</li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

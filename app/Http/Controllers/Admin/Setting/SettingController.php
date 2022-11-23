@@ -76,6 +76,10 @@ class SettingController extends Controller
                 'menu_become_a_member'           => $request->menu_become_a_member,
                 'menu_blog'           => $request->menu_blog,
                 'menu_job'           => $request->menu_job,
+                'top_header_address'           => $request->top_header_address,
+                'top_header_phone_no'           => $request->top_header_phone_no,
+                'plan_faq'           => $request->plan_faq,
+                'plan_hw_do_upgrade'           => $request->plan_hw_do_upgrade,
             
             ]);
         return redirect()->route('admin.setting.edit',1);

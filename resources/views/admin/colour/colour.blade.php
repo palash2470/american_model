@@ -67,17 +67,17 @@
                     <!-- /.card-header -->
                     <!-- form start -->
                     @if(isset($id))
-                        <form action="{{route('admin.colour.update')}}" method="post">
+                        <form action="{{route('admin.colour.update')}}" method="post" class="needs-validation" novalidate>
                         <input type="hidden" name="id" value="{{$id}}">
                     @else
-                        <form action="{{route('admin.colour.store')}}" method="post">
+                        <form action="{{route('admin.colour.store')}}" method="post" class="needs-validation" novalidate>
                     @endif
                     
                     @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="brand">Colour</label>
-                                <input type="text" name="name" class="form-control" id="brand" value="{{isset($get_colour)?$get_colour->name:''}}" placeholder="Colour Name">
+                                <input type="text" name="name" class="form-control" id="brand" value="{{isset($get_colour)?$get_colour->name:''}}" placeholder="Colour Name" required>
                                 @if($errors->has('name'))
                                     <div class="custom-error">{{ $errors->first('name') }}</div>
                                 @endif

@@ -8,16 +8,24 @@
     <div class="container-fluid left-right-40">
         <div class="row">
             <div class="col-12">
-                <div class="sec-head-color">
+                <div class="sec-head-color position-relative create-job-btn-add">
                     <h3>CASTING CALLS</h3>
+                    @if (Auth::check() && @Auth::user()->category->slug != 'casting-director')
+                        {{-- <button type="button" class="createnew-job" id="post_job">Post a job</button> --}}
+                    @else
+                        <button type="button" class="createnew-job" id="post_job">Post a job</button>
+                    @endif
+                    
                 </div>
             </div>
+            
             {{-- <div class="col-12">
                 <div class="job-banner">
                     <img class="img-block" src="images/jon-banner.jpg" alt="">
                 </div>
             </div> --}}
         </div>
+        
         <div class="row justify-content-center">
             <div class="col-lg-8 col-12">
                 <div class="sec-head-color-text">
@@ -140,6 +148,29 @@ $(document).ready(function(){
         }
         $("#search_form").submit();
     });
+    $(document).on('click','#post_job',function(){
+        //console.log('sdfds');
+        var check_login = '{{Auth::check()}}';
+        if(check_login == ''){
+            {{Session::put('url_back', url()->current())}}
+            window.location.href = '{{route('login')}}';
+        }else{
+            var user_type = '{{@Auth::user()->category->slug}}';
+            if(user_type == 'casting-director'){
+                window.location.href = '{{route('job.post')}}';
+            }else{
+                //toastr.options.timeOut = 10000;
+                toastr.options = {
+                    "positionClass": "toast-top-center",
+                    "timeOut": 10000,
+                }
+                toastr.info('You have a logged in {{@Auth::user()->category->name}} User.To post a job <a style="text-decoration: underline" href="{{route('logout')}}">login/signup</a> as a casting user.');
+                
+            }
+            //console.log(user_type);
+        }
+    });
+
 });
 </script>
 @endpush

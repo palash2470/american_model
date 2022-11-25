@@ -115,6 +115,9 @@ class WeightController extends Controller
      */
     public function update(Request $request)
     {
+        $this->validate($request, [
+            'weight'  => 'required',
+        ]);
         Weight::where('id',$request['id'])->update([
             'weight' => $request['weight'],
         ]);

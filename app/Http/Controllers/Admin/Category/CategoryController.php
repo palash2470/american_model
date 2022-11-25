@@ -57,6 +57,7 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
             'name'  => 'required|unique:categories,name',
+            'plan_group_id'  => 'required',
         ]);
         Category::create([
             'name' => $request['name'],
@@ -116,6 +117,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request)
     {
+        //dd($request->all());
+        $this->validate($request, [
+            'name'  => 'required|unique:categories,name,'.$request->id,
+            'plan_group_id'  => 'required',
+        ]);
         Category::where('id',$request['id'])->update([
             'name' => $request['name'],
             'plan_group_id' => $request['plan_group_id'],

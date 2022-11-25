@@ -313,10 +313,12 @@ table.dataTable thead {
 .list-chk input[type="checkbox"] {
     display: none;
 }
-.user-img-wrap{
+
+.user-img-wrap {
     max-width: 150px;
     margin: 0 auto 20px;
 }
+
 .user-img-box {
     width: 150px;
     height: 150px;
@@ -324,8 +326,17 @@ table.dataTable thead {
     object-fit: cover;
     overflow: hidden;
 }
-.user-img-box img{
+
+.user-img-box img {
     height: 100%;
     width: 100%;
     display: block;
+}
+
+.custom-error {
+    color: #f00;
+}
+
+.no_file_upload {
+    border: 1px solid #dc3545;
 }

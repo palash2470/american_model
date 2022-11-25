@@ -30,7 +30,7 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="{{route('admin.user.update')}}" method="post">
+                    <form action="{{route('admin.user.update')}}" method="post" class="needs-validation" novalidate>
                         @csrf
                         <input type="hidden" name="id" value="{{@$user->id}}">
                         <div class="card-body">
@@ -45,7 +45,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" name="first_name" class="form-control" id="first_name" value="{{@$user->userdetails->first_name}}" placeholder="First Name">
+                                        <input type="text" name="first_name" class="form-control" id="first_name" value="{{@$user->userdetails->first_name}}" placeholder="First Name" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -118,7 +118,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="membership_type_id">Member Type</label>
-                                        <select class="form-control @if($errors->has('membership_type_id')) error @endif" name="membership_type_id">
+                                        <select class="form-control @if($errors->has('membership_type_id')) error @endif" name="membership_type_id" required>
                                             <option value="">{{@$user->userDetails->getCategory->name}}</option>
                                             {{-- @foreach ($categories as $category)
                                                 <option value="{{$category->id}}" @if(isset($user) && $user->userDetails->membership_type_id == $category->id) selected @endif>{{$category->name}}</option>

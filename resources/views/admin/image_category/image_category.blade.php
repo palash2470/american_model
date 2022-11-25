@@ -66,17 +66,17 @@
                     <!-- /.card-header -->
                     <!-- form start -->
                     @if(isset($id))
-                        <form action="{{route('admin.image_category.update')}}" method="post" enctype="multipart/form-data">
+                        <form id="img_cat_frm" action="{{route('admin.image_category.update')}}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                         <input type="hidden" name="id" value="{{$id}}">
                     @else
-                        <form action="{{route('admin.image_category.store')}}" method="post" enctype="multipart/form-data">
+                        <form id="img_cat_frm" action="{{route('admin.image_category.store')}}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                     @endif
                     
                     @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="brand">Category Name</label>
-                                <input type="text" name="name" class="form-control" id="brand" value="{{isset($image_category)?$image_category->name:''}}" placeholder="Category Name">
+                                <input type="text" name="name" class="form-control" id="brand" value="{{isset($image_category)?$image_category->name:''}}" placeholder="Category Name" required>
                                 @if($errors->has('name'))
                                     <div class="error">{{ $errors->first('name') }}</div>
                                 @endif
@@ -88,7 +88,7 @@
                                     <div class="error">{{ $errors->first('image') }}</div>
                                 @endif --}}
                                 <div class="onlyname-imgfile position-relative">
-                                    <div class="file-select">
+                                    <div class="file-select" id="img_upload_section">
                                         <div class="file-select-name" id="noFile">No file chosen...</div> 
                                         <input type="file" name="image" class="form-control" id="chooseFile">
                                         <label for="chooseFile" class="file-label">File Upload</label>
@@ -160,6 +160,19 @@ $(document).ready(function(){
         $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
     }
     });
+    //$('.error').css("display", "none");
+    @if(isset($id))
+    @else
+        $('#img_cat_frm').on('submit', function(event) {
+            //console.log($('#chooseFile').val());
+            var file_name = $('#chooseFile').val();
+            if(file_name ==''){
+                $('#img_upload_section').addClass("no_file_upload");
+                event.preventDefault(); 
+            }
+        });
+    @endif
+    
 });
 </script>
 @endpush

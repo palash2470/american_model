@@ -35,7 +35,7 @@
                 </a>
             </li>
 
-            <li class="nav-item {{ (request()->is('admin/category')) ? 'menu-open' : '' }}">
+            <li class="nav-item {{ (request()->is('admin/category*')) ? 'menu-open' : '' }}">
                 <a href="{{route('admin.category.index')}}" class="nav-link {{ (request()->is('admin/category')) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-boxes"></i>
                     <p>

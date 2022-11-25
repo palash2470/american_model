@@ -144,6 +144,9 @@ class ColourController extends Controller
      */
     public function update(Request $request)
     {
+        $this->validate($request, [
+            'name'  => 'required',
+        ]);
         //dd($request->all());
         Colour::where('id',$request['id'])->update([
             'name' => $request['name'],

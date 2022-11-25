@@ -68,17 +68,17 @@
                     <!-- /.card-header -->
                     <!-- form start -->
                     @if(isset($id))
-                        <form action="{{route('admin.size.update')}}" method="post">
+                        <form action="{{route('admin.size.update')}}" method="post" class="needs-validation" novalidate>
                         <input type="hidden" name="id" value="{{$id}}">
                     @else
-                        <form action="{{route('admin.size.store')}}" method="post">
+                        <form action="{{route('admin.size.store')}}" method="post" class="needs-validation" novalidate>
                     @endif
                     
                     @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="brand">Size (Inch)</label>
-                                <input type="text" name="size" class="form-control" id="brand" value="{{isset($get_size)?$get_size->size:''}}" placeholder="Size in inch">
+                                <input type="text" name="size" class="form-control" id="brand" value="{{isset($get_size)?$get_size->size:''}}" placeholder="Size in inch" required>
                                 @if($errors->has('size'))
                                     <div class="custom-error">{{ $errors->first('size') }}</div>
                                 @endif

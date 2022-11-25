@@ -152,6 +152,9 @@ class SizeController extends Controller
      */
     public function update(Request $request)
     {
+        $this->validate($request, [
+            'size'  => 'required',
+        ]);
         //dd($request->all());
         Size::where('id',$request['id'])->update([
             'size' => $request['size'],

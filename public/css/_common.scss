@@ -5820,6 +5820,23 @@ label{
     padding: 3px 8px;
     z-index: 1;
 }
+.createnew-job {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #c10816;
+    color: #fff;
+    height: 36px;
+    line-height: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0 15px;
+    font-size: 15px;
+    border: none;
+    &:hover{
+        background: #4d4d4d;
+    }
+}
 
 
 

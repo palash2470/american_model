@@ -56,7 +56,7 @@ class ImageCategoryController extends Controller
             $file= $request->file('image');
             $filename= date('YmdHi').$file->getClientOriginalName();
             $file-> move(public_path('img/photo_cat_image'), $filename);
-           $image = $filename;
+            $image = $filename;
         }
         ImageCategory::create([
             'name' => $request['name'],
@@ -85,6 +85,11 @@ class ImageCategoryController extends Controller
         return view('admin.image_category.image_category',compact('id','image_category'));
     }
     public function update(Request $request){
+        $this->validate($request, [
+            'name'  => 'required|unique:image_categories,name,'.$request->id,
+            //'desc'  => 'required',
+            'image'  => 'nullable|image|mimes:jpg,png,gif,jpeg',
+        ]);
         if($request->file('image')){
             $file= $request->file('image');
             $filename= date('YmdHi').$file->getClientOriginalName();

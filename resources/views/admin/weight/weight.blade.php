@@ -64,17 +64,17 @@
                     <!-- /.card-header -->
                     <!-- form start -->
                     @if(isset($id))
-                        <form action="{{route('admin.weight.update')}}" method="post">
+                        <form action="{{route('admin.weight.update')}}" method="post" class="needs-validation" novalidate>
                         <input type="hidden" name="id" value="{{$id}}">
                     @else
-                        <form action="{{route('admin.weight.store')}}" method="post">
+                        <form action="{{route('admin.weight.store')}}" method="post" class="needs-validation" novalidate>
                     @endif
                     
                     @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="weight">Weight(Lbs)</label>
-                                <input type="text" name="weight" class="form-control" id="weight" value="{{isset($weight)?$weight->weight:''}}" placeholder="weight(Lbs) ">
+                                <input type="text" name="weight" class="form-control" id="weight" value="{{isset($weight)?$weight->weight:''}}" placeholder="weight(Lbs)" required>
                                 @if($errors->has('weight'))
                                     <div class="custom-error">{{ $errors->first('weight') }}</div>
                                 @endif

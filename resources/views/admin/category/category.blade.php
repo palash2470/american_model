@@ -64,24 +64,24 @@
                     <!-- /.card-header -->
                     <!-- form start -->
                     @if(isset($id))
-                        <form action="{{route('admin.category.update')}}" method="post">
+                        <form action="{{route('admin.category.update')}}" method="post" class="needs-validation" novalidate>
                         <input type="hidden" name="id" value="{{$id}}">
                     @else
-                        <form action="{{route('admin.category.store')}}" method="post">
+                        <form action="{{route('admin.category.store')}}" method="post" class="needs-validation" novalidate>
                     @endif
                     
                     @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="brand">Category</label>
-                                <input type="text" name="name" class="form-control" id="brand" value="{{isset($get_category)?$get_category->name:''}}" placeholder="Category Name">
+                                <input type="text" name="name" class="form-control" id="brand" value="{{isset($get_category)?$get_category->name:''}}" placeholder="Category Name" required>
                                 @if($errors->has('name'))
                                     <div class="custom-error">{{ $errors->first('name') }}</div>
                                 @endif
                             </div>
                             <div class="form-group">
                                 <label for="brand">Select Plan Group</label>
-                                <select class="form-control" name="plan_group_id" id="plan_group">
+                                <select class="form-control" name="plan_group_id" id="plan_group" required>
                                     <option value="">Select Plan Group</option>
                                     @forelse ($plan_groups as $plan_group)
                                         <option value="{{$plan_group->id}}" @if(isset($get_category) && $get_category->plan_group_id == $plan_group->id) selected @endif>{{$plan_group->name}}</option>
@@ -89,6 +89,9 @@
                                     <option>No Plan Group</option>
                                     @endforelse
                                 </select>
+                                @if($errors->has('plan_group_id'))
+                                    <div class="custom-error">{{ $errors->first('plan_group_id') }}</div>
+                                @endif
                             </div>
                         </div>
                         <!-- /.card-body -->

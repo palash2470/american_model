@@ -677,6 +677,11 @@
 @media only screen and (max-width: 1000px) {}
 
 @media only screen and (max-width: 991px) {
+    .sec-head-color {
+        h3 {
+            font-size: 30px;
+        }
+    }
     .user-small-head {
         h5 {
             font-size: 16px;
@@ -1902,6 +1907,11 @@
 }
 
 @media only screen and (max-width: 545px) {
+    .sec-head-color {
+        h3 {
+            font-size: 25px;
+        }
+    }
     .model-photos-wrap{
         .col-auto{
             flex: 0 0 100%;
@@ -2101,6 +2111,13 @@
 }
 
 @media only screen and (max-width: 480px) {
+    .create-job-btn-add{
+        text-align: center;
+        .createnew-job {
+           position: inherit;
+           margin-bottom: 10px;
+        }
+    }
     .bannar-text-wrap {
         .bannar-text-box {
             width: 70%;

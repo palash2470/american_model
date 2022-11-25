@@ -23960,6 +23960,24 @@ label#email-error {
   z-index: 1;
 }
 
+.createnew-job {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #c10816;
+  color: #fff;
+  height: 36px;
+  line-height: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0 15px;
+  font-size: 15px;
+  border: none;
+}
+.createnew-job:hover {
+  background: #4d4d4d;
+}
+
 .all-plan-row {
   margin-left: -10px;
   margin-right: -10px;
@@ -24740,6 +24758,9 @@ input:checked + .slider:before {
   }
 }
 @media only screen and (max-width: 991px) {
+  .sec-head-color h3 {
+    font-size: 30px;
+  }
   .user-small-head h5 {
     font-size: 16px;
   }
@@ -25493,6 +25514,9 @@ input:checked + .slider:before {
   }
 }
 @media only screen and (max-width: 545px) {
+  .sec-head-color h3 {
+    font-size: 25px;
+  }
   .model-photos-wrap .col-auto {
     flex: 0 0 100%;
     max-width: 100%;
@@ -25619,6 +25643,13 @@ input:checked + .slider:before {
   }
 }
 @media only screen and (max-width: 480px) {
+  .create-job-btn-add {
+    text-align: center;
+  }
+  .create-job-btn-add .createnew-job {
+    position: inherit;
+    margin-bottom: 10px;
+  }
   .bannar-text-wrap .bannar-text-box {
     width: 70%;
   }

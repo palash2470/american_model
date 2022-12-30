@@ -10,8 +10,8 @@
                     <div class="col-auto">
                         <div class="top-phone">
                             <ul class="d-flex">
-                                <li class="mob-none"><i class="fas fa-map-marker-alt"></i>{{$settings->top_header_address}}</li>
-                                <li><a href="tel:{{$settings->top_header_phone_no}}"><i class="fas fa-phone-alt"></i><span class="">{{$settings->top_header_phone_no}}</span></a></li>
+                                <li class="mob-none"><i class="fas fa-map-marker-alt"></i>{{@$settings->top_header_address}}</li>
+                                <li><a href="tel:{{@$settings->top_header_phone_no}}"><i class="fas fa-phone-alt"></i><span class="">{{@$settings->top_header_phone_no}}</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -55,10 +55,10 @@
 
                                 <ul class="d-flex justify-content-between">
                                     {{-- <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{route('home')}}">home</a></li> --}}
-                                    {{-- <li class="{{ request()->is('about-us') ? 'active' : '' }}"><a href="{{$settings->menu_about_us === 1 ? route('about_us') : '#'}}">About Us</a></li> --}}
+                                    {{-- <li class="{{ request()->is('about-us') ? 'active' : '' }}"><a href="{{@$settings->menu_about_us === 1 ? route('about_us') : '#'}}">About Us</a></li> --}}
                                     <li class="sub_menu_open {{ request()->is('filter/*') || Route::currentRouteName() == 'search.talent' ? 'active' : '' }}">
                                         <a href="javascript:;">Search</a>
-                                        @if ($settings->menu_search === 1)
+                                        @if (@$settings->menu_search === 1)
                                             <ul class="submenu">
                                                 <li class="{{Route::currentRouteName() == 'search.talent' ? 'active' : '' }}" ><a href="{{route('search.talent')}}">Browse All Talent</a></li>
                                                 @if ($categories)
@@ -71,11 +71,19 @@
                                         
                                     </li>
                                     @if(!Auth::check())
-                                        <li class="{{ request()->is('subscription-plan') ? 'active' : '' }}"><a href="{{$settings->menu_become_a_member === 1 ? route('user.subscription.plan') : '#'}}">Become a Member</a></li>
+                                        <li class="{{ request()->is('subscription-plan') ? 'active' : '' }}"><a href="{{@$settings->menu_become_a_member === 1 ? route('user.subscription.plan') : '#'}}">Become a Member</a></li>
                                     @endif
                                     <li class="{{ request()->is('gallery*') ? 'active' : '' }}" ><a href="{{route('gallery.album.list')}}">GALLERIES</a></li>
-                                    <li class="{{ request()->is('blog*') ? 'active' : '' }}" ><a href="{{$settings->menu_blog === 1 ? route('blog') : '#'}}">Blog</a></li>
-                                    <li class="{{ request()->is('job*') ? 'active' : '' }}" ><a href="{{$settings->menu_job === 1 ? route('job') : '#'}}">Jobs</a></li>
+                                    <li class="{{ request()->is('blog*') ? 'active' : '' }}" ><a href="{{@$settings->menu_blog === 1 ? route('blog') : '#'}}">Blog</a></li>
+                                    <li class="sub_menu_open {{ request()->is('job*') ? 'active' : '' }}" ><a href="javascript:void(0)">Jobs</a>
+                                        @if (@$settings->menu_job === 1)
+                                            <ul class="submenu">
+                                                <li class="{{Route::currentRouteName() == 'job.post' ? 'active' : '' }}" ><a href="{{route('job.post')}}">Post A Casting Call</a></li>
+                                                <li class="{{Route::currentRouteName() == 'job' ? 'active' : '' }}" ><a href="{{route('job')}}">Search Casting Calls</a></li>
+                                            </ul>
+                                        @endif
+                                        
+                                    </li>
                                 </ul>
                             </nav>
                         </div>

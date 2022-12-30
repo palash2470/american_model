@@ -1,6 +1,16 @@
 @extends('layouts.app')
 @section('content')
 <section class="user-dashboard">
+    <div class="container-fluid left-right-40">
+    <div class="row">
+        <div class="col-12">
+            <div class="gelleries-page-head">
+                <h3>Create A Casting Call</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
     <form id="job_post_frm" action="{{route('job.post.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="container-fluid left-right-40">
@@ -52,21 +62,30 @@
                         <ul class="d-flex">
                             <li class="create-list-lft input-title">compensation:</li>
                             <li class="create-list-rgt book-input-wrap">
-                                <input type="text" name="compensation" class="form-control book-input-style" placeholder="model, photographer, mua" value="{{old('compensation')}}">
+                                <input type="text" name="compensation" class="form-control book-input-style" placeholder="Daily, weekly, or hourly rate in USD" value="{{old('compensation')}}">
                             </li>
                         </ul>
                         <ul class="d-flex">
                             <li class="create-list-lft input-title">Ages:</li>
-                            <li class="create-list-rgt book-input-wrap d-flex">
-                                <input type="number" name="fromAge" class="form-control book-input-style" placeholder="From" value="{{old('fromAge')}}">
-                                <input type="number" name="toAge" class="form-control book-input-style" placeholder="To" value="{{old('toAge')}}">
-                                @if ($errors->has('fromAge'))
-                                    <span class="text-danger">{{ $errors->first('fromAge') }}</span>
-                                @endif
-                                </br>
-                                @if ($errors->has('toAge'))
-                                    <span class="text-danger">{{ $errors->first('toAge') }}</span>
-                                @endif
+                            <li class="create-list-rgt book-input-wrap">
+                                <div class="row g-1">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                        <div class="age-input">
+                                            <input type="number" name="fromAge" class="form-control book-input-style" placeholder="From" value="{{old('fromAge')}}">
+                                            @if ($errors->has('fromAge'))
+                                                <span class="text-danger">{{ $errors->first('fromAge') }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                        <div class="age-input">
+                                            <input type="number" name="toAge" class="form-control book-input-style" placeholder="To" value="{{old('toAge')}}">
+                                            @if ($errors->has('toAge'))
+                                                <span class="text-danger">{{ $errors->first('toAge') }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                         <ul class="d-flex">
@@ -94,10 +113,36 @@
                                 <input type="test" class="form-control book-input-style" name="height" value="{{old('height')}}">
                             </li>
                         </ul>
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">Paid session or event:</li>
+                            <li class="create-list-rgt book-select-wrap">
+                                <select class="form-control book-select-style selectOption2" name="event_paid_unpaid">
+                                    {{-- <option value="">Select Paid session or event</option> --}}
+                                    <option value="paid" {{old('event_paid_unpaid') === 'paid' ?'selected':''}}>Paid</option>
+                                    <option value="unpaid" {{old('event_paid_unpaid') === 'unpaid' ?'selected':''}}>Unpaid</option>
+                                </select>
+                                @if ($errors->has('event_paid_unpaid'))
+                                    <span class="text-danger">{{ $errors->first('event_paid_unpaid') }}</span>
+                                @endif
+                            </li>
+                        </ul>
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">Work/collaboration mode:</li>
+                            <li class="create-list-rgt book-select-wrap">
+                                <select class="form-control book-select-style selectOption2" name="work_mode">
+                                    {{-- <option value="">Select Work/collaboration mode</option> --}}
+                                    <option value="offline" {{old('work_mode') === 'offline' ?'selected':''}}>Offline</option>
+                                    <option value="online" {{old('work_mode') === 'online' ?'selected':''}}>Online</option>
+                                </select>
+                                @if ($errors->has('work_mode'))
+                                    <span class="text-danger">{{ $errors->first('work_mode') }}</span>
+                                @endif
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="jobs-post-wrap-rgt">
-                    <div class="img-post-jobs d-flex">
+                    <div class="img-post-jobs2 d-flex flex-wrap">
                         <div class="img-post-jobs-lft">
                             <div class="jobs-img-post-wrap">
                                 <input type="file" id="jobsImgPost" name="images[]" class="mutliple_image" data-max_length="2" multiple>
@@ -112,7 +157,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="img-post-jobs-rgt d-flex">
+                        <div class="img-post-jobs-rgt d-flex img-scroll">
                             {{-- <div class="post-jobs-imgbox">
                                 <img class="img-block" src="images/newest/newest1.jpg" alt="">
                                 <span class="img-close">

@@ -30,10 +30,11 @@ use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Advertisement\AdvertisementController;
 use App\Http\Controllers\Admin\Gallery\GalleryAlbumController;
 use App\Http\Controllers\Admin\Gallery\GalleryController;
+use App\Http\Controllers\Admin\Height\HeightController;
 use App\Http\Controllers\Admin\Weight\WeightController;
 use App\Http\Controllers\Admin\Poll\PollController;
 use App\Http\Controllers\Admin\ImageCategory\ImageCategoryController;
-
+use App\Http\Controllers\Admin\JobCategory\JobCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -341,6 +342,25 @@ Route::group(['middleware'=>'is_admin','prefix'=>'admin'],function(){
         Route::get('/edit/{slug}',[ImageCategoryController::class,'edit'])->name('admin.image_category.edit');
         Route::post('/edit',[ImageCategoryController::class,'update'])->name('admin.image_category.update');
         Route::get('/delete/{id}',[ImageCategoryController::class,'delete'])->name('admin.image_category.delete');
+    });
+
+     //Job Category
+    Route::group(['prefix'=>'job-category'], function(){
+        Route::get('/',[JobCategoryController::class,'index'])->name('admin.job_category.index');
+        //Route::get('/add',[CategoryCOntroller::class,'create'])->name('admin.category.create');
+        Route::post('/add',[JobCategoryController::class,'store'])->name('admin.job_category.store');
+        Route::get('/edit/{slug}',[JobCategoryController::class,'edit'])->name('admin.job_category.edit');
+        Route::post('/edit',[JobCategoryController::class,'update'])->name('admin.job_category.update');
+        Route::get('/delete/{id}',[JobCategoryController::class,'delete'])->name('admin.job_category.delete');
+    });
+
+    Route::group(['prefix'=>'height'], function(){
+        Route::get('/',[HeightController::class,'index'])->name('admin.height.index');
+        //Route::get('/add',[CategoryCOntroller::class,'create'])->name('admin.category.create');
+        Route::post('/add',[HeightController::class,'store'])->name('admin.height.store');
+        Route::get('/edit/{slug}',[HeightController::class,'edit'])->name('admin.height.edit');
+        Route::post('/edit',[HeightController::class,'update'])->name('admin.height.update');
+        Route::get('/delete/{id}',[HeightController::class,'delete'])->name('admin.height.delete');
     });
 
     //End Master secton

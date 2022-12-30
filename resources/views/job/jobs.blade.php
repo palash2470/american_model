@@ -115,7 +115,7 @@
                         <a class="job-read-more mt-0" href="{{route('job.post')}}">Create new Job</a>
                     </div>
                     @foreach ($job as $jobKey => $jobValue)
-                        <div class="job-listing-wrap position-relative">
+                        <div class="job-listing-wrap position-relative new-job-listing-wrap">
                             <div class="edit-job">
                                 <a href="{{route('job.post.update',[Crypt::encrypt($jobValue->id)])}}" class="edit-job-btn"><i class="fas fa-pencil-alt"></i></a>
                             </div>
@@ -143,7 +143,9 @@
                                                 @endforeach
                                             </p>
                                             <p>Category : {{$jobValue->getJobCategory->name}}</p>
-                                            <p>Description : {{substr($jobValue->jobDescription, 0, 150).'...'}}</p>
+                                            <p>Description : {{$jobValue->jobDescription}}</p>
+                                            <p>Preferences : {{$jobValue->jobPreference}}</p>
+                                            <p>Requirements : {{$jobValue->jobRequirement}}</p>
                                         </div>
                                         @if(isset($jobValue->getJobApplied) && count($jobValue->getJobApplied) > 0)
                                             <div class="job-btn-cover">

@@ -107,7 +107,7 @@ $(function() {
     $("#city_autocomplete").autocomplete({
         source: function(request, response) {
             //console.log(request.term);
-            $("#loading_container").attr("style", "display:block");
+            //$("#loading_container").attr("style", "display:block");
             $.ajax({
                 url: base_url + "/fetch-city-autocomplete",
                 dataType: "json",
@@ -119,7 +119,7 @@ $(function() {
                 success: function(data) {
                     console.log(data);
                     response(data);
-                    $("#loading_container").attr("style", "display:none");
+                    //$("#loading_container").attr("style", "display:none");
                 }
             });
         },

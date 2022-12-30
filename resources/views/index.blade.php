@@ -554,7 +554,7 @@
                             </div>
                         </div>
                     </div> --}}
-                    @if ($settings->shop_section == 1)
+                    @if (@$settings->shop_section == 1)
                         <div class="product-sell home-rgt-gap">
                             <div class="product-sell-img relative">
                                 <img class="img-block" src="{{url('img/home/'.$settings->home_shop_image)}}" alt="">
@@ -565,7 +565,7 @@
                             </div>
                         </div>
                     @endif
-                    @if ($settings->advertisement_section == 1)
+                    @if (@$settings->advertisement_section == 1)
                         @forelse ($advertisements as $advertisement)
                             <div class="ads-wrap home-rgt-gap">
                                 <div class="ads-wrap-box">

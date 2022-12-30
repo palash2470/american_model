@@ -125,6 +125,8 @@ class JobController extends Controller
                 'height'             => $request->height,
                 'compensation'             => $request->compensation,
                 'gender'            => $request->gender,
+                'event_paid_unpaid'            => $request->event_paid_unpaid,
+                'work_mode'            => $request->work_mode,
                 'jobDescription'    => $request->jobDescription,
                 'jobPreference'    => $request->jobPreference,
                 'jobRequirement'    => $request->jobRequirement,
@@ -199,7 +201,7 @@ class JobController extends Controller
                     }
                 } */
             }
-            return redirect()->to('job')->with('success', 'Post job successfully');
+            return redirect()->to('job')->with('success', 'Casting Call Has Been Posted Successfully');
         } catch (Exception $e) {
             return back()->with('error','something went wrong!'.$e);
         }
@@ -286,7 +288,7 @@ class JobController extends Controller
                 'jobPreference'    => $request->jobPreference,
                 'jobRequirement'    => $request->jobRequirement,
             ]);
-            return redirect()->to('job')->with('success', 'Update job successfully');
+            return redirect()->to('job')->with('success', 'Update Casting Call successfully');
         } catch (Exception $e) {
             return back()->with('error','something went wrong!'.$e);
         }

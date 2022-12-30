@@ -5709,7 +5709,7 @@ label{
         .new-user-tabs{
             height: 100%;
             .nav-tabs{
-                border-bottom: 15px solid #c10816;
+                border-bottom: none;
                 .nav-item{
                     margin: 0 10px;
                     .nav-link{
@@ -5724,6 +5724,9 @@ label{
                             background: #c10816;
                         }
                     }
+                    &:first-child{
+                        margin-left: 20px;
+                    }
                 }
             }
             .tab-content {
@@ -5733,7 +5736,8 @@ label{
                     height: 100%;
                     padding: 15px;
                     box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, .09);
-                    border-radius: 0 0 10px 10px;
+                    border-radius: 5px 5px 10px 10px;
+                    border-top: 15px solid #c10816;
                     .model-info-wrap{
                         margin-top: 0;
                         padding: 0;

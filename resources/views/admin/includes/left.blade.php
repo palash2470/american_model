@@ -43,6 +43,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item {{ (request()->is('admin/job-category*')) ? 'menu-open' : '' }}">
+                <a href="{{route('admin.job_category.index')}}" class="nav-link {{ (request()->is('admin/job-category*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-boxes"></i>
+                    <p>
+                        Job Categories
+                    </p>
+                </a>
+            </li>
             <li class="nav-item {{ (request()->is('admin/image-category')) ? 'menu-open' : '' }}">
                 <a href="{{route('admin.image_category.index')}}" class="nav-link {{ (request()->is('admin/image-category*')) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-boxes"></i>
@@ -73,6 +81,14 @@
                     <i class="nav-icon fas fa-weight"></i>
                     <p>
                         Weights
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item {{ (request()->is('admin/height*')) ? 'menu-open' : '' }}">
+                <a href="{{route('admin.height.index')}}" class="nav-link {{ (request()->is('admin/height*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-text-height"></i>
+                    <p>
+                        Heights
                     </p>
                 </a>
             </li>

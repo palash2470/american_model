@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="gelleries-page-head">
-                    <h3>jobs Details</h3>
+                    <h3>job Details</h3>
                 </div>
             </div>
             @include('flashmessage.flash-message')
@@ -17,6 +17,7 @@
                             <div class="job-list-desc-lft">
                                 <p><strong>Category:</strong> {{$job->getJobCategory->name}}</p>
                                 <p><strong>Gender:</strong> {{ ucwords($job->gender)}}</p>
+                                <p><strong>Height:</strong> {{@$job->height}}</p>
                                 <p>
                                     <strong>Job Location:</strong>
                                     @foreach ($job->getJobLocations as $jobLocationKey => $jobLocationValue )
@@ -28,8 +29,9 @@
                                     @endforeach
                                 </p>
                                 <p><strong>Age Range:</strong> {{$job->fromAge}} years - {{$job->toAge}} years</p>
-                                <p><strong>Agency/Casting Director:</strong> Angels Models Agency</p>
-                                <p><strong>Ends:</strong> November 12, 2022</p>
+                                <p><strong>Agency/Casting Director:</strong> {{$job->user->name}}</p>
+                                {{-- <p><strong>Ends:</strong> November 12, 2022</p> --}}
+                                <p><strong>Ends:</strong> {{ Carbon\Carbon::parse($job->toJobDate)->format('F d Y') }}</p>
                                 {{-- <p><strong>Job Reference:</strong> {{$job->jobReference}}</p> --}}
                             </div>
                             {{-- <div class="job-list-desc">
@@ -62,8 +64,8 @@
                             </div> --}}
                         </div>
                         <div class="casting-gal-wrap">
-                            <p class="gal-head">Reference image for this casting</p>
-                            <div class="row g-3">
+                            {{-- <p class="gal-head">Reference image for this casting</p> --}}
+                            <div class="row g-3 mt-0">
                                 @if (count($job->images) > 0)
                                     @foreach ($job->images as $image)
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-12">
@@ -104,17 +106,19 @@
                     <div class="col-lg-5 col-md-5 col-sm-6 col-12">
                         <div class="job-list-desc-rgt">
                             <h4><strong>Preferences</strong></h4>
-                            <p><strong>Height:</strong> 141 a 210</p>
+                            
                             <p class="desc-scroll">{{@$job->jobPreference}}</p>
                             <h4><strong>Requirements</strong></h4>
                             <p class="desc-scroll">{{@$job->jobRequirement}}</p>
+                            <h4><strong>Description</strong></h4>
+                            <p class="desc-scroll">{{@$job->jobDescription}}</p>
                             {{-- <p>{{$job->jobDescription}}</p> --}}
                         </div>
                         <div class="job-list-desc-rgt">
                             <h4><strong>Pay</strong></h4>
-                            <p><strong>Paid session or event:</strong> paid</p>
-                            <p><strong>Location of the session or project:</strong> europe</p>
-                            <p><strong>Online or offline work/collaboration:</strong> offline</p>
+                            <p><strong>Paid session or event:</strong> {{Str::ucfirst(@$job->event_paid_unpaid)}}</p>
+                            {{-- <p><strong>Location of the session or project:</strong> europe</p> --}}
+                            <p><strong>Online or offline work/collaboration:</strong> {{Str::ucfirst(@$job->work_mode)}}</p>
                             {{-- <p>{{$job->jobDescription}}</p> --}}
                         </div>
                         {{-- <div class="ads-wrap home-rgt-gap">

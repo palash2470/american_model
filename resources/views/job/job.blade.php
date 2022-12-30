@@ -9,12 +9,16 @@
         <div class="row">
             <div class="col-12">
                 <div class="sec-head-color position-relative create-job-btn-add">
-                    <h3>CASTING CALLS</h3>
-                    @if (Auth::check() && @Auth::user()->category->slug != 'casting-director')
-                        {{-- <button type="button" class="createnew-job" id="post_job">Post a job</button> --}}
-                    @else
-                        <button type="button" class="createnew-job" id="post_job">Post a job</button>
-                    @endif
+                    <h3>
+                        <span class="position-relative create-job-btn-add">CASTING CALLS
+                            @if (Auth::check() && @Auth::user()->category->slug != 'casting-director')
+                            {{-- <button type="button" class="createnew-job" id="post_job">Post a job</button> --}}
+                            @else
+                                <button type="button" class="createnew-job" id="post_job">Post Casting Call</button> 
+                            @endif
+                        </span>
+                    </h3>
+                    
                     
                 </div>
             </div>

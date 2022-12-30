@@ -33,7 +33,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-12">
                 <div class="sec-head-color-text">
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper </p>
+                    <p>Search for open casting calls in your area. Find modeling jobs, acting auditions, and voice-over gigs. Major brands are constantly seeking male and female talent, including children and adults of all ages to appear in their commercials and print ads. So if you haven't yet, be sure to register now and become a member of our site so you can apply for auditions.</p>
                 </div>
             </div>
         </div>
@@ -86,10 +86,10 @@
                             <div class="col-lg-7 col-md-7 col-sm-7 col-12">
                                 <div class="job-content">
                                     <a href="{{url('job/details').'/'.$jobValue->id}}" class="job-title">{{$jobValue->title}}</a>
-                                    <h5><strong>Casting Number: </strong>{{$jobValue->jobReference}}</h5>
+                                    <h5><strong>Casting Number: </strong>{{$jobValue->jobReference}} {{ucwords($jobValue->gender)}} / {{$jobValue->fromAge}} years - {{$jobValue->toAge}} years</h5>
                                     <div class="job-text">
-                                        <p><strong>Seeking:</strong> {{ucwords($jobValue->gender)}} / {{$jobValue->fromAge}} years - {{$jobValue->toAge}} years</p>
-                                        {{-- <p>{{$jobValue->jobReference}} / {{ucwords($jobValue->gender)}} / {{$jobValue->fromAge}} years - {{$jobValue->toAge}} years</p> --}}
+                                        <p><strong>Seeking:</strong> {{$jobValue->seeking}}</p>
+                                        <p><strong>Category :</strong> {{@$jobValue->getJobCategory->name}}</p>
                                         <p><strong>Location :</strong>
                                             @foreach ($jobValue->getJobLocations as $jobLocationKey => $jobLocationValue )
                                                 @if ($jobLocationKey === 0)
@@ -99,7 +99,7 @@
                                                 @endif
                                             @endforeach
                                         </p>
-                                        <p><strong>Category :</strong> {{$jobValue->getJobCategory->name}}</p>
+                                        
                                         <p><strong>Agency/Director:</strong> {{$jobValue->user->name}}</p>
                                         <p class="mt-2"><strong>Description :</strong> {{substr($jobValue->jobDescription, 0, 80).'...'}}</p>
                                     </div>

@@ -142,7 +142,9 @@
                                                     @endif
                                                 @endforeach
                                             </p>
-                                            <p>Category : {{$jobValue->getJobCategory->name}}</p>
+                                            <p>Seeking: : {{@$jobValue->seeking}}</p>
+                                            <p>Category : {{@$jobValue->getJobCategory->name}}</p>
+                                            <p>Compensation : {{@$jobValue->compensation}}</p>
                                             <p>Description : {{$jobValue->jobDescription}}</p>
                                             <p>Preferences : {{$jobValue->jobPreference}}</p>
                                             <p>Requirements : {{$jobValue->jobRequirement}}</p>

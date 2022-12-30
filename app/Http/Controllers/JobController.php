@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Cities;
 use App\Models\Job;
+use App\Models\JobCategory;
 use App\Models\JobImage;
 use App\Models\JobLocation;
 use App\Models\JobsApply;
@@ -37,7 +38,8 @@ class JobController extends Controller
 
     public function job(Request $request)
     {
-        $category = Category::where('id', '!=', 5)->get();
+        //$category = Category::where('id', '!=', 5)->get();
+        $category = JobCategory::all();
         $job = Job::whereDate('toJobDate', '>=', now())->paginate(10);
         return view('job.job',compact('category','job'));
     }
@@ -53,7 +55,8 @@ class JobController extends Controller
         } else {
             $job = Job::whereDate('toJobDate', '>=', now())->paginate(10);
         }
-        $category = Category::where('id', '!=', 5)->get();
+        //$category = JobCategory::where('id', '!=', 5)->get();
+        $category = JobCategory::all();
         return view('job.job',compact('category','job','data'));
     }
 
@@ -78,7 +81,8 @@ class JobController extends Controller
     {
         $getCities = Cities::where('state_id', 41)->get();
         //dd($getCities);
-        $category = Category::where('id', '!=', 5)->get();
+        //$category = Category::where('id', '!=', 5)->get();
+        $category = JobCategory::all();
         return view('job.postJob',compact('getCities','category'));
     }
 
@@ -269,7 +273,8 @@ class JobController extends Controller
         $job_id = Crypt::decrypt($id);
         //dd($job_id);
         $getCities = Cities::where('state_id', 41)->get();
-        $category = Category::where('id', '!=', 5)->get();
+        //$category = Category::where('id', '!=', 5)->get();
+        $category = JobCategory::all();
         $job = Job::where('id',$job_id)->first();
         $joblocation = array_column($job->getJobLocations->toArray(),'location');
         //dd($joblocation);

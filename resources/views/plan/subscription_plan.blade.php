@@ -78,7 +78,7 @@
                                             $disable = 'disable';
                                         }
                                     @endphp                 
-                                    <div id="group_{{$plan_group->id}}" class="card tab-pane fade {{$pln_group_key == 0 ? 'show active' : ''}} " role="tabpanel" aria-labelledby="tab-B">
+                                    <div id="group_{{$plan_group->id}}" class="card tab-pane fade active-{{$pln_group_key +1}} {{$pln_group_key == 0 ? 'show active' : ''}} " role="tabpanel" aria-labelledby="tab-B">
                                         <div class="card-header" role="tab" id="heading-B">
                                             <h5 class="mb-0">
                                                 <a class="collapsed" data-bs-toggle="collapse" href="#collapse-{{$plan_group->id}}" aria-expanded="false"

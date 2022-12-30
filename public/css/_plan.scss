@@ -8,19 +8,20 @@
 }
 .all-plan-tab {
     .nav-tabs{
-        border-bottom: 15px solid #c10816;
-        &.active-1{
-            border-color: #c10816;
-        }
-        &.active-2{
-            border-color: #0258a1;
-        }
-        &.active-3{
-            border-color: #2bad0d;
-        }
-        &.active-4{
-            border-color: #c0095b;
-        } 
+        border: none;
+        // border-bottom: 15px solid #c10816;
+        // &.active-1{
+        //     border-color: #c10816;
+        // }
+        // &.active-2{
+        //     border-color: #0258a1;
+        // }
+        // &.active-3{
+        //     border-color: #2bad0d;
+        // }
+        // &.active-4{
+        //     border-color: #c0095b;
+        // } 
         .nav-item{
             margin: 0 20px;
             .nav-link {
@@ -48,6 +49,23 @@
                     background: #c0095b;
                 }
             }   
+        }
+    }
+    .tab-content{
+        .tab-pane{
+            border-top: 15px solid #c10816;
+            &.active-1{
+                border-color: #c10816;
+            }
+            &.active-2{
+                border-color: #0258a1;
+            }
+            &.active-3{
+                border-color: #2bad0d;
+            }
+            &.active-4{
+                border-color: #c0095b;
+            }
         }
     }
     .all-plan-wrap{
@@ -299,7 +317,9 @@ $breakpointsTwo: (
                 }
             }    
             .card {
-                border: none;
+                border-left: none;
+                border-bottom: none;
+                border-right: none;
     
                 .card-header {
                     display: none;

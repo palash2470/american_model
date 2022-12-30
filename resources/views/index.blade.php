@@ -129,8 +129,8 @@
                                             <p>{{$new_face->category->name}}</p>
                                             <div class="model-size">
                                                 <ul class="d-flex flex-wrap justify-content-center">
-                                                    @if (isset($new_face->userDetails->getHeight->size))
-                                                        <li><h5>Height</h5><p>{{@$new_face->userDetails->getHeight->size}}</p></li>
+                                                    @if (isset($new_face->userDetails->getHeight->height))
+                                                        <li><h5>Height</h5><p>{{@$new_face->userDetails->getHeight->height}}</p></li>
                                                     @endif
                                                     @if (isset($new_face->userDetails->weight))
                                                         <li><h5>Weight</h5><p>{{@$new_face->userDetails->weight}}</p></li>
@@ -204,8 +204,8 @@
                                                 <img class="img-block" src="{{url('img/user/profile-image/'.$feature_model->userDetails->profile_image)}}" alt="">
                                                 <div class="model-size-two">
                                                     <ul class="d-flex flex-wrap justify-content-center">
-                                                        @if (isset($feature_model->userDetails->getHeight->size))
-                                                            <li><h5>Height</h5><p>{{@$feature_model->userDetails->getHeight->size}}</p></li>
+                                                        @if (isset($feature_model->userDetails->getHeight->height))
+                                                            <li><h5>Height</h5><p>{{@$feature_model->userDetails->getHeight->height}}</p></li>
                                                         @endif
                                                         @if (isset($feature_model->userDetails->weight))
                                                             <li><h5>Weight</h5><p>{{@$feature_model->userDetails->weight}}</p></li>
@@ -400,8 +400,8 @@
                                             <img class="img-block" src="{{url('img/user/profile-image/'.$conventionAndTradeModel->userDetails->profile_image)}}" alt="">
                                             <div class="model-size-two">
                                                 <ul class="d-flex flex-wrap justify-content-center">
-                                                    @if (isset($conventionAndTradeModel->userDetails->getHeight->size))
-                                                            <li><h5>Height</h5><p>{{@$conventionAndTradeModel->userDetails->getHeight->size}}</p></li>
+                                                    @if (isset($conventionAndTradeModel->userDetails->getHeight->height))
+                                                            <li><h5>Height</h5><p>{{@$conventionAndTradeModel->userDetails->getHeight->height}}</p></li>
                                                         @endif
                                                         @if (isset($conventionAndTradeModel->userDetails->weight))
                                                             <li><h5>Weight</h5><p>{{@$conventionAndTradeModel->userDetails->weight}}</p></li>

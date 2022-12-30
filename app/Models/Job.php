@@ -27,9 +27,13 @@ class Job extends Model
         return $this->hasMany(JobLocation::class, 'jobId', 'id');
     }
 
-    public function getJobCategory ()
+    /* public function getJobCategory ()
     {
         return $this->hasOne(Category::class, 'id', 'jobCategory');
+    } */
+    public function getJobCategory ()
+    {
+        return $this->hasOne(JobCategory::class, 'id', 'jobCategory');
     }
 
     public function getJobApplyByUser ()

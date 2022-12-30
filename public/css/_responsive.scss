@@ -77,6 +77,22 @@
             }
         }
     }
+
+    // Casting Image
+    .img-post-jobs2 {
+        .img-post-jobs-lft{
+            flex: 0 0 40%;
+            max-width: 40%;
+        }
+        .img-post-jobs-rgt {
+            flex: 0 0 60%;
+            max-width: 60%;
+            .post-jobs-imgbox{
+                flex: 0 0 80%;
+                max-width: 80%;
+            }
+        }
+    }
 }
 
 @media only screen and (max-width: 1366px) {}
@@ -677,6 +693,10 @@
 @media only screen and (max-width: 1000px) {}
 
 @media only screen and (max-width: 991px) {
+    // Casting Image
+    .img-post-jobs2 {
+        padding-left: 0;
+    }
     .sec-head-color {
         h3 {
             font-size: 30px;
@@ -2132,6 +2152,22 @@
 }
 
 @media only screen and (max-width: 480px) {
+    // Casting Image
+    .img-post-jobs2 {
+        .img-post-jobs-lft{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .img-post-jobs-rgt {
+            flex: 0 0 100%;
+            max-width: 100%;
+            margin-top: 20px;
+            .post-jobs-imgbox{
+                flex: 0 0 80%;
+                max-width: 80%;
+            }
+        }
+    }
     .create-job-btn-add{
         text-align: center;
         .createnew-job {

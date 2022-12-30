@@ -108,9 +108,9 @@
                                                             <div class="info-edit-value">
                                                                 <div class="edit-value-select">
                                                                     <select class="form-control edit-select-style selectOptionEdit disabled" id="height" name="height">
-                                                                        @if(Helper::getSizeByAttr('height'))
-                                                                            @foreach (Helper::getSizeByAttr('height') as $data)
-                                                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->height == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
+                                                                        @if(count($heights) > 0)
+                                                                            @foreach ($heights as $data)
+                                                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->height == $data->id) selected @endif>{{$data->height}}</option>
                                                                             @endforeach
                                                                         @endif
                                                                     </select>
@@ -464,7 +464,7 @@
                                             </li>
                                             <li>
                                                 <h5>Height</h5>
-                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->height)->size)}}</p>
+                                                <p>{{@$user->userDetails->getHeight->height}}</p>
                                             </li>
                                             <li>
                                                 <h5>Weight</h5>
@@ -601,7 +601,7 @@
                                             </li>
                                             <li>
                                                 <h5>Height</h5>
-                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->height)->size)}}</p>
+                                                <p>{{@$user->userDetails->getHeight->height}}</p>
                                             </li>
                                             <li>
                                                 <h5>Weight</h5>

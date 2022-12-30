@@ -18,6 +18,7 @@ use App\Models\Ethnicity;
 use App\Models\Favourite;
 use App\Models\Follow;
 use App\Models\HairLenth;
+use App\Models\Height;
 use App\Models\ImageCategory;
 use App\Models\Images;
 use App\Models\PhotoLike;
@@ -253,7 +254,8 @@ class ProfileController extends Controller
         $ethnicities = Ethnicity::all();
         $weights = Weight::all();
         $hairLenths = HairLenth::all();
-       return view('user.details_information',compact('colours','ethnicities','weights','hairLenths','user'));
+        $heights = Height::all();
+       return view('user.details_information',compact('colours','ethnicities','weights','hairLenths','user','heights'));
     }
 
     /**
@@ -542,15 +544,16 @@ class ProfileController extends Controller
         $weights = Weight::all();
         $hairLenths = HairLenth::all();
         $categories = Category::all();
+        $heights = Height::all();
         //$countres = Country::all();
         $countres = Country::where('id',231)->get();
         $image_categories = ImageCategory::where('status',1)->orderBy('name')->get();
         if($user->category->slug == 'models'){
-            return view('user.profile_edit.my_profile_edit',compact('user','colours','ethnicities','weights','hairLenths','image_categories','user_images','count_favourite','count_follow'));
+            return view('user.profile_edit.my_profile_edit',compact('user','colours','ethnicities','weights','hairLenths','image_categories','user_images','count_favourite','count_follow','heights'));
         }elseif($user->category->slug == 'photographer' || $user->category->slug == 'casting-director'){
-            return view('user.profile_edit.photographer_profile_edit',compact('user','categories','countres','image_categories','user_images','count_favourite','count_follow'));
+            return view('user.profile_edit.photographer_profile_edit',compact('user','categories','countres','image_categories','user_images','count_favourite','count_follow','heights'));
         }elseif($user->category->slug == 'child-model-and-actor'){
-            return view('user.profile_edit.child-model_profile_edit',compact('user','colours','ethnicities','weights','hairLenths','image_categories','user_images','count_favourite','count_follow'));
+            return view('user.profile_edit.child-model_profile_edit',compact('user','colours','ethnicities','weights','hairLenths','image_categories','user_images','count_favourite','count_follow','heights'));
         }else{
             abort(404);
         }

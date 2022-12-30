@@ -17979,6 +17979,11 @@ span#agree-error {
   color: red;
 }
 
+.jobs-img-post-wrap span {
+  display: block;
+  text-align: center;
+}
+
 .footer {
   padding: 40px 0 0 0;
 }
@@ -22938,8 +22943,8 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   height: 100%;
 }
 .job-listing-wrap .job-thumb a img {
-  max-height: 393px;
-  min-height: 393px;
+  height: 240px;
+  max-height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 10px;
@@ -22988,14 +22993,26 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   color: #555e69;
   font-weight: normal;
 }
-.job-listing-wrap .job-content .job-text {
-  max-height: 350px;
-  overflow-x: auto;
-  padding-right: 8px;
-}
 .job-listing-wrap .job-content .job-text p {
   color: #555e69;
   font-size: 14px;
+}
+.job-listing-wrap.new-job-listing-wrap .job-thumb a {
+  display: block;
+  height: 100%;
+}
+.job-listing-wrap.new-job-listing-wrap .job-thumb a img {
+  max-height: 393px;
+  min-height: 393px;
+  height: inherit;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px;
+}
+.job-listing-wrap.new-job-listing-wrap .job-content .job-text {
+  max-height: 350px;
+  overflow-x: auto;
+  padding-right: 8px;
 }
 
 .job-btn-cover .job-read-more {
@@ -23995,6 +24012,7 @@ label#email-error {
 .img-post-jobs2 .img-post-jobs-lft {
   flex: 0 0 30%;
   max-width: 30%;
+  padding-right: 5px;
 }
 .img-post-jobs2 .img-post-jobs-lft .jobs-img-post-wrap {
   position: relative;

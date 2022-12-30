@@ -15,7 +15,8 @@
                         <div class="job-details">
                             <h4>{{Str::ucfirst($job->title)}}</h4>
                             <div class="job-list-desc-lft">
-                                <p><strong>Category:</strong> {{$job->getJobCategory->name}}</p>
+                                <p><strong>Seeking:</strong> {{$job->seeking}}</p>
+                                <p><strong>Category:</strong> {{@$job->getJobCategory->name}}</p>
                                 <p><strong>Gender:</strong> {{ ucwords($job->gender)}}</p>
                                 <p><strong>Height:</strong> {{@$job->height}}</p>
                                 <p>
@@ -116,27 +117,12 @@
                         </div>
                         <div class="job-list-desc-rgt">
                             <h4><strong>Pay</strong></h4>
+                            <p><strong>Compensation: </strong>{{$job->compensation}}</p>
                             <p><strong>Paid session or event:</strong> {{Str::ucfirst(@$job->event_paid_unpaid)}}</p>
                             {{-- <p><strong>Location of the session or project:</strong> europe</p> --}}
                             <p><strong>Online or offline work/collaboration:</strong> {{Str::ucfirst(@$job->work_mode)}}</p>
                             {{-- <p>{{$job->jobDescription}}</p> --}}
                         </div>
-                        {{-- <div class="ads-wrap home-rgt-gap">
-                            <div class="ads-wrap-box">
-                                <h5>advertisement <span class="ads-info blue-tooltip" data-tooltip-content="If you'd like to advertise here, contact us at advertising@americanmodel.net"><i class="fas fa-question-circle"></i></span></h5>
-                                <a class="d-block" href="#">
-                                    <img class="img-block" src="https://palash.aqualeafitsol.com/american-model/images/ad-sec3.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="ads-wrap home-rgt-gap">
-                            <div class="ads-wrap-box">
-                                <h5>advertisement <span class="ads-info blue-tooltip" data-tooltip-content="If you'd like to advertise here, contact us at advertising@americanmodel.net"><i class="fas fa-question-circle"></i></span></h5>
-                                <a class="d-block" href="#">
-                                    <img class="img-block" src="https://palash.aqualeafitsol.com/american-model/images/ad-sec3.jpg" alt="">
-                                </a>
-                            </div>
-                        </div> --}}
                     </div>
                     <div class="col-12">
                         @if(auth()->user())

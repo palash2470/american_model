@@ -24,7 +24,7 @@
                             </li>
                         </ul>
                         <ul class="d-flex">
-                            <li class="create-list-lft input-title">catagory:</li>
+                            <li class="create-list-lft input-title">job catagory:</li>
                             <li class="create-list-rgt book-select-wrap">
                                 <select class="form-control book-select-style selectOption2" name="jobCategory" disabled>
                                     <option value="">Select Job Category</option>

@@ -159,9 +159,9 @@
                                     <label>Height</label>
                                     <select class="form-control src-select-style selectOption2" name="height">
                                         <option value="">Please select height</option>
-                                        @if(Helper::getSizeByAttr('height'))
-                                            @foreach (Helper::getSizeByAttr('height') as $data)
-                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->height == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
+                                        @if(count($heights) > 0)
+                                            @foreach ($heights as $data)
+                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->height == $data->id) selected @endif>{{$data->height}}{{--  /{{$data->size}}cm --}}</option>
                                             @endforeach
                                         @endif
                                     </select>

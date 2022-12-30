@@ -288,7 +288,7 @@
                                         @endif
                                         <div class="hover-efects-size">
                                             <ul class="d-flex flex-wrap justify-content-center">
-                                                <li><h5>Height</h5><p>{{@$user->userDetails->getHeight->size}}</p></li>
+                                                <li><h5>Height</h5><p>{{@$user->userDetails->getHeight->height}}</p></li>
                                                 <li><h5>Weight</h5><p>{{@$user->userDetails->weight}}</p></li>
                                                 <li><h5>Bust</h5><p>{{@$user->userDetails->getChest->size}}</p></li>
                                                 <li><h5>Waist</h5><p>{{@$user->userDetails->getWaist->size}}</p></li>

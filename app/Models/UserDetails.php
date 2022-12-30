@@ -27,8 +27,11 @@ class UserDetails extends Model
         return $this->hasOne(Category::class,'id','membership_type_id');
     }
     
-    public function getHeight(){
+    /* public function getHeight(){
         return $this->hasOne(Size::class,'id','height');
+    } */
+    public function getHeight(){
+        return $this->hasOne(Height::class,'id','height');
     }
     public function getChest(){
         return $this->hasOne(Size::class,'id','chest');

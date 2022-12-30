@@ -204,7 +204,7 @@
                                             </li>
                                             <li>
                                                 <h5>Height</h5>
-                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->height)->size)}}</p>
+                                                <p>{{@$user->userDetails->getHeight->height}}</p>
                                             </li>
                                             <li>
                                                 <h5>Weight</h5>
@@ -341,7 +341,7 @@
                                             </li>
                                             <li>
                                                 <h5>Height</h5>
-                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->height)->size)}}</p>
+                                                <p>{{@$user->userDetails->getHeight->height}}</p>
                                             </li>
                                             <li>
                                                 <h5>Weight</h5>

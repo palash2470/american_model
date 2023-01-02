@@ -4879,6 +4879,10 @@ $breakpointsTwo: (
     p {
         color: #555e69;
         font-size: 16px;
+        a{
+            color: #c00715;
+            font-weight: 600;
+        }
     }
 }
 .related-head {
@@ -5873,7 +5877,8 @@ label{
         padding-right: 5px;
         .jobs-img-post-wrap{
             position: relative;
-            height: 370px;
+            // height: 370px;
+            height: 455px;
             border: 1px solid #999999;
             border-radius: 8px;
             background-color: #fff;
@@ -5918,7 +5923,8 @@ label{
             overflow: hidden;
             position: relative;
             background-color: #fff;
-            height: 370px;
+            // height: 370px;
+            height: 455px;
             img{
                 height: 100%;
                 object-fit: contain;

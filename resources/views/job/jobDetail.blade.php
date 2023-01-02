@@ -11,7 +11,48 @@
             @include('flashmessage.flash-message')
             <div class="col-12">
                 <div class="row g-4 justify-content-center">
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="casting-gal-wrap">
+                            {{-- <p class="gal-head">Reference image for this casting</p> --}}
+                            <div class="row">
+                                @if (count(@$job->images) > 0)
+                                    {{-- @foreach ($job->images as $image) --}}
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+                                        <div class="casting-gallery">
+                                            <a data-fancybox="post-img" href="{{ url('images/job').'/'.$job->images[0]->image }}">
+                                                <img class="img-block" src="{{ url('images/job').'/'.$job->images[0]->image }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {{-- @endforeach --}}
+                                    
+                                @else
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+                                        <div class="casting-gallery">
+                                            <a data-fancybox="post-img" href="{{ url('images/no-image.jpg') }}">
+                                                <img class="img-block" src="{{ url('images/no-image.jpg') }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endif
+                               {{--  <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="casting-gallery">
+                                        <a data-fancybox="post-img" href="{{ url('images/photographer/shoot1.jpg') }}">
+                                            <img class="img-block" src="{{ url('images/photographer/shoot1.jpg') }}">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="casting-gallery">
+                                        <a data-fancybox="post-img" href="{{ url('images/photographer/shoot2.jpg') }}">
+                                            <img class="img-block" src="{{ url('images/photographer/shoot2.jpg') }}">
+                                        </a>
+                                    </div>
+                                </div> --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                         <div class="job-details">
                             <h4>{{Str::ucfirst($job->title)}}</h4>
                             <div class="job-list-desc-lft">
@@ -31,7 +72,7 @@
                                     @endforeach --}}
                                 </p>
                                 <p><strong>Age Range:</strong> {{$job->fromAge}} years - {{$job->toAge}} years</p>
-                                <p><strong>Agency/Casting Director:</strong> {{$job->user->name}}</p>
+                                <p><strong>Agency/Casting Director:</strong> <a href="{{route('user.view.profile',[$job->user->category->slug,$job->user->name_slug])}}">{{$job->user->name}}</a> </p>
                                 {{-- <p><strong>Ends:</strong> November 12, 2022</p> --}}
                                 <p><strong>Ends:</strong> {{ Carbon\Carbon::parse($job->toJobDate)->format('F d Y') }}</p>
                                 {{-- <p><strong>Job Reference:</strong> {{$job->jobReference}}</p> --}}
@@ -65,47 +106,8 @@
                                 <p><strong>Job Date:</strong> {{date('d M Y', strtotime($job->fromJobDate))}} - {{date('d M Y', strtotime($job->toJobDate))}}</p>
                             </div> --}}
                         </div>
-                        <div class="casting-gal-wrap">
-                            {{-- <p class="gal-head">Reference image for this casting</p> --}}
-                            <div class="row g-3 mt-0">
-                                @if (count(@$job->images) > 0)
-                                    {{-- @foreach ($job->images as $image) --}}
-                                    <div class="col-lg-8 col-md-6 col-sm-6 col-12">
-                                        <div class="casting-gallery">
-                                            <a data-fancybox="post-img" href="{{ url('images/job').'/'.$job->images[0]->image }}">
-                                                <img class="img-block" src="{{ url('images/job').'/'.$job->images[0]->image }}">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    {{-- @endforeach --}}
-                                    
-                                @else
-                                    <div class="col-lg-8 col-md-6 col-sm-6 col-12">
-                                        <div class="casting-gallery">
-                                            <a data-fancybox="post-img" href="{{ url('images/no-image.jpg') }}">
-                                                <img class="img-block" src="{{ url('images/no-image.jpg') }}">
-                                            </a>
-                                        </div>
-                                    </div>
-                                @endif
-                               {{--  <div class="col-lg-4 col-md-4 col-sm-4 col-12">
-                                    <div class="casting-gallery">
-                                        <a data-fancybox="post-img" href="{{ url('images/photographer/shoot1.jpg') }}">
-                                            <img class="img-block" src="{{ url('images/photographer/shoot1.jpg') }}">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-12">
-                                    <div class="casting-gallery">
-                                        <a data-fancybox="post-img" href="{{ url('images/photographer/shoot2.jpg') }}">
-                                            <img class="img-block" src="{{ url('images/photographer/shoot2.jpg') }}">
-                                        </a>
-                                    </div>
-                                </div> --}}
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-lg-5 col-md-6 col-sm-6 col-12">
+                    <div class="col-lg-5 col-md-5 col-sm-12 col-12">
                         <div class="job-list-desc-rgt">
                             <h4><strong>Preferences</strong></h4>
                             
@@ -125,7 +127,7 @@
                             {{-- <p>{{$job->jobDescription}}</p> --}}
                         </div>
                     </div>
-                    <div class="col-9">
+                    <div class="col-12">
                         @if(auth()->user())
                             @if(!$job->getJobApplyByUser)
                             <div class="job-btn-cover">

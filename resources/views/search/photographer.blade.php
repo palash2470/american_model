@@ -184,7 +184,7 @@ $(document).ready(function(){
     $( "#age_slider_range" ).slider({
         range: true,
         min: 1,
-        max: 60,
+        max: 80,
         values: [ min_age, max_age ],
         slide: function( event, ui ) {
             $( "#age" ).val(ui.values[ 0 ]+" Years  - " + ui.values[ 1 ]+" Years" );

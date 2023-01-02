@@ -23068,6 +23068,10 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   color: #555e69;
   font-size: 16px;
 }
+.job-list-desc-lft p a {
+  color: #c00715;
+  font-weight: 600;
+}
 
 .related-head h4 {
   color: #c00715;
@@ -24021,7 +24025,7 @@ label#email-error {
 }
 .img-post-jobs2 .img-post-jobs-lft .jobs-img-post-wrap {
   position: relative;
-  height: 370px;
+  height: 455px;
   border: 1px solid #999999;
   border-radius: 8px;
   background-color: #fff;
@@ -24064,7 +24068,7 @@ label#email-error {
   overflow: hidden;
   position: relative;
   background-color: #fff;
-  height: 370px;
+  height: 455px;
 }
 .img-post-jobs2 .img-post-jobs-rgt .post-jobs-imgbox img {
   height: 100%;

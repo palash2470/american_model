@@ -107,10 +107,10 @@
                                     <div class="src-select-wrap">
                                         <label>Bust</label>
                                         <select class="form-control src-select-style selectOption2" name="chest">
-                                            <option value="">Please select Bust</option>
+                                            <option value="">Select Bust</option>
                                             @if(Helper::getSizeByAttr('chest'))
                                                 @foreach (Helper::getSizeByAttr('chest') as $data)
-                                                    <option value="{{$data->id}}" @if (isset($request) && $request->chest == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} {{-- /{{$data->size}}cm --}}</option>
+                                                    <option value="{{$data->id}}" @if (isset($request) && $request->chest == $data->id) selected @endif>{{-- {{Helper::cmTofeet($data->size)}} --}} {{$data->size}}"</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -120,10 +120,10 @@
                                     <div class="src-select-wrap">
                                         <label>Waist</label>
                                         <select class="form-control src-select-style selectOption2" name="waist">
-                                            <option value="">Select waist </option>
+                                            <option value="">Select Waist </option>
                                             @if(Helper::getSizeByAttr('waist'))
                                                 @foreach (Helper::getSizeByAttr('waist') as $data)
-                                                    <option value="{{$data->id}}" @if (isset($request) && $request->waist == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
+                                                    <option value="{{$data->id}}" @if (isset($request) && $request->waist == $data->id) selected @endif>{{-- {{Helper::cmTofeet($data->size)}} --}} {{$data->size}}"</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -133,10 +133,10 @@
                                     <div class="src-select-wrap">
                                         <label>Hips</label>
                                         <select class="form-control src-select-style selectOption2" name="hip">
-                                            <option value="">Select hip/inseam</option>
+                                            <option value="">Select Hip/Inseam</option>
                                             @if(Helper::getSizeByAttr('hip'))
                                                 @foreach (Helper::getSizeByAttr('hip') as $data)
-                                                    <option value="{{$data->id}}" @if (isset($request) && $request->hip == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} {{-- /{{$data->size}}cm --}}</option>
+                                                    <option value="{{$data->id}}" @if (isset($request) && $request->hip == $data->id) selected @endif>{{-- {{Helper::cmTofeet($data->size)}} --}} {{$data->size}}"</option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -185,7 +185,7 @@
                                     <div class="src-select-wrap">
                                         <label>Dress</label>
                                         <select class="form-control src-select-style selectOption2" name="dress_size">
-                                            <option value="">Please select dress/jacket size</option>
+                                            <option value="">Select Dress Size</option>
                                             @foreach(range(1, 60) as $dressSize)
                                                 <option value="{{$dressSize}}" @if (isset($request) && $request->dress_size == $dressSize) selected @endif>{{$dressSize}}</option>
                                             @endforeach
@@ -196,7 +196,7 @@
                                     <div class="src-select-wrap">
                                         <label>Shoe</label>
                                         <select class="form-control src-select-style selectOption2" name="shoe_size">
-                                            <option value="">Please select shoe size</option>
+                                            <option value="">Select Shoe Size</option>
                                             @if(Helper::shoeSizeArr())
                                                 @foreach (Helper::shoeSizeArr() as $data)
                                                     <option value="{{$data}}" @if (isset($request) && $request->shoe_size == $data) selected @endif>{{$data}}</option>
@@ -223,7 +223,7 @@
                                     <div class="src-select-wrap">
                                         <label>Ethnicity</label>
                                         <select class="form-control src-select-style selectOption2" name="ethnicity">
-                                            <option value="">Select ethnicity</option>
+                                            <option value="">Select Ethnicity</option>
                                             @if ($ethnicities)
                                                 @foreach ($ethnicities as $ethnicity)
                                                 <option value="{{$ethnicity->id}}" @if (isset($request) && $request->ethnicity == $ethnicity->id) selected @endif>{{$ethnicity->name}}</option>
@@ -241,7 +241,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                                             <div class="applysrc-btn-wrap">
-                                                <button type="submit" class="applysrc-btn">Apply Filters</button>
+                                                <button type="submit" class="applysrc-btn">Submit</button>
                                             </div>
                                         </div>
                                     </div>
@@ -326,7 +326,7 @@
                     <div class="col-12">
                         <div class="not-found-text">
                             <i class="fas fa-exclamation-triangle"></i>
-                            <p>no data found</p>
+                            <p>Sorry, there doesn't appear to be any matching results.</p>
                         </div>
                     </div>
                     @endforelse

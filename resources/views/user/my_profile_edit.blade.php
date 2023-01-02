@@ -382,7 +382,7 @@
                                                                 <select class="form-control edit-select-style selectOptionEdit disabled" id="chest" name="chest">
                                                                     @if(Helper::getSizeByAttr('chest'))
                                                                         @foreach (Helper::getSizeByAttr('chest') as $data)
-                                                                            <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->chest == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}} /{{$data->size}}cm</option>
+                                                                            <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->chest == $data->id) selected @endif>{{$data->size}}"</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </select>

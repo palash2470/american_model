@@ -159,7 +159,7 @@
                     <div class="col-12">
                         <div class="not-found-text">
                             <i class="fas fa-exclamation-triangle"></i>
-                            <p>no data found</p>
+                            <p>Sorry, there doesn't appear to be any matching results.</p>
                         </div>
                     </div>
                     @endforelse

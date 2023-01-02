@@ -51,4 +51,10 @@ class Job extends Model
     public function images(){
         return $this->hasMany(JobImage::class,'job_id','id');
     }
+    public function getState(){
+        return $this->hasOne(State::class,'id','state_id');
+    }
+    public function getCity(){
+        return $this->hasOne(City::class,'id','city_id');
+    }
 }

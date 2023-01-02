@@ -8,7 +8,7 @@
                     </span>
                     {{-- <p><i class="fas fa-map-marker-alt"></i>W. Vista Ave, Phoenix, AZ 85069</p> --}}
                     <ul class="ftr-contact">
-                        <li><i class="fas fa-map-marker-alt"></i>PO Box 39697 Phoenix, AZ 85069</li>
+                        <li><i class="fas fa-map-marker-alt"></i>P.O. Box 30253, Laughlin, NV 89029</li>
                         <li><a href="#"><i class="far fa-envelope"></i>admin@americanmodel.net</a></li>
                         {{-- <li><a href="#"><i class="fas fa-phone-alt"></i>(480) 265-0187</a></li> --}}
                     </ul>
@@ -18,12 +18,11 @@
             <div class="col-lg-5 col-md-6 col-sm-6 col-12">
                 <ul class="d-flex justify-content-center ftr-social-list">
                     <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://twitter.com/AllAgesCasting"><i class="fab fa-twitter"></i></a></li>
                 </ul>
                 <div class="ftr-newsltr">
-                    <p>Subscribe to our Newsletter and stay update</p>
+                    <p>Subscribe To Our Newsletter And Stay Up-To-Date</p>
                     {{-- Ajax  call developer.js  --}}
                     <form action="" method="GET"  id="newsletter_form">
                         @csrf
@@ -47,7 +46,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="ftr-btm-text">
-                        <p>&copy; 2022 by American Model. Designed by Aqualeaf It Solution Pvt. Ltd.</p>
+                        <p>&copy; 2022-2023 by Model Management, LLC. | Designed by Aqualeaf It Solution Pvt. Ltd.</p>
                     </div>
                 </div>
             </div>

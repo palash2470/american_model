@@ -37,7 +37,7 @@
                                     <thead>
                                         <tr>
                                             <th>Size (Inch)</th>
-                                            <th>Height</th>
+                                            {{-- <th>Height</th> --}}
                                             <th>Waist</th>
                                             <th>Chest/Bust</th>
                                             <th>Hip/Inseam</th>
@@ -84,10 +84,10 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <div class="form-check checkbox">
+                                {{-- <div class="form-check checkbox">
                                     <input class="form-check-input" id="height" type="checkbox"  name="height" {{isset($get_size)?($get_size->height == 1 ? 'checked' : '0'):' '}}>
                                     <label class="form-check-label" for="height">Height</label>
-                                </div>
+                                </div> --}}
                                 <div class="form-check checkbox">
                                     <input class="form-check-input" id="waist" type="checkbox" name="waist" {{isset($get_size)?($get_size->waist == 1 ? 'checked' : '0') : ' '}}>
                                     <label class="form-check-label" for="waist">Waist</label>
@@ -129,7 +129,7 @@ $(document).ready(function(){
             ajax: "{{ route('admin.size.index') }}",
             columns: [
                 {data: 'size', name: 'size'},
-                {data: 'height', name: 'height'},
+               /*  {data: 'height', name: 'height'}, */
                 {data: 'waist', name: 'waist'},
                 {data: 'chest', name: 'chest'},
                 {data: 'hip', name: 'hip'},

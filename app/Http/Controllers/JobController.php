@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Cities;
+use App\Models\Country;
 use App\Models\Job;
 use App\Models\JobCategory;
 use App\Models\JobImage;
@@ -82,8 +83,9 @@ class JobController extends Controller
         $getCities = Cities::where('state_id', 41)->get();
         //dd($getCities);
         //$category = Category::where('id', '!=', 5)->get();
+        $countres = Country::where('id',231)->get();
         $category = JobCategory::all();
-        return view('job.postJob',compact('getCities','category'));
+        return view('job.postJob',compact('getCities','category','countres'));
     }
 
     public function postJobStore(Request $request)
@@ -105,7 +107,9 @@ class JobController extends Controller
                 //'image'             => 'required|image|mimes:jpg,png,gif,jpeg',
                 //"location"          => "required|array",
                 //"location.*"        => "required",
-                "location"          => "required",
+                //"location"          => "required",
+                "country_id"          => "required",
+                "state_id"          => "required",
                 "images"            => "required",
                 'images.*'          => 'mimes:jpg,png,jpeg,gif,svg'
             ]);
@@ -120,6 +124,9 @@ class JobController extends Controller
                 'title'             => $request->jobTitle,
                 'jobCategory'       => $request->jobCategory,
                 'seeking'       => $request->seeking,
+                'country_id'       => $request->country_id,
+                'state_id'       => $request->state_id,
+                'city_id'       => $request->city_id,
                 //'image'             => $imageName,
                 'budget'            => 0,
                 //  'fromJobDate'       => $request->fromJobDate,
@@ -259,7 +266,7 @@ class JobController extends Controller
                     'message'       => $request->message,
                     'attachment'    => $attachment,
                 ]);
-
+                
                 return redirect()->to('job/details'.'/'.$request->jobId)->with('success', 'Apply job successfully');
             }
             

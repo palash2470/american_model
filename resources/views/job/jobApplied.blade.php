@@ -126,15 +126,16 @@
                                     <div class="job-text">
                                         <p>{{$job->jobReference}} / {{ucwords($job->gender)}} / {{$job->fromAge}} years - {{$job->toAge}} years</p>
                                         <p>Location : 
-                                            @foreach ($job->getJobLocations as $jobLocationKey => $jobLocationValue )
+                                            {{@$job->getCity->city_name}},{{@$job->getState->name}}
+                                            {{-- @foreach ($job->getJobLocations as $jobLocationKey => $jobLocationValue )
                                                 @if ($jobLocationKey === 0)
                                                     {{$jobLocationValue->getCityName->city_name}}
                                                 @else
                                                     , {{$jobLocationValue->getCityName->city_name}}
                                                 @endif
-                                            @endforeach
+                                            @endforeach --}}
                                         </p>
-                                        <p>Category : {{$job->getJobCategory->name}}</p>
+                                        <p>Category : {{@$job->getJobCategory->name}}</p>
                                         <p>Description : {{substr($job->jobDescription, 0, 150).'...'}}</p>
                                     </div>
                                 </div>
@@ -164,7 +165,7 @@
                                     {{-- <div class="d-flex user-applied-list">
                                         <div class="user-applied-lft">
                                             <span class="user-applied-img">
-                                                <img class="img-block" src="https://palash.aqualeafitsol.com/american-model/img/user/profile-image/635624f51a2da.png" alt="">
+                                                <img class="img-block" src="" alt="">
                                             </span>
                                         </div>
                                         <div class="user-applied-rgt">
@@ -179,7 +180,7 @@
                                     {{-- <div class="d-flex user-applied-list">
                                         <div class="user-applied-lft">
                                             <span class="user-applied-img">
-                                                <img class="img-block" src="https://palash.aqualeafitsol.com/american-model/img/user/profile-image/635624f51a2da.png" alt="">
+                                                <img class="img-block" src="" alt="">
                                             </span>
                                         </div>
                                         <div class="user-applied-rgt">
@@ -194,7 +195,7 @@
                                     {{-- <div class="d-flex user-applied-list">
                                         <div class="user-applied-lft">
                                             <span class="user-applied-img">
-                                                <img class="img-block" src="https://palash.aqualeafitsol.com/american-model/img/user/profile-image/635624f51a2da.png" alt="">
+                                                <img class="img-block" src="" alt="">
                                             </span>
                                         </div>
                                         <div class="user-applied-rgt">

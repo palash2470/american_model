@@ -10,8 +10,8 @@
             </div>
             @include('flashmessage.flash-message')
             <div class="col-12">
-                <div class="row g-4">
-                    <div class="col-lg-7 col-md-7 col-sm-6 col-12">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="job-details">
                             <h4>{{Str::ucfirst($job->title)}}</h4>
                             <div class="job-list-desc-lft">
@@ -21,13 +21,14 @@
                                 <p><strong>Height:</strong> {{@$job->height}}</p>
                                 <p>
                                     <strong>Job Location:</strong>
-                                    @foreach ($job->getJobLocations as $jobLocationKey => $jobLocationValue )
+                                    {{@$job->getCity->city_name}},{{@$job->getState->name}}
+                                   {{--  @foreach ($job->getJobLocations as $jobLocationKey => $jobLocationValue )
                                         @if ($jobLocationKey === 0)
                                             {{$jobLocationValue->getCityName->city_name}}
                                         @else
                                             , {{$jobLocationValue->getCityName->city_name}}
                                         @endif
-                                    @endforeach
+                                    @endforeach --}}
                                 </p>
                                 <p><strong>Age Range:</strong> {{$job->fromAge}} years - {{$job->toAge}} years</p>
                                 <p><strong>Agency/Casting Director:</strong> {{$job->user->name}}</p>
@@ -67,19 +68,19 @@
                         <div class="casting-gal-wrap">
                             {{-- <p class="gal-head">Reference image for this casting</p> --}}
                             <div class="row g-3 mt-0">
-                                @if (count($job->images) > 0)
-                                    @foreach ($job->images as $image)
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                                @if (count(@$job->images) > 0)
+                                    {{-- @foreach ($job->images as $image) --}}
+                                    <div class="col-lg-8 col-md-6 col-sm-6 col-12">
                                         <div class="casting-gallery">
-                                            <a data-fancybox="post-img" href="{{ url('images/job').'/'.$image->image }}">
-                                                <img class="img-block" src="{{ url('images/job').'/'.$image->image }}">
+                                            <a data-fancybox="post-img" href="{{ url('images/job').'/'.$job->images[0]->image }}">
+                                                <img class="img-block" src="{{ url('images/job').'/'.$job->images[0]->image }}">
                                             </a>
                                         </div>
                                     </div>
-                                    @endforeach
+                                    {{-- @endforeach --}}
                                     
                                 @else
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="col-lg-8 col-md-6 col-sm-6 col-12">
                                         <div class="casting-gallery">
                                             <a data-fancybox="post-img" href="{{ url('images/no-image.jpg') }}">
                                                 <img class="img-block" src="{{ url('images/no-image.jpg') }}">
@@ -104,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-6 col-12">
+                    <div class="col-lg-5 col-md-6 col-sm-6 col-12">
                         <div class="job-list-desc-rgt">
                             <h4><strong>Preferences</strong></h4>
                             
@@ -124,14 +125,14 @@
                             {{-- <p>{{$job->jobDescription}}</p> --}}
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-9">
                         @if(auth()->user())
                             @if(!$job->getJobApplyByUser)
                             <div class="job-btn-cover">
                                 <a href="javascript:;" class="job-read-more" data-bs-toggle="modal" data-bs-target="#jobapplyModal">Apply</a>
                             </div>
                             @else
-                            <div class="all-rdy-applyed">you have already applied for this job !!!</div>
+                            <div class="all-rdy-applyed">you have already applied for this job!</div>
                             @endif
                         @else
                             <div class="job-btn-cover">
@@ -222,11 +223,11 @@
 <div class="modal fade cmn-modal" id="jobapplyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form action="{{route('job.apply.store')}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('job.apply.store')}}" method="post" enctype="multipart/form-data" id="job_apply">
             @csrf
             <input type="hidden" name="jobId" value="{{$job->id}}" />
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Apply job</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Apply For Audition</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -234,14 +235,15 @@
                     <h4>{{Str::ucfirst($job->title)}}</h4>
                     <p><strong>Job Reference:</strong> {{$job->jobReference}}</p>
                 </div>
-                <div class="cmn-file-wrap">
+                <div class="cmn-file-wrap mt-2">
+                    <label for="description" class="file-lable">Upload File (.pdf/.docx/.doc):</label>
                     <div class="cmn-file">
                         <div class="file-select-name" id="noFile">No file chosen...</div>
                         <input type="file" id="apply-attach" name="image">
                         <label class="apply-box" for="apply-attach">upload</label>
                     </div>
                 </div>
-                <div class="cmn-modal-txtare">
+                <div class="cmn-modal-txtare mt-3">
                     <label for="description">Message:</label>
                     <textarea rows="3" class="form-control book-txtare-style" id="" name="message" required=""></textarea>
                 </div>
@@ -257,6 +259,7 @@
   </div>
 @endsection
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
     <script>
         $('#apply-attach').bind('change', function () {
             var filename = $("#apply-attach").val();
@@ -267,5 +270,21 @@
                 $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
             }
         });
+        $(document).ready(function(){
+         /* Validation  */
+            $('#job_apply').validate({
+                rules: {
+                    "image": {
+                        required: true,
+                        extension: "pdf|docx|doc",
+                        //filesize: 20971520,  
+                    },
+                    "message": {
+                        required: true,
+                    },
+                },
+            });
+        });
     </script>
+
 @endpush

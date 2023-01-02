@@ -20,7 +20,7 @@
                         <ul class="d-flex">
                             <li class="create-list-lft input-title">title:</li>
                             <li class="create-list-rgt book-input-wrap">
-                                <input type="text" name="jobTitle" class="form-control book-input-style" placeholder="Type Job title" value="{{old('jobTitle')}}" required>
+                                <input type="text" name="jobTitle" class="form-control book-input-style" placeholder="type your project title here" value="{{old('jobTitle')}}" required>
                                 @if ($errors->has('jobTitle'))
                                     <span class="text-danger">{{ $errors->first('jobTitle') }}</span>
                                 @endif
@@ -29,7 +29,7 @@
                         <ul class="d-flex">
                             <li class="create-list-lft input-title">seeking:</li>
                             <li class="create-list-rgt book-input-wrap">
-                                <input type="text" name="seeking" class="form-control book-input-style" placeholder="model, photographer, mua" value="{{old('seeking')}}" required>
+                                <input type="text" name="seeking" class="form-control book-input-style" placeholder="subtitle or short description" value="{{old('seeking')}}" required>
                             </li>
                         </ul>
                         <ul class="d-flex">
@@ -62,10 +62,10 @@
                         <ul class="d-flex">
                             <li class="create-list-lft input-title">compensation:</li>
                             <li class="create-list-rgt book-input-wrap">
-                                <input type="text" name="compensation" class="form-control book-input-style" placeholder="Daily, weekly, or hourly rate in USD" value="{{old('compensation')}}">
+                                <input type="text" name="compensation" class="form-control book-input-style" placeholder="example $200 per day" value="{{old('compensation')}}">
                             </li>
                         </ul>
-                        <ul class="d-flex">
+                        <ul class="d-flex ">
                             <li class="create-list-lft input-title">Ages:</li>
                             <li class="create-list-rgt book-input-wrap">
                                 <div class="row g-1">
@@ -88,7 +88,31 @@
                                 </div>
                             </li>
                         </ul>
+                        
                         <ul class="d-flex">
+                            <input type="hidden" name="country_id" id="country-dd" value="231">
+                            <li class="create-list-lft input-title">Location State:</li>
+                            <li class="create-list-rgt book-select-wrap">
+                                <select class="form-control book-select-style selectOption2 @if($errors->has('state_id')) error @endif" name="state_id" id="state-dd" required>
+                                    <option value="">Please Select State</option>
+                                </select>
+                                @if ($errors->has('state_id'))
+                                    <span class="text-danger">{{ $errors->first('state_id') }}</span>
+                                @endif
+                            </li>
+                        </ul>
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">Location City:</li>
+                            <li class="create-list-rgt book-select-wrap">
+                                <select class="form-control book-select-style selectOption2 @if($errors->has('city_id')) error @endif" name="city_id" id="city-dd">
+                                    <option value="">Please Select City</option>
+                                </select>
+                                @if ($errors->has('city_id'))
+                                    <span class="text-danger">{{ $errors->first('city_id') }}</span>
+                                @endif
+                            </li>
+                        </ul>
+                        {{-- <ul class="d-flex">
                             <li class="create-list-lft input-title">location:</li>
                             <li class="create-list-rgt book-input-wrap">
                                 <div class="ui-widget">
@@ -99,7 +123,7 @@
                                     <span class="text-danger">{{ $errors->first('location') }}</span>
                                 @endif
                             </li>
-                        </ul>
+                        </ul> --}}
                         
                         <ul class="d-flex">
                             <li class="create-list-lft input-title">casting end date:</li>
@@ -145,11 +169,11 @@
                     <div class="img-post-jobs2 d-flex flex-wrap">
                         <div class="img-post-jobs-lft">
                             <div class="jobs-img-post-wrap">
-                                <input type="file" id="jobsImgPost" name="images[]" class="mutliple_image" data-max_length="2" multiple>
+                                <input type="file" id="jobsImgPost" name="images[]" class="mutliple_image" data-max_length="0">
                                 <label for="jobsImgPost" class="jobs-img-post-text">
                                     <span>
                                         <i class="far fa-images"></i>
-                                        <p>Click to load image</p>
+                                        <p>Click to upload image</p>
                                     </span>
                                 </label>
                                 @if ($errors->has('images'))
@@ -157,7 +181,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="img-post-jobs-rgt d-flex img-scroll">
+                        <div class="img-post-jobs-rgt d-flex">
                             {{-- <div class="post-jobs-imgbox">
                                 <img class="img-block" src="images/newest/newest1.jpg" alt="">
                                 <span class="img-close">
@@ -219,6 +243,15 @@
 @endsection
 
 @push('scripts')
+<script>
+    $(document).ready(function() {
+        const scrollContainer = document.querySelector(".img-scroll");
+        scrollContainer.addEventListener("wheel", (evt) => {
+            evt.preventDefault();
+            scrollContainer.scrollLeft += evt.deltaY;
+        });
+    })
+</script>
 <script>
 $(document).on('submit','#job_post_frm',function(e){
     $("#loading_container").attr("style", "display:block");

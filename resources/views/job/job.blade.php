@@ -91,13 +91,14 @@
                                         <p><strong>Seeking:</strong> {{$jobValue->seeking}}</p>
                                         <p><strong>Category :</strong> {{@$jobValue->getJobCategory->name}}</p>
                                         <p><strong>Location :</strong>
-                                            @foreach ($jobValue->getJobLocations as $jobLocationKey => $jobLocationValue )
+                                            {{@$jobValue->getCity->city_name}},{{@$jobValue->getState->name}}
+                                            {{-- @foreach ($jobValue->getJobLocations as $jobLocationKey => $jobLocationValue )
                                                 @if ($jobLocationKey === 0)
                                                     {{$jobLocationValue->getCityName->city_name}}
                                                 @else
                                                     , {{$jobLocationValue->getCityName->city_name}}
                                                 @endif
-                                            @endforeach
+                                            @endforeach --}}
                                         </p>
                                         
                                         <p><strong>Agency/Director:</strong> {{$jobValue->user->name}}</p>

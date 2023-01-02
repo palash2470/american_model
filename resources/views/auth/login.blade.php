@@ -28,7 +28,7 @@
                 <span class="log-logo">
                     <img class="img-block" src="images/american-model.png" alt="">
                 </span>
-                <p><strong>You Don't Have An Account?</strong> <a href="{{route('signup')}}" class="log-btn-new">Signup</a></p>
+                <p><strong>Don't Have An Account?</strong> <a href="{{route('signup')}}" class="log-btn-new">Signup</a></p>
                 <ul class="sgn-text-icon d-flex align-items-center">
                     <li><h4>Login</h4></li>
                     <li><img class="img-block" src="{{url('images/icons.png')}}" alt=""></li>
@@ -84,12 +84,11 @@
                         </ul>
                     </div>
                     <div class="text-center mt-2">
-                        <p>© Copyright 2022 American Model,LLC |</p>
+                        <p>© Copyright 2022-2023 Model Management, LLC </p>
                         <ul class="log-menu">
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Terms</a></li>
-                            <li><a href="#">Privacy</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Terms Of Use</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Contact Us</a></li>
                         </ul>
                     </div>
                 </form>

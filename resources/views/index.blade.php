@@ -5,7 +5,7 @@
         <div class="owl-carousel owl-theme home_slider">
             {{-- <div class="item">
                 <div class="bannar-text-wrap">
-                    <img src="{{url('https://palash.aqualeafitsol.com/american-model/img/home_banner/202210071247BannerPageSlider-Find%20Models%20In%20Your%20Area-Final-BG.jpg')}}" alt="">
+                    <img src="" alt="">
                     <div class="bannar-text-box">
                         <h2>FIND TALENT NEAR YOU</h2>
                         <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque somos notros corrupti quos et quas molestias sint occaecati summ. </p>
@@ -457,10 +457,10 @@
                 <div class="sticky-right">
                     <div class="ads-wrap home-rgt-gap">
                         <div class="ads-wrap-box fit-add">
-                            <a class="d-block" href="{{ isset($fixed_advertisements[0]) ? @$fixed_advertisements[0]->link : '#'}}"> <img class="img-block" src="{{ isset($fixed_advertisements[0]) ? url('img/home/'.@$fixed_advertisements[0]->image_name) : url('images/ad-sec3.jpg')}}" alt=""></a>
+                            <a class="d-block" href="{{ isset($fixed_advertisements[0]) ? @$fixed_advertisements[0]->link : 'https://www.cutestbabyphoto.com'}}"> <img class="img-block" src="{{ isset($fixed_advertisements[0]) ? url('img/home/'.@$fixed_advertisements[0]->image_name) : url('images/ad-sec1.jpg')}}" alt="Enter Our Cutest Baby Photo Contest"></a>
                         </div>
                         <div class="ads-wrap-box fit-add">
-                            <a class="d-block" href="{{ isset($fixed_advertisements[1]) ? @$fixed_advertisements[1]->link : '#'}}"> <img class="img-block" src="{{ isset($fixed_advertisements[1]) ? url('img/home/'.@$fixed_advertisements[1]->image_name) : url('images/ad-sec3.jpg')}}" alt=""></a>
+                            <a class="d-block" href="{{ isset($fixed_advertisements[1]) ? @$fixed_advertisements[1]->link : 'https://www.americanmodel.net/subscription-plan'}}"> <img class="img-block" src="{{ isset($fixed_advertisements[1]) ? url('img/home/'.@$fixed_advertisements[1]->image_name) : url('images/ad-sec3.jpg')}}" alt=""></a>
                         </div>
                     </div>
                     {{-- @if (isset($poll->userPolls) && count(@$poll->userPolls) > 0)

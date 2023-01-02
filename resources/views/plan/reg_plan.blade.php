@@ -44,7 +44,7 @@
                         <div id="content" class="tab-content" role="tablist">
                             @if ($plan_groups)
                                 @foreach ($plan_groups as $pln_group_key => $plan_group)   
-                                    @if ($plan_group->id == Auth::user()->userDetails->getCategory->plan_group_id)               
+                                    {{-- @if ($plan_group->id == Auth::user()->userDetails->getCategory->plan_group_id) --}}               
                                         <div id="group_{{$plan_group->id}}" class="card tab-pane fade active-{{$pln_group_key + 1}} {{$plan_group->id == Auth::user()->userDetails->getCategory->plan_group_id ? 'show active' : ''}}" role="tabpanel" aria-labelledby="tab-B">
                                             <div class="card-header" role="tab" id="heading-B">
                                                 <h5 class="mb-0">
@@ -72,7 +72,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="all-plan-row-grid allplan-wrap-text">
-                                                                <p><strong>All Plans include:</strong> {{$plan_group->details}}</p>
+                                                                <p><strong>Choose The Right Plan:</strong> {{$plan_group->details}}</p>
                                                             </div>
                                                         </div>
                                                         <div class="plan-row d-flex d-md-none align-items-center justify-content-end mb-3">
@@ -171,9 +171,11 @@
                                                                                     @endif
                                                                                 </div>
                                                                                 <input type="hidden" id="plan_type" value="">
-                                                                                <div class="allplan-select-wrap">
-                                                                                    <button type="button" id="submit" class="allplan-select-btn select_btn" data-plan-v="{{$plan->id}}" data-plan-type="" data-plan-group="{{$plan_group->id}}">select</button>
-                                                                                </div>
+                                                                                @if ($plan_group->id == Auth::user()->userDetails->getCategory->plan_group_id)
+                                                                                    <div class="allplan-select-wrap">
+                                                                                        <button type="button" id="submit" class="allplan-select-btn select_btn" data-plan-v="{{$plan->id}}" data-plan-type="" data-plan-group="{{$plan_group->id}}">select</button>
+                                                                                    </div>
+                                                                                @endif
                                                                             </div>
                                                                         @endforeach 
                                                                     @endif
@@ -185,7 +187,7 @@
                                                 </div>
                                             </div>
                                         </div> 
-                                    @endif 
+                                    {{-- @endif  --}}
                                 @endforeach
                             @endif                              
                             

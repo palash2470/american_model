@@ -45,7 +45,7 @@
                     <div class="ads-wrap-box">
                         <h5>advertisement <span class="ads-info blue-tooltip" data-tooltip-content="If you'd like to advertise here, contact us at advertising@americanmodel.net"><i class="fas fa-question-circle"></i></span></h5>
                         <a class="d-block" href="#">
-                            <img class="img-block" src="https://palash.aqualeafitsol.com/american-model/images/ad-sec3.jpg" alt="">
+                            <img class="img-block" src="" alt="">
                         </a>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     <div class="ads-wrap-box">
                         <h5>advertisement <span class="ads-info blue-tooltip" data-tooltip-content="If you'd like to advertise here, contact us at advertising@americanmodel.net"><i class="fas fa-question-circle"></i></span></h5>
                         <a class="d-block" href="#">
-                            <img class="img-block" src="https://palash.aqualeafitsol.com/american-model/images/ad-sec3.jpg" alt="">
+                            <img class="img-block" src="" alt="">
                         </a>
                     </div>
                 </div>

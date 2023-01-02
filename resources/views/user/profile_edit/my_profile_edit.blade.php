@@ -235,7 +235,7 @@
                                                                     <select class="form-control edit-select-style selectOptionEdit disabled" id="waist" name="waist">
                                                                         @if(Helper::getSizeByAttr('waist'))
                                                                             @foreach (Helper::getSizeByAttr('waist') as $data)
-                                                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->waist == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
+                                                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->waist == $data->id) selected @endif>{{$data->size}}"{{--  /{{$data->size}}cm --}}</option>
                                                                             @endforeach
                                                                         @endif
                                                                     </select>
@@ -256,7 +256,7 @@
                                                                     <select class="form-control edit-select-style selectOptionEdit disabled" id="chest" name="chest">
                                                                         @if(Helper::getSizeByAttr('chest'))
                                                                             @foreach (Helper::getSizeByAttr('chest') as $data)
-                                                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->chest == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
+                                                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->chest == $data->id) selected @endif>{{$data->size}}"{{--  /{{$data->size}}cm --}}</option>
                                                                             @endforeach
                                                                         @endif
                                                                     </select>
@@ -298,7 +298,7 @@
                                                                     <select class="form-control edit-select-style selectOptionEdit disabled" id="hip" name="hip">
                                                                         @if(Helper::getSizeByAttr('hip'))
                                                                             @foreach (Helper::getSizeByAttr('hip') as $data)
-                                                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->hip == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
+                                                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->hip == $data->id) selected @endif>{{$data->size}}"{{--  /{{$data->size}}cm --}}</option>
                                                                             @endforeach
                                                                         @endif
                                                                     </select>
@@ -599,17 +599,17 @@
                                             </li>
                                             <li>
                                                 <h5>Bust</h5>
-                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->chest)->size)}}</p>
+                                                <p>{{@Helper::getSizeById($user->userDetails->chest)->size}}"</p>
                                             </li>
                                             <li>
                                                 <h5>waist</h5>
-                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->waist)->size)}}</p>
+                                                <p>{{@Helper::getSizeById($user->userDetails->waist)->size}}"</p>
                                             </li>
                                         </ul>
                                         <ul class="d-flex flex-wrap justify-content-between">
                                             <li>
                                                 <h5>hips</h5>
-                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->hip)->size)}}</p>
+                                                <p>{{@Helper::getSizeById($user->userDetails->hip)->size}}"</p>
                                             </li>
                                             <li>
                                                 <h5>shoe size</h5>

@@ -17984,6 +17984,11 @@ span#agree-error {
   text-align: center;
 }
 
+.file-lable {
+  font-weight: 500;
+  font-size: 14px;
+}
+
 .footer {
   padding: 40px 0 0 0;
 }

@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="gelleries-page-head">
-                    <h3>Talents</h3>
+                    <h3>Talent Directory</h3>
                 </div>
             </div>
             <form action="{{route('search.talent')}}" id="talent_search_form">
@@ -102,7 +102,7 @@
                     <div class="col-12">
                         <div class="not-found-text">
                             <i class="fas fa-exclamation-triangle"></i>
-                            <p>no data found</p>
+                            <p>Sorry, there doesn't appear to be any matching results.</p>
                         </div>
                     </div>
                     @endforelse

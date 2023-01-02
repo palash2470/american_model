@@ -134,13 +134,15 @@
                                         <div class="job-text">
                                             <p>{{$jobValue->jobReference}} / {{ucwords($jobValue->gender)}} / {{$jobValue->fromAge}} years - {{$jobValue->toAge}} years</p>
                                             <p>Location :
-                                                @foreach ($jobValue->getJobLocations as $jobLocationKey => $jobLocationValue )
+                                                {{@$jobValue->getCity->city_name}},{{@$jobValue->getState->name}}
+                                               {{--  @foreach ($jobValue->getJobLocations as $jobLocationKey => $jobLocationValue )
                                                     @if ($jobLocationKey === 0)
                                                         {{$jobLocationValue->getCityName->city_name}}
                                                     @else
                                                         , {{$jobLocationValue->getCityName->city_name}}
                                                     @endif
-                                                @endforeach
+                                                @endforeach --}}
+
                                             </p>
                                             <p>Seeking: : {{@$jobValue->seeking}}</p>
                                             <p>Category : {{@$jobValue->getJobCategory->name}}</p>

@@ -472,17 +472,17 @@
                                             </li>
                                             <li>
                                                 <h5>Bust</h5>
-                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->chest)->size)}}</p>
+                                                <p>{{@Helper::getSizeById($user->userDetails->chest)->size}}"</p>
                                             </li>
                                             <li>
                                                 <h5>waist</h5>
-                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->waist)->size)}}</p>
+                                                <p>{{@Helper::getSizeById($user->userDetails->waist)->size}}"</p>
                                             </li>
                                         </ul>
                                         <ul class="d-flex flex-wrap justify-content-between">
                                             <li>
                                                 <h5>hips</h5>
-                                                <p>{{@Helper::cmTofeet(Helper::getSizeById($user->userDetails->hip)->size)}}</p>
+                                                <p>{{@Helper::getSizeById($user->userDetails->hip)->size}}"</p>
                                             </li>
                                             <li>
                                                 <h5>shoe size</h5>

@@ -138,6 +138,8 @@ class JobController extends Controller
                 'gender'            => $request->gender,
                 'event_paid_unpaid'            => $request->event_paid_unpaid,
                 'work_mode'            => $request->work_mode,
+                'union'            => $request->union,
+                'union_name'            => $request->union == 'yes' ? $request->union_name : NULL,
                 'jobDescription'    => $request->jobDescription,
                 'jobPreference'    => $request->jobPreference,
                 'jobRequirement'    => $request->jobRequirement,
@@ -246,7 +248,7 @@ class JobController extends Controller
             }
             //dd($job_application_limit);
             if($applied_job_count >= $job_application_limit && $job_application_limit !='Unlimited'){
-                return redirect()->to('job/details'.'/'.$request->jobId)->with('error','No. of Applications to Casting Calls (Per Month) over.Please upgrade your plan !');
+                return redirect()->to('job/details'.'/'.$request->jobId)->with('error',"You've exceeded the number of monthly casting call applications permitted for your membership plan. Please upgrade your plan  <a href='".route('user.registration.plan')."' class='alert-link'> here.</a>");
             }else{
                 $getApplyJob = JobsApply::where(['jobId' => $request->jobId, 'userId' => auth()->user()->id])->first();
 

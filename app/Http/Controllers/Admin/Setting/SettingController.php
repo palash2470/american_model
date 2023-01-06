@@ -113,7 +113,7 @@ class SettingController extends Controller
     }
     public function bannerStore(Request $request){
         $this->validate($request, [
-            'name'  => 'required|unique:home_banners,name',
+            //'name'  => 'required|unique:home_banners,name',
             //'desc'  => 'required',
             'image_name'  => 'required',
         ]);

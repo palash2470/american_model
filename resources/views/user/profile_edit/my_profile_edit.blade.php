@@ -150,7 +150,7 @@
                                                                     <select class="form-control edit-select-style selectOptionEdit disabled" id="weight" name="weight">
                                                                         @if ($weights)
                                                                         @foreach ($weights as $weight)
-                                                                            <option value="{{$weight->weight}}" @if (isset($user) && $user->userDetails->weight == $weight->weight) selected @endif>{{Helper::kgToLb($weight->weight)}} lbs {{-- / {{$weight->weight}} kg --}}</option>
+                                                                            <option value="{{$weight->weight}}" @if (isset($user) && $user->userDetails->weight == $weight->weight) selected @endif>{{$weight->weight}} lbs {{-- / {{$weight->weight}} kg --}}</option>
                                                                         @endforeach
                                                 
                                                                     @endif
@@ -595,7 +595,7 @@
                                             </li>
                                             <li>
                                                 <h5>Weight</h5>
-                                                <p>{{@Helper::kgToLb($user->userDetails->weight)}} lbs</p>
+                                                <p>{{@$user->userDetails->weight}} lbs</p>
                                             </li>
                                             <li>
                                                 <h5>Bust</h5>
@@ -732,7 +732,7 @@
                                             </li>
                                             <li>
                                                 <h5>Weight</h5>
-                                                <p>{{@Helper::kgToLb($user->userDetails->weight)}} lbs</p>
+                                                <p>{{@$user->userDetails->weight}} lbs</p>
                                             </li>
                                             <li>
                                                 <h5>shoe size</h5>

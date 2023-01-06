@@ -73,6 +73,7 @@
                                 </p>
                                 <p><strong>Age Range:</strong> {{$job->fromAge}} years - {{$job->toAge}} years</p>
                                 <p><strong>Agency/Casting Director:</strong> <a href="{{route('user.view.profile',[$job->user->category->slug,$job->user->name_slug])}}">{{$job->user->name}}</a> </p>
+                                <p><strong>Union:</strong> {{$job->union == 'yes' ? $job->union_name : 'No'}}</p>
                                 {{-- <p><strong>Ends:</strong> November 12, 2022</p> --}}
                                 <p><strong>Ends:</strong> {{ Carbon\Carbon::parse($job->toJobDate)->format('F d Y') }}</p>
                                 {{-- <p><strong>Job Reference:</strong> {{$job->jobReference}}</p> --}}

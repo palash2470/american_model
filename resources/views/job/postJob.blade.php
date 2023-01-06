@@ -134,7 +134,7 @@
                         <ul class="d-flex">
                             <li class="create-list-lft input-title">Height/Weight:</li>
                             <li class="create-list-rgt book-input-wrap">
-                                <input type="test" class="form-control book-input-style" name="height" placeholder="Height/Weight" value="{{old('height')}}">
+                                <input type="text" class="form-control book-input-style" name="height" placeholder="Height/Weight" value="{{old('height')}}">
                             </li>
                         </ul>
                         <ul class="d-flex">
@@ -161,6 +161,25 @@
                                 @if ($errors->has('work_mode'))
                                     <span class="text-danger">{{ $errors->first('work_mode') }}</span>
                                 @endif
+                            </li>
+                        </ul>
+                        <ul class="d-flex">
+                            <li class="create-list-lft input-title">Union:</li>
+                            <li class="create-list-rgt book-input-wrap">
+                                <input class="form-check-input" type="radio" name="union" id="union1" value="no" checked>
+                                <label class="form-check-label" for="union1">
+                                    No
+                                </label>
+                                <input class="form-check-input" type="radio" name="union" id="union2" value="yes">
+                                <label class="form-check-label" for="union2">
+                                    Yes
+                                </label>
+                            </li>
+                        </ul>
+                        <ul class="d-flex" id="union_name_field">
+                            <li class="create-list-lft input-title">Union Name:</li>
+                            <li class="create-list-rgt book-input-wrap">
+                                <input type="text" class="form-control book-input-style" name="union_name" placeholder="Union Name" value="{{old('union_name')}}">
                             </li>
                         </ul>
                     </div>
@@ -380,5 +399,18 @@ function ImgUpload() {
       }, false)
     })
 })()
+
+$('#union_name_field').removeClass('d-block');
+$('#union_name_field').addClass('d-none');
+$(document).on('change','input[type=radio][name=union]',function(){
+    if (this.value == 'yes') {
+        $('#union_name_field').addClass('d-block');
+        $('#union_name_field').removeClass('d-none');
+    }
+    else if (this.value == 'no') {
+        $('#union_name_field').removeClass('d-block');
+        $('#union_name_field').addClass('d-none');
+    }
+});
 </script>
 @endpush

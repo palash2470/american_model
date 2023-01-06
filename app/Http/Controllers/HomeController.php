@@ -77,7 +77,7 @@ class HomeController extends Controller
         } */
         //dd($user_plan_expire);       
         //End expire plan check
-        $banners = HomeBanner::all();
+        $banners = HomeBanner::where('status',1)->get();
         $settings = Settings::find(1);
         $fixed_advertisements = Advertisement::all();
         $advertisements = Advertisement::skip(2)->take(20)->get();

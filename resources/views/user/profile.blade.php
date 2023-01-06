@@ -208,7 +208,7 @@
                                             </li>
                                             <li>
                                                 <h5>Weight</h5>
-                                                <p>{{@Helper::kgToLb($user->userDetails->weight)}} lbs</p>
+                                                <p>{{@$user->userDetails->weight}} lbs</p>
                                             </li>
                                             <li>
                                                 <h5>Bust</h5>
@@ -345,7 +345,7 @@
                                             </li>
                                             <li>
                                                 <h5>Weight</h5>
-                                                <p>{{@Helper::kgToLb($user->userDetails->weight)}} lbs</p>
+                                                <p>{{@$user->userDetails->weight}} lbs</p>
                                             </li>
                                             <li>
                                                 <h5>shoe size</h5>

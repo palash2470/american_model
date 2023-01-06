@@ -371,7 +371,7 @@ $(document).ready(function(){
     $( "#weight_slider_range" ).slider({
         range: true,
         min: 10,
-        max: 120,
+        max: 300,
         values: [ min_weight, max_weight ],
         slide: function( event, ui ) {
             $( "#weight_filter" ).val(ui.values[ 0 ]+" Lbs  - " + ui.values[ 1 ]+" Lbs" );

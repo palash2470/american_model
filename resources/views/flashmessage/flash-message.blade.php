@@ -30,7 +30,7 @@
             <use xlink:href="#exclamation-triangle-fill" />
         </svg>
         <div>
-            {{ \Session::get('error') }}
+            {!! \Session::get('error') !!}
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>

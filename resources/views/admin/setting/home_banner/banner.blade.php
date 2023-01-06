@@ -101,6 +101,9 @@
                                         <input type="file" name="image_name" class="form-control" id="chooseFile">
                                         <label for="chooseFile" class="file-label">File Upload</label>
                                     </div>
+                                    @if($errors->has('image_name'))
+                                        <div class="error">{{ $errors->first('image_name') }}</div>
+                                    @endif
                                     @if (isset($banner) && $banner->image_name != '')
                                         <div class="show-img">
                                             <img src="{{url('/img/home_banner/'.$banner->image_name)}}" alt="" width="100px">

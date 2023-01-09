@@ -10,6 +10,7 @@ use App\Models\Colour;
 use App\Models\Ethnicity;
 use App\Models\Weight;
 use App\Models\HairLenth;
+use App\Models\Height;
 use App\Models\State;
 use Illuminate\Support\Carbon;
 
@@ -19,8 +20,9 @@ class SearchController extends Controller
         //dd($request->all());
         //$colours = Colour::all();
         $ethnicities = Ethnicity::all();
-        $weights = Weight::all();
-        $hairLenths = HairLenth::all();
+        $weights = Weight::orderBy('weight')->get();
+        $hairLenths = HairLenth::orderBy('hair_lenth')->get();
+        $heights = Height::orderBy('height')->get();
         $modelArr = ['models','actors','child-model-and-actor'];
         //$otherArr = ['photographer'];
         $category = Category::where('slug',$category_slug)->first();
@@ -97,7 +99,7 @@ class SearchController extends Controller
 
         if(in_array($category_slug, $modelArr)){
             //dd($users);
-            return view('search.model',compact('users','category','request','weights','ethnicities'));
+            return view('search.model',compact('users','category','request','weights','ethnicities','heights'));
         }else{
             //dd($users);
             return view('search.photographer',compact('users','category','request'));

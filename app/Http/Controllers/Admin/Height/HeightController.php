@@ -87,7 +87,7 @@ class HeightController extends Controller
     {
         //dd($request->all());die;
         if ($request->ajax()) {
-            $data = Height::all();
+            $data = Height::orderBy('height')->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){

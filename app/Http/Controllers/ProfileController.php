@@ -252,9 +252,9 @@ class ProfileController extends Controller
         $user = User::where('id',Auth::user()->id)->where('is_register_details',1)->first();
         $colours = Colour::all();
         $ethnicities = Ethnicity::all();
-        $weights = Weight::all();
-        $hairLenths = HairLenth::all();
-        $heights = Height::all();
+        $weights = Weight::orderBy('weight')->get();
+        $hairLenths = HairLenth::orderBy('hair_lenth')->get();
+        $heights = Height::orderBy('height')->get();
        return view('user.details_information',compact('colours','ethnicities','weights','hairLenths','user','heights'));
     }
 
@@ -541,10 +541,10 @@ class ProfileController extends Controller
         $count_follow = Follow::where('follower_id',$user->id)->where('following_id',Auth::user()->id)->count();
         $colours = Colour::all();
         $ethnicities = Ethnicity::all();
-        $weights = Weight::all();
-        $hairLenths = HairLenth::all();
+        $weights = Weight::orderBy('weight')->get();
+        $hairLenths = HairLenth::orderBy('hair_lenth')->get();
         $categories = Category::all();
-        $heights = Height::all();
+        $heights = Height::orderBy('height')->get();
         //$countres = Country::all();
         $countres = Country::where('id',231)->get();
         $image_categories = ImageCategory::where('status',1)->orderBy('name')->get();

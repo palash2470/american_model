@@ -200,7 +200,7 @@
                                         <option value="">Please select waist </option>
                                         @if(Helper::getSizeByAttr('waist'))
                                             @foreach (Helper::getSizeByAttr('waist') as $data)
-                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->waist == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
+                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->waist == $data->id) selected @endif>{{$data->size}}"{{--  /{{$data->size}}cm --}}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -213,7 +213,7 @@
                                         <option value="">Please select chest/Bust</option>
                                         @if(Helper::getSizeByAttr('chest'))
                                             @foreach (Helper::getSizeByAttr('chest') as $data)
-                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->chest == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
+                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->chest == $data->id) selected @endif>{{$data->size}}"{{--  /{{$data->size}}cm --}}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -238,7 +238,7 @@
                                         <option value="" >Please select hip/inseam</option>
                                         @if(Helper::getSizeByAttr('hip'))
                                             @foreach (Helper::getSizeByAttr('hip') as $data)
-                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->hip == $data->id) selected @endif>{{Helper::cmTofeet($data->size)}}{{--  /{{$data->size}}cm --}}</option>
+                                                <option value="{{$data->id}}" @if (isset($user) && $user->userDetails->hip == $data->id) selected @endif>{{$data->size}}"{{--  /{{$data->size}}cm --}}</option>
                                             @endforeach
                                         @endif
                                     </select>

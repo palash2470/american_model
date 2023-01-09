@@ -87,7 +87,7 @@ class WeightController extends Controller
     {
         //dd($request->all());die;
         if ($request->ajax()) {
-            $data = Weight::all();
+            $data = Weight::orderBy('weight')->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){

@@ -41,13 +41,37 @@ class JobController extends Controller
     {
         //$category = Category::where('id', '!=', 5)->get();
         $category = JobCategory::all();
-        $job = Job::whereDate('toJobDate', '>=', now())->paginate(10);
-        return view('job.job',compact('category','job'));
+        $jobQuery = Job::query();
+        if($request->has('keyword') && !empty($request->keyword)){
+            $jobQuery->where('title','LIKE','%'.$request->keyword.'%');
+        }
+        if($request->has('category_all') && !empty($request->category_all)){
+            //$jobQuery->where('title','LIKE','%'.$request->keyword.'%');
+            
+        }elseif($request->has('category') && !empty($request->category)){
+            $jobQuery->whereIn('jobCategory', $request->category);
+        }else{
+
+        }
+        if($request->has('state_id') && !empty($request->state_id)){
+            $jobQuery->where('state_id',$request->state_id);
+        }
+        if($request->has('city_id') && !empty($request->city_id)){
+            $jobQuery->where('city_id',$request->city_id);
+        }
+        if($request->has('min_age') && !empty($request->min_age)){
+            $jobQuery->where('toAge', '>' , $request->min_age);
+            $jobQuery->where('fromAge', '<',  $request->max_age);
+        }
+        $jobQuery->whereDate('toJobDate', '>=', now());
+        $job = $jobQuery->paginate(10);
+        //$job = Job::whereDate('toJobDate', '>=', now())->paginate(10);
+        return view('job.job',compact('category','job','request'));
     }
 
     public function jobSearch(Request $request, $id)
     {
-        $data = decrypt($id);
+       /*  $data = decrypt($id);
         $job = Job::whereDate('toJobDate', '>=', now())->paginate(10);
         if ($data['jobCategory']) {
             if ($data['jobCategory'] !== 'all') {
@@ -58,7 +82,7 @@ class JobController extends Controller
         }
         //$category = JobCategory::where('id', '!=', 5)->get();
         $category = JobCategory::all();
-        return view('job.job',compact('category','job','data'));
+        return view('job.job',compact('category','job','data')); */
     }
 
     public function jobSearchPost(Request $request)

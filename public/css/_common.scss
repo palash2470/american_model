@@ -4757,15 +4757,14 @@ $breakpointsTwo: (
             bottom: 0;
             background: #4d4d4d;
             line-height: 30px;
-            padding: 5px 15px 5px 34px;
+            padding: 5px 15px 5px 30px;
             font-size: 12px;
-            font-weight: 600;
             min-width: 140px;
             border-radius: 10px 10px 0 0;
             color: #fff;
             .job-post-clock{
                 position: absolute;
-                max-width: 20px;
+                max-width: 15px;
                 display: block;
                 left: 7px;
                 top: 50%;
@@ -4774,6 +4773,7 @@ $breakpointsTwo: (
             p{
                 line-height: 1;
                 padding-bottom: 0;
+                font-size: 10px;
                 small{
                     text-transform: uppercase;
                     font-size: 10px;
@@ -4792,14 +4792,17 @@ $breakpointsTwo: (
             margin: 0;
         }
         h5{
-            font-size: 14px;
+            font-size: 13px;
             color: #555e69;
             font-weight: normal;
         }
         .job-text {
             p {
                 color: #555e69;
-                font-size: 14px;
+                font-size: 13px;
+                strong{
+                    font-size: 12px;
+                }
             }
         }
     }
@@ -5851,7 +5854,7 @@ label{
 }
 .createnew-job {
     position: absolute;
-    left: 100%;
+    // left: 100%;
     top: 8px;
     margin-left: 25px;
     width: 100%;
@@ -5974,6 +5977,118 @@ label{
         }
     }
 }
+
+.casting-filter-wrap{
+    .casting-filter{
+        background: #ececec;
+        padding: 15px;
+        border: 1px solid #d3d2d2;
+        .casting-filter-head {
+            font-size: 20px;
+            font-weight: 500;
+            padding-bottom: 20px;
+        }
+        + {
+            .casting-filter {
+                margin-top: 20px;
+            }
+        }
+        .applysrc-btn-wrap{
+            margin-top: 0;
+            .applysrc-btn,
+            .reset-btn{
+                font-size: 14px;
+            }
+        }
+    }
+}
+.new-job-design-list {
+    .job-thumb{
+        a{
+            img{
+                height: auto;
+                max-height: 200px;
+                min-height: 200px;
+            }
+        }
+    }
+}
+.grid-btn-wrap {
+    // margin-bottom: 15px;
+    li{
+        .grid-btn{
+            background: transparent;
+            color: #333333;
+            font-size: 16px;
+            border: none;
+            i{
+                margin-right: 6px;
+            }
+            &.active{
+              color: #c10816;  
+            }
+        }
+        &:not(:last-child){
+            margin-right: 20px;
+        }
+    }
+}
+.grid-container {
+    &.list-view{
+        .row {
+            .list-design {
+              max-width: 100%;
+              flex: 0 0 100%;
+                // .new-job-design-list {
+                //     .job-thumb {
+                //         a {
+                //             img {
+                //                 max-height: 250px;
+                //                 min-height: 250px;
+                //             }
+                //         }
+                //     }
+                // }
+            }
+        }
+    }
+}
+.mobile-apply-wrap {
+    margin-top: 20px;
+}
+.cast-filter-btn{
+    background: #c10816;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    text-transform: uppercase;
+    padding: 0 15px;
+    font-size: 15px;
+    border: none;
+}
+.mobile-casting-hide {
+    position: absolute;
+    left: 50%;
+    top: -35px;
+    transform: translateX(-50%);
+    background: #000000;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 15px;
+    border: none;
+}
+.filteroverlay {
+    overflow: hidden;
+    padding-right: 0;
+    .modal-backdrop{
+        z-index: 2;
+    }
+}
+
 
 
 

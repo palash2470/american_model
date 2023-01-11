@@ -95,7 +95,15 @@
     }
 }
 
-@media only screen and (max-width: 1366px) {}
+@media only screen and (max-width: 1366px) {
+    .job-listing-wrap {
+        .job-thumb {
+            .job-post-date {
+                min-width: 120px;
+            }
+        }
+    }
+}
 
 @media only screen and (max-width: 1350px) {
     .login-wrap{
@@ -178,6 +186,30 @@
         font-size: 14px;
         padding: 0 14px;
         margin-left: 6px;
+    }
+    .grid-container {
+        .new-job-design-list{
+            .row{
+                > {
+                    [class*="col-md-4"],
+                    [class*="col-md-8"]{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        &.list-view{
+            .new-job-design-list{
+                .row{
+                    > {
+                        [class*="col-md-4"],
+                        [class*="col-md-8"]{
+                            width: 50%;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -693,6 +725,32 @@
 @media only screen and (max-width: 1000px) {}
 
 @media only screen and (max-width: 991px) {
+    .grid-container {
+        &.list-view{
+            .new-job-design-list{
+                .job-thumb {
+                    height: 100%;
+                    a{
+                        img{
+                            height: 100%;
+                            max-height: 100%;
+                            min-height: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .job-listing-wrap {
+        .job-content {
+            .job-text {
+                p {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
     // Casting Image
     .img-post-jobs2 {
         padding-left: 0;
@@ -1148,9 +1206,49 @@
     .model-src-list {
         margin-top: 10px;
     }
+    
 }
 
 @media only screen and (max-width: 767px) {
+    // Mobile casting Start
+    .mobile-casting{
+        position: fixed;
+        z-index: 3;
+        width: calc(100% - 5%);
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%) translateY(500px);
+        transition: all 0.3s ease-in-out;
+        background: #ececec;
+        .casting-filter{
+            border: none;
+            + {
+                .casting-filter{
+                    margin-top: 0;
+                }
+            }
+        }
+        .casting-filter-mobile {
+            max-height: 400px;
+            overflow: auto;
+            padding-bottom: 100px;
+        }
+        &.show_casting{
+            transform: translateX(-50%) translateY(0);  
+        }
+        .mobile-apply-wrap {
+            margin-top: 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            z-index: 2;
+        }
+    }
+    // Mobile casting End
+    .createnew-job {
+        width: 80%;
+    }
     .bannar-text-wrap {
         .bannar-text-box {
             h2 {
@@ -1450,6 +1548,13 @@
 }
 
 @media only screen and (max-width: 667px) { 
+    .create-job-btn-add{
+        text-align: center;
+        .createnew-job {
+           position: inherit;
+           margin: 0 0 10px 0;
+        }
+    }
     .login-ftr {
         .join-model-btn-wrap {
             .join-model-btn {
@@ -1495,6 +1600,7 @@
             }
         }
     }
+    
 }
 
 @media only screen and (max-width: 600px) {
@@ -1656,7 +1762,7 @@
 
     // Left filter responsive Start
     .sticky-search-left {
-        z-index: 1;
+        z-index: 2;
     }
     .mobile-lft-filter{
         display: block;
@@ -1942,6 +2048,9 @@
             }
         }
     }
+
+
+    
 }
 
 @media only screen and (max-width: 545px) {
@@ -2168,13 +2277,7 @@
             }
         }
     }
-    .create-job-btn-add{
-        text-align: center;
-        .createnew-job {
-           position: inherit;
-           margin-bottom: 10px;
-        }
-    }
+    
     .bannar-text-wrap {
         .bannar-text-box {
             width: 70%;
@@ -2353,6 +2456,23 @@
         .acc-save-btn {
             font-size: 14px;
             padding: 0 10px;
+        }
+    }
+
+    .grid-container {
+        &.list-view{
+            .new-job-design-list{
+                .row{
+                    > {
+                        [class*="col-md-4"]{
+                            width: 40%;
+                        }
+                        [class*="col-md-8"]{
+                            width: 60%;
+                        }
+                    }
+                }
+            }
         }
     }
 }

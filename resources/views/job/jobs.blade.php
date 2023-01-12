@@ -146,6 +146,7 @@
                                             </p>
                                             <p>Seeking: : {{@$jobValue->seeking}}</p>
                                             <p>Category : {{@$jobValue->getJobCategory->name}}</p>
+                                            <p>Role Type : {{ucwords(@$jobValue->role)}}</p>
                                             <p>Compensation : {{@$jobValue->compensation}}</p>
                                             <p>Union : {{$jobValue->union == 'yes' ? $jobValue->union_name : 'No'}}</p>
                                             <p>Description : {{$jobValue->jobDescription}}</p>

@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="row g-4">
+        <div class="row g-3">
             <div class="col-lg-3 col-md-4 col-sm-12 col-12">
                 <form method="get" id="job_filter_frm">
                     <div class="casting-filter-wrap mobile-casting mobile_casting">
@@ -166,22 +166,22 @@
                                             <div class="job-content">
                                                 <a href="{{url('job/details').'/'.$jobValue->id}}" class="job-title">{{$jobValue->title}}</a>
                                                 <h5><strong>Casting Number: </strong>{{$jobValue->jobReference}}</h5>
-                                                <div class="row g-2">
+                                                <div class="row g-lg-2 g-0">
                                                     <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                                                         <div class="job-text">
                                                             <p>Gender : <strong>{{ucwords($jobValue->gender)}}</strong></p>
                                                             <p>Age : <strong>{{$jobValue->fromAge}} years - {{$jobValue->toAge}} years</strong></p>
-                                                            <p>Catagory : <strong>{{@$jobValue->getJobCategory->name}}</strong></p>
+                                                            <p>Category : <strong>{{@$jobValue->getJobCategory->name}}</strong></p>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                                                         <div class="job-text">
                                                             <p>Payment : <strong>{{$jobValue->compensation}}</strong></p>
                                                             <p>Union : <strong>{{$jobValue->union == 'yes' ? $jobValue->union_name : 'No'}}</strong></p>
-                                                            <p>Role Type : <strong>{{$jobValue->seeking}}</strong></p>
+                                                            <p>Role Type : <strong>{{ucwords(@$jobValue->role)}}</strong></p>
                                                         </div>
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-12 mt-0">
                                                         <div class="job-text">
                                                             <p>Location : <strong>{{@$jobValue->getCity->city_name}},{{@$jobValue->getState->name}}</strong></p>
                                                         </div>

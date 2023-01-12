@@ -47,6 +47,19 @@
                             </li>
                         </ul>
                         <ul class="d-flex">
+                            <li class="create-list-lft input-title">Role:</li>
+                            <li class="create-list-rgt book-select-wrap">
+                                <select class="form-control book-select-style selectOption2" name="role" required>
+                                    <option value="">Select Role</option>
+                                    <option value="principal" {{old('role') === 'principal' ?'selected':''}}>Principal</option>
+                                    <option value="background" {{old('role') === 'background' ?'selected':''}}>Background</option>
+                                </select>
+                                @if ($errors->has('role'))
+                                    <span class="text-danger">{{ $errors->first('role') }}</span>
+                                @endif
+                            </li>
+                        </ul>
+                        <ul class="d-flex">
                             <li class="create-list-lft input-title">gender:</li>
                             <li class="create-list-rgt book-select-wrap">
                                 <select class="form-control book-select-style selectOption2" name="gender" required>

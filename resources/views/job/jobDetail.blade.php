@@ -17,7 +17,7 @@
                             <div class="row">
                                 @if (count(@$job->images) > 0)
                                     {{-- @foreach ($job->images as $image) --}}
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+                                    <div class="col-lg-9 col-md-12 col-sm-12 col-12">
                                         <div class="casting-gallery">
                                             <a data-fancybox="post-img" href="{{ url('images/job').'/'.$job->images[0]->image }}">
                                                 <img class="img-block" src="{{ url('images/job').'/'.$job->images[0]->image }}">
@@ -27,7 +27,7 @@
                                     {{-- @endforeach --}}
                                     
                                 @else
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+                                    <div class="col-lg-9 col-md-12 col-sm-12 col-12">
                                         <div class="casting-gallery">
                                             <a data-fancybox="post-img" href="{{ url('images/no-image.jpg') }}">
                                                 <img class="img-block" src="{{ url('images/no-image.jpg') }}">
@@ -58,6 +58,7 @@
                             <div class="job-list-desc-lft">
                                 <p><strong>Seeking:</strong> {{$job->seeking}}</p>
                                 <p><strong>Category:</strong> {{@$job->getJobCategory->name}}</p>
+                                <p><strong>Role Type:</strong> {{ucwords(@$job->role)}}</p>
                                 <p><strong>Gender:</strong> {{ ucwords($job->gender)}}</p>
                                 <p><strong>Height:</strong> {{@$job->height}}</p>
                                 <p>

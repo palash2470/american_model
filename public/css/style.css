@@ -24194,7 +24194,7 @@ label#email-error {
   padding-right: 0;
 }
 .filteroverlay .modal-backdrop {
-  z-index: 2;
+  z-index: 4;
 }
 
 .all-plan-row {
@@ -25295,7 +25295,7 @@ input:checked + .slider:before {
 @media only screen and (max-width: 767px) {
   .mobile-casting {
     position: fixed;
-    z-index: 3;
+    z-index: 5;
     width: 95%;
     left: 50%;
     bottom: 0;

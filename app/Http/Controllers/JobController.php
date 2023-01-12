@@ -64,6 +64,7 @@ class JobController extends Controller
             $jobQuery->where('fromAge', '<',  $request->max_age);
         }
         $jobQuery->whereDate('toJobDate', '>=', now());
+        $jobQuery->orderBy('id', 'DESC');
         $job = $jobQuery->paginate(10);
         //$job = Job::whereDate('toJobDate', '>=', now())->paginate(10);
         return view('job.job',compact('category','job','request'));
@@ -124,6 +125,7 @@ class JobController extends Controller
                 'toJobDate'         => 'required',
                 'fromAge'           => 'required',
                 'toAge'             => 'required',
+                'role'             => 'required',
                 'gender'            => 'required',
                 'jobDescription'    => 'required',
                 'jobPreference'    => 'required',
@@ -160,6 +162,7 @@ class JobController extends Controller
                 'height'             => $request->height,
                 'compensation'             => $request->compensation,
                 'gender'            => $request->gender,
+                'role'            => $request->role,
                 'event_paid_unpaid'            => $request->event_paid_unpaid,
                 'work_mode'            => $request->work_mode,
                 'union'            => $request->union,
